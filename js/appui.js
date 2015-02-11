@@ -210,9 +210,13 @@ App.Form.Textfield = React.createClass({
     return (
         <App.Panel layout={ this.props.layout } className={ className } ratio={ this.props.ratio } size={ this.props.size }>
           { label }
-          <input type="text" name={ this.props.id } defaultValue={ this.props.value } ratio="4" />
+          <input type="text" name={ this.props.id } defaultValue={ this.props.value } ratio="4" onChange={ this._onChange } />
         </App.Panel>
       );
+  },
+  
+  _onChange: function(event) {
+    this.props.onChange(event.target.value);
   }
 })
 
