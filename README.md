@@ -45,6 +45,11 @@ These are the most simple layout types. All child elements are arranged horizont
 
 | Property        | Default       | Description                                                 |
 |-----------------|---------------|-------------------------------------------------------------|
-| layout          |               | `vertical`, `horizontal`                                    |
-| justify         | `start`       | Defines the alignment along the main axis. <br /> `start`, `end`, `center`, `space-between` or `space-around`.|
-| align           | `start`       | This defines the default behaviour for how children are laid out along the cross axis on the current line.<br />`start`, `end`, `center`, `stretch` and `baseline`.|
+| `layout`        |               | `vertical`, `horizontal`                                    |
+| `justify`       | `start`       | `start`, `end`, `center`, `space-between` or `space-around`.<br />Defines the alignment along the main axis.|
+| `align`         | `start`       | `start`, `end`, `center`, `stretch` and `baseline`.<br />This defines the default behaviour for how children are laid out along the cross axis on the current line.|
+
+| Child Property        | Default       | Description                                                 |
+|-----------------------|---------------|-------------------------------------------------------------|
+| `size`                | not set       | Number<br />Defines the width or height (depending on the layout).      |
+| `ratio`               | `1`           | Number from `1` to `10`.<br />Defines the ratio of space used from each element. E.g. If you have three elements with the ratio 1, 2 and 1, the one in the middle will take 50% of the available space, the other ones 25% each.<br /><br />**Note:** If `size` is set, `ratio` will be ignored.|
