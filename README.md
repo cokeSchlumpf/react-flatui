@@ -19,6 +19,8 @@ React.render(
 ```
 
 ## Containers and Layout
+Containers and Layouts can be used to structure your application. Every container has a layout property which defines how its child elements are arranged. The childs can have several layout specific properties.
+
 ### Panel
 A Panel is the most common container element.
 
@@ -38,3 +40,11 @@ A Panel is the most common container element.
   ), document.body);
 ```
 
+### Horizontal and Vertical Layout
+These are the most simple layout types. All child elements are arranged horizontally/ vertically. Both layouts are based on [CSS Flexbox](http://css-tricks.com/snippets/css/a-guide-to-flexbox/).
+
+| Property        | Default       | Description                                                 |
+|-----------------|---------------|-------------------------------------------------------------|
+| layout          |               | `vertical`, `horizontal`                                    |
+| justify         | `start`       | Defines the alignment along the main axis. <br /> `start`, `end`, `center`, `space-between` or `space-around`.|
+| align           | `start`       | This defines the default behaviour for how children are laid out along the cross axis on the current line.<br />`start`, `end`, `center`, `stretch` and `baseline`.|
