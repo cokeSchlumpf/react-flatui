@@ -19,5 +19,22 @@ React.render(
 ```
 
 ## Containers and Layout
+### Panel
+A Panel is the most common container element.
 
+| Property        | Default       | Description                                                 |
+|-----------------|---------------|-------------------------------------------------------------|
+| `layout`        | `vertical`    | The layout which is used to arrange the children.<br />All below listed layouts are allowed.|
+
+#### Example
+```
+  React.render(
+    <App>
+      <App.Panel layout="horizontal">
+        <App.Panel>Left</App.Panel>
+        <App.Panel>Right</App.Panel>
+      </App.Panel>
+    </App>
+  ), document.body);
+```
 
