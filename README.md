@@ -52,4 +52,20 @@ These are the most simple layout types. All child elements are arranged horizont
 | Child Property        | Default       | Description                                                 |
 |-----------------------|---------------|-------------------------------------------------------------|
 | `size`                | not set       | Number<br />Defines the width or height (depending on the layout).      |
-| `ratio`               | `1`           | Number from `1` to `10`.<br />Defines the ratio of space used from each element. E.g. If you have three elements with the ratio 1, 2 and 1, the one in the middle will take 50% of the available space, the other ones 25% each.<br /><br />**Note:** If `size` is set, `ratio` will be ignored.|
+| `ratio`               | `1`           | Number from `1` to `10`.<br />Defines the ratio of space used by each element. E.g. if you have three elements with the ratio 1, 2 and 1, the one in the middle will take 50% of the available space, the other ones 25% each.<br /><br />**Note:** If `size` is set, `ratio` will be ignored.|
+
+
+### Border Layout
+This layout combines a vertical layout with a horizontal to create the classic border layout known from [Java Swing](http://docs.oracle.com/javase/tutorial/uiswing/layout/border.html).
+
+| Property        | Default       | Description                                                 |
+|-----------------|---------------|-------------------------------------------------------------|
+| `layout`        |               | `border`                                                    |
+| `mainRatio`     | `4`           | The ratio of the center area in the vertical layout.        |
+| `mainSize`      | not set       | The size of the center area in the vertical layout.         |
+
+| Child Property        | Default       | Description                                                 |
+|-----------------------|---------------|-------------------------------------------------------------|
+| `position`            | not set       | `top`, `left`, `bottom`, `right` or `center`.<br />Defines the position of the child within the layout. It's not necessary to define a child for every position, even the order within your JSX is not important.|
+| `size`                | not set       | The width or height, depending on the position.             |
+| `ratio`               | depends       | Number from `1` to `10`.<br />Defines the ratio of space used by each element.<br />If `position` is `center` the default is `4` else `1`.|
