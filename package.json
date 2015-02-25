@@ -11,9 +11,9 @@
   
   "dependencies": {
     "keymirror": "~0.1.0",
-    "object-assign": "^1.0.0",
+    "object-assign": "^2.0.0",
     "react": "^0.12.2",
-    "less": "~1.5.1"
+    "less": "~2.4.0"
   },
   
   "devDependencies": {
