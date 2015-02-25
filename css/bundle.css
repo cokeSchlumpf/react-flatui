@@ -391,6 +391,88 @@ body {
 .pbm-applayout-vertical > .pbm-control {
   margin-bottom: 20px;
 }
+.ui-control-textbox {
+  font: 12pt "Open Sans", sans-serif;
+  line-height: 25px;
+  border: 2px solid #dddddd;
+  padding: 3px;
+}
+.ui-control-textbox:focus {
+  border-color: #9b59b6;
+}
+.ui-control-checkbox input[type="checkbox"],
+.ui-control-radio input[type="checkbox"],
+.ui-control-checkbox input[type="radio"],
+.ui-control-radio input[type="radio"] {
+  display: none;
+}
+.ui-control-checkbox label,
+.ui-control-radio label {
+  display: inline-block;
+  padding-left: 25px;
+  position: relative;
+}
+.ui-control-checkbox input + label span.ui-control-display-element,
+.ui-control-radio input + label span.ui-control-display-element {
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  width: 17px;
+  height: 16px;
+  background: #ffffff;
+  border: 2px solid #dddddd;
+}
+.ui-control-checkbox input[type="radio"] + label span.ui-control-display-element,
+.ui-control-radio input[type="radio"] + label span.ui-control-display-element {
+  border-radius: 10px;
+}
+.ui-control-checkbox input + label:hover:after,
+.ui-control-radio input + label:hover:after,
+.ui-control-checkbox input:checked + label:after,
+.ui-control-radio input:checked + label:after {
+  position: absolute;
+  left: 6px;
+  content: "x";
+  font-weight: bold;
+  color: #dddddd;
+}
+.ui-control-checkbox input[type="radio"] + label:hover:after,
+.ui-control-radio input[type="radio"] + label:hover:after,
+.ui-control-checkbox input[type="radio"]:checked + label:after,
+.ui-control-radio input[type="radio"]:checked + label:after {
+  content: "\2022";
+  font-size: 200%;
+  top: -1px;
+  left: 1px;
+  font-family: monospace;
+}
+.ui-control-checkbox input:checked + label:after,
+.ui-control-radio input:checked + label:after {
+  color: #8e44ad;
+}
+.ui-control-checkbox span,
+.ui-control-radio span {
+  line-height: 25px;
+}
+.ui-control-button {
+  font: 12pt "Open Sans", sans-serif;
+  line-height: 25px;
+  padding: 3px;
+  border: 2px solid #dddddd;
+  background-color: #ffffff;
+}
+.ui-control-button:hover {
+  background-color: #dddddd;
+}
+.ui-control-button[type="submit"] {
+  border-color: #8e44ad;
+  background-color: #9b59b6;
+  color: #ffffff;
+}
+.ui-control-button[type="submit"]:hover {
+  background-color: #8e44ad;
+}
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
 @import url(http://fonts.googleapis.com/css?family=Cabin:400,700,600);
 html,
@@ -783,6 +865,88 @@ body {
 }
 .pbm-applayout-vertical > .pbm-control {
   margin-bottom: 20px;
+}
+.ui-control-textbox {
+  font: 12pt "Open Sans", sans-serif;
+  line-height: 25px;
+  border: 2px solid #dddddd;
+  padding: 3px;
+}
+.ui-control-textbox:focus {
+  border-color: #9b59b6;
+}
+.ui-control-checkbox input[type="checkbox"],
+.ui-control-radio input[type="checkbox"],
+.ui-control-checkbox input[type="radio"],
+.ui-control-radio input[type="radio"] {
+  display: none;
+}
+.ui-control-checkbox label,
+.ui-control-radio label {
+  display: inline-block;
+  padding-left: 25px;
+  position: relative;
+}
+.ui-control-checkbox input + label span.ui-control-display-element,
+.ui-control-radio input + label span.ui-control-display-element {
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  width: 17px;
+  height: 16px;
+  background: #ffffff;
+  border: 2px solid #dddddd;
+}
+.ui-control-checkbox input[type="radio"] + label span.ui-control-display-element,
+.ui-control-radio input[type="radio"] + label span.ui-control-display-element {
+  border-radius: 10px;
+}
+.ui-control-checkbox input + label:hover:after,
+.ui-control-radio input + label:hover:after,
+.ui-control-checkbox input:checked + label:after,
+.ui-control-radio input:checked + label:after {
+  position: absolute;
+  left: 6px;
+  content: "x";
+  font-weight: bold;
+  color: #dddddd;
+}
+.ui-control-checkbox input[type="radio"] + label:hover:after,
+.ui-control-radio input[type="radio"] + label:hover:after,
+.ui-control-checkbox input[type="radio"]:checked + label:after,
+.ui-control-radio input[type="radio"]:checked + label:after {
+  content: "\2022";
+  font-size: 200%;
+  top: -1px;
+  left: 1px;
+  font-family: monospace;
+}
+.ui-control-checkbox input:checked + label:after,
+.ui-control-radio input:checked + label:after {
+  color: #8e44ad;
+}
+.ui-control-checkbox span,
+.ui-control-radio span {
+  line-height: 25px;
+}
+.ui-control-button {
+  font: 12pt "Open Sans", sans-serif;
+  line-height: 25px;
+  padding: 3px;
+  border: 2px solid #dddddd;
+  background-color: #ffffff;
+}
+.ui-control-button:hover {
+  background-color: #dddddd;
+}
+.ui-control-button[type="submit"] {
+  border-color: #8e44ad;
+  background-color: #9b59b6;
+  color: #ffffff;
+}
+.ui-control-button[type="submit"]:hover {
+  background-color: #8e44ad;
 }
 html,
 body {

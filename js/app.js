@@ -1,5 +1,17 @@
 var React = require("react/addons");
 var App = require("./appui");
+
+React.render(
+  <App.Panel style={ { margin: "10px" } }>
+    <App.Textbox name="textTest" value="Halloooo!" />
+    <App.Checkbox name="checkTest" value="Klick mich!" caption="Lorem ipsum dolor" />
+    <App.Radiobox name="radioTest" id="radioTest_1" value="Select me!" caption="Select me!" />
+    <App.Radiobox name="radioTest" id="radioTest_2" value="No, me!" caption="No, me!" />
+    <App.Button caption="Submit!" />
+    <App.Button caption="Submit!" type="submit" />
+  </App.Panel>, document.body);
+
+/*
 var ExampleStore = require("./store");
 var ExampleActions = require("./actions");
 
@@ -59,3 +71,5 @@ var ExampleApp = React.createClass({
   })
   
 React.render(<ExampleApp />, document.body);
+*/
+
