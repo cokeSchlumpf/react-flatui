@@ -1,9 +1,13 @@
 {
-  "name": "todomvc-flux",
-  "version": "0.0.3",
-  "description": "Example Flux architecture.",
-  "repository": "https://github.com/facebook/flux",
+  "name": "react-flatui",
+  "version": "0.0.1",
+  "description": "A UI Library based on React.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cokeSchlumpf/react-flatui.git"
+  },
   "main": "js/app.js",
+  "stability": "experimental",
   
   "dependencies": {
     "keymirror": "~0.1.0",
