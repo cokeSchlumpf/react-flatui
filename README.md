@@ -29,15 +29,13 @@ A Panel is the most common container element.
 | `layout`        | `vertical`    | The layout which is used to arrange the children.<br />All below listed layouts are allowed.|
 
 #### Example
-```
-  React.render(
-    <App>
-      <App.Panel layout="horizontal">
-        <App.Panel>Left</App.Panel>
-        <App.Panel>Right</App.Panel>
-      </App.Panel>
-    </App>
-  ), document.body);
+```xml
+  <App>
+    <App.Panel layout="horizontal">
+      <App.Panel>Left</App.Panel>
+      <App.Panel>Right</App.Panel>
+    </App.Panel>
+  </App>
 ```
 
 ### Horizontal and Vertical Layout
@@ -71,7 +69,7 @@ This layout combines a vertical layout with a horizontal to create the classic b
 | `ratio`               | depends       | Number from `1` to `10`.<br />Defines the ratio of space used by each element.<br />If `position` is `center` the default is `4` else `1`.|
 
 #### Example
-```
+```xml
 <App className="myApp" layout="border">
   <App.Panel position="top" size="auto" style={ { backgroundColor: "#ff0000" } }>
     TOP - As you can see you can also add other attributes like style, className, etc..
@@ -84,3 +82,8 @@ This layout combines a vertical layout with a horizontal to create the classic b
   </App.Panel>
 </App>
 ```
+
+## Components
+### Button
+### Check and Radiobox
+### Textbox
