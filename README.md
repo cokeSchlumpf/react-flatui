@@ -80,9 +80,9 @@ This layout combines a vertical layout with a horizontal to create the classic b
 ```
 
 ## Components
-### Button
-### Check and Radiobox
-### Textbox
+### Button (`<App.Button ... />`)
+### Check (`<App.Checkbox ... />`) and Radiobox (`<App.Radiobox ... />`)
+### Textbox (`<App.Textbox ... />`)
 | Property        | Default       | Description                                                 |
 |-----------------|---------------|-------------------------------------------------------------|
 | `rows`          | `1`           | If rows is more than 1 a textarea will be created.          |
