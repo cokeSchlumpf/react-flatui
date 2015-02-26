@@ -22,7 +22,7 @@ A Panel is the most common container element.
 
 | Property        | Default       | Description                                                 |
 |-----------------|---------------|-------------------------------------------------------------|
-| `layout`        | `vertical`    | The layout which is used to arrange the children.<br />All below listed layouts are allowed.|
+| `layout`        | `none`        | The layout which is used to arrange the children.<br />All below listed layouts are allowed.|
 
 #### Example
 ```xml
@@ -33,6 +33,8 @@ A Panel is the most common container element.
     </App.Panel>
   </App>
 ```
+### No Layout
+By default the layout property is set to `none`. This means that all children will be arranged naturally by the browser.
 
 ### Horizontal and Vertical Layout
 These are the most simple layout types. All child elements are arranged horizontally/ vertically. Both layouts are based on [CSS Flexbox](http://css-tricks.com/snippets/css/a-guide-to-flexbox/).
