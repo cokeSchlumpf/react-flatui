@@ -83,3 +83,6 @@ This layout combines a vertical layout with a horizontal to create the classic b
 ### Button
 ### Check and Radiobox
 ### Textbox
+| Property        | Default       | Description                                                 |
+|-----------------|---------------|-------------------------------------------------------------|
+| `rows`          | `1`           | If rows is more than 1 a textarea will be created.          |
