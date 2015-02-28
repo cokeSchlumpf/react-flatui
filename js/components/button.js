@@ -25,8 +25,6 @@ module.exports = React.createClass({
   
       if (className) { classes[className] = true; }
       
-      console.log(classes);
-      
       return (
           <button className={ cx(classes) } { ...other } onClick={ this._onClickHandler }>
             <span className="left-icon">Hallo</span>

@@ -4,7 +4,7 @@ function simpleLayout(orientation, classNames) {
   var sizeFunction = function(child) {
     var result = {
       className: base.extendClassNameWith("applayout-item", ""),
-      style: child.props.style ? child.props.style : { }
+      style: { }
     }
     
     if (child && child.props && child.props.size) {
@@ -19,14 +19,6 @@ function simpleLayout(orientation, classNames) {
     return result;
   }
   
-  var children = React.Children.map(this.props.children, function(child, index) {
-    if (child.props) {
-      return React.addons.cloneWithProps(child, sizeFunction(child));
-    } else {
-      return child;
-    }
-  })
-  
   var justify = this.props.justify ? this.props.justify : "start";
   var align = this.props.align ? this.props.align : "start";
   
@@ -35,7 +27,23 @@ function simpleLayout(orientation, classNames) {
   classNames = base.extendClassNameWith("applayout-alignitems-" + align, classNames) 
 
   return (
-      <div {...this.props} className={ classNames }>{ children }</div>
+      <div {...this.props} className={ classNames }>
+        {
+          React.Children.map(this.props.children, function(child, index) {
+            if (child && child.props) {
+              var extraProps = sizeFunction(child);
+              if (child.props.key) extraProps.key = child.props.key;
+              if (child.props.ref) extraProps.ref = child.props.ref;
+              // return React.addons.cloneWithProps(child, extraProps);
+              // child.props.className = child.props.className + " " + extraProps.className;
+              console.log(extraProps);
+              return React.addons.cloneWithProps(child, { className: extraProps.className });
+            } else {
+              return child;
+            }
+          }) 
+        }
+      </div>
     );
 }
 
@@ -51,7 +59,7 @@ var options = {
           classNames = base.extendClassNameWith("applayout-none", className)
           
           return (
-              <div { ...this.props }className={ classNames } >{ this.props.children }</div>
+              <div { ...this.props } className={ classNames } >{ this.props.children }</div>
             );
       }
     },
@@ -170,9 +178,7 @@ App.Panel = React.createClass({
     render: function() {
       var className = this.props.className;
       if (this.props.scrollable) {
-        console.log("scrollable")
         className = base.extendClassNameWith("applayout-scroll", className);
-        console.log(className);
       }
       
       return options.layouts[this.props.layout].render.call(this, base.extendClassNameWith("applayout-panel", className));

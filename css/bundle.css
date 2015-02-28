@@ -367,7 +367,7 @@ table {
   align-items: baseline;
 }
 .pbm-applayout-scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 html,
 body {
@@ -376,6 +376,14 @@ body {
   color: #333333;
   background-color: #ffffff;
   font: 12pt "Open Sans", sans-serif;
+}
+.ui-control-small {
+  font: 10pt "Open Sans", sans-serif;
+  color: #999999;
+}
+.ui-control-info {
+  font: 10pt "Open Sans", sans-serif;
+  color: #9b59b6;
 }
 .pbm-titlebar {
   font: 10pt "Open Sans", sans-serif;
@@ -488,6 +496,40 @@ body {
 }
 .ui-control-button[type="submit"]:hover {
   background-color: #8e44ad;
+}
+.ui-control-listbox {
+  height: 150px;
+  overflow-y: auto;
+  display: inline-block;
+  min-width: 300px;
+  border: 2px solid #dddddd;
+}
+.ui-control-listbox .ui-control-listitem {
+  line-height: 25px;
+  padding: 3px;
+  cursor: default;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem:hover {
+  background-color: #dddddd;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover {
+  background-color: #8e44ad;
+  color: #ffffff;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected .ui-control-small,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover .ui-control-small {
+  color: #ffffff !important;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected .ui-control-info,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover .ui-control-info {
+  color: #ffffff !important;
+}
+.ui-control-listitem-complex {
+  border-bottom: 1px solid #dddddd;
+}
+.ui-control-listitem-complex:last-child {
+  border: none;
 }
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
 @import url(http://fonts.googleapis.com/css?family=Cabin:400,700,600);
@@ -858,7 +900,7 @@ table {
   align-items: baseline;
 }
 .pbm-applayout-scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 html,
 body {
@@ -867,6 +909,14 @@ body {
   color: #333333;
   background-color: #ffffff;
   font: 12pt "Open Sans", sans-serif;
+}
+.ui-control-small {
+  font: 10pt "Open Sans", sans-serif;
+  color: #999999;
+}
+.ui-control-info {
+  font: 10pt "Open Sans", sans-serif;
+  color: #9b59b6;
 }
 .pbm-titlebar {
   font: 10pt "Open Sans", sans-serif;
@@ -979,6 +1029,40 @@ body {
 }
 .ui-control-button[type="submit"]:hover {
   background-color: #8e44ad;
+}
+.ui-control-listbox {
+  height: 150px;
+  overflow-y: auto;
+  display: inline-block;
+  min-width: 300px;
+  border: 2px solid #dddddd;
+}
+.ui-control-listbox .ui-control-listitem {
+  line-height: 25px;
+  padding: 3px;
+  cursor: default;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem:hover {
+  background-color: #dddddd;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover {
+  background-color: #8e44ad;
+  color: #ffffff;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected .ui-control-small,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover .ui-control-small {
+  color: #ffffff !important;
+}
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected .ui-control-info,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover .ui-control-info {
+  color: #ffffff !important;
+}
+.ui-control-listitem-complex {
+  border-bottom: 1px solid #dddddd;
+}
+.ui-control-listitem-complex:last-child {
+  border: none;
 }
 html,
 body {

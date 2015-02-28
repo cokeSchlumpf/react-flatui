@@ -6,6 +6,7 @@ App.Textbox = require("./components/textbox");
 App.Checkbox = require("./components/checkbox");
 App.Radiobox = require("./components/radiobox");
 App.Button = require("./components/button");
+App.Listbox = require("./components/listbox");
 
 module.exports = App
 

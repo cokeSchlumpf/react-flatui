@@ -254,7 +254,7 @@ table {
 .pbm-applayout-alignitems-baseline { .align-items(@align: baseline) }
 
 .pbm-applayout-scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 // --------------------------------------------------
@@ -264,6 +264,7 @@ table {
 @colorBase: #fff;
 @colorBaseText: #333;
 @colorBaseLight: #ddd;
+@colorBaseHeavy: #999;
 @colorMain: #8e44ad;
 @colorMainLight: #9b59b6;
 @colorMainText: #fff;
@@ -306,6 +307,35 @@ html, body {
 // --------------------------------------------------
 // Control elements Styles
 // --------------------------------------------------
+
+@controlBorder: 2px solid @colorBaseLight;
+
+// --- Basics
+.ui-control-small {
+  .small();
+  color: @colorBaseHeavy;
+}
+
+.ui-control-info {
+  .small();
+  color: @colorMainLight;
+}
+
+.selected() {
+  .main();
+  
+  .ui-control-small {
+    color: @colorMainText !important;
+  }
+  
+  .ui-control-info {
+    color: @colorMainText !important;
+  }
+}
+
+.selectableHover() {
+  background-color: @colorBaseLight;
+}
 
 // --- Titlebar
 .pbm-titlebar {
@@ -358,7 +388,7 @@ html, body {
   .default();
   
   line-height: 25px;
-  border: 2px solid @colorBaseLight;
+  border: @controlBorder;
   padding: 3px;
 }
 
@@ -388,7 +418,7 @@ html, body {
     width:17px;
     height:16px;
     background: @colorBase;
-    border: 2px solid @colorBaseLight;
+    border: @controlBorder;
   }
   
   input[type="radio"] + label span.ui-control-display-element {
@@ -444,4 +474,36 @@ html, body {
 
 .ui-control-button[type="submit"]:hover {
   background-color: @colorMain;
+}
+
+// --- Listbox
+.ui-control-listbox {
+  height: 150px;
+  overflow-y: auto;
+  display: inline-block;
+  min-width: 300px;
+  border: @controlBorder;
+  
+  .ui-control-listitem {
+    line-height: 25px;
+    padding: 3px;
+    cursor: default;
+  }
+}
+
+.ui-control-listbox.ui-control-selectable .ui-control-listitem:hover {
+  .selectableHover();
+}
+
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover {
+  .selected();
+}
+
+.ui-control-listitem-complex {
+  border-bottom: 1px solid @colorBaseLight; 
+} 
+
+.ui-control-listitem-complex:last-child {
+  border: none;
 }
