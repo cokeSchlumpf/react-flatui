@@ -4,9 +4,7 @@ function simpleLayout(orientation, classNames) {
   var sizeFunction = function(child) {
     var result = {
       className: base.extendClassNameWith("applayout-item", ""),
-      style: { 
-        
-      }
+      style: child.props.style ? child.props.style : { }
     }
     
     if (child && child.props && child.props.size) {
@@ -23,7 +21,7 @@ function simpleLayout(orientation, classNames) {
   
   var children = React.Children.map(this.props.children, function(child, index) {
     if (child.props) {
-      return React.addons.cloneWithProps(child, sizeFunction(child))
+      return React.addons.cloneWithProps(child, sizeFunction(child));
     } else {
       return child;
     }
@@ -35,7 +33,7 @@ function simpleLayout(orientation, classNames) {
   classNames = base.extendClassNameWith("applayout-" + orientation, classNames)
   classNames = base.extendClassNameWith("applayout-justify-" + justify, classNames)
   classNames = base.extendClassNameWith("applayout-alignitems-" + align, classNames) 
-  
+
   return (
       <div {...this.props} className={ classNames }>{ children }</div>
     );
@@ -48,6 +46,16 @@ var options = {
   },
 
   layouts: {
+    none: {
+      render: function(className) {
+          classNames = base.extendClassNameWith("applayout-none", className)
+          
+          return (
+              <div { ...this.props }className={ classNames } >{ this.props.children }</div>
+            );
+      }
+    },
+    
     vertical: {
       render: function(className) {
         return simpleLayout.call(this, "vertical", className)
@@ -67,33 +75,67 @@ var options = {
         React.Children.forEach(this.props.children, function(child, index) {
           if (child && child.props) {
             switch (child.props.position) {
-              case "top": top.push(child); break;
-              case "left": left.push(child); break;
-              case "bottom": bottom.push(child); break;
-              case "right": right.push(child); break;
-              case "center": center.push(child); break;
+              case "top": 
+                top.push(child); 
+                break;
+              case "left": 
+                left.push(child); 
+                break;
+              case "bottom": 
+                bottom.push(child); 
+                break;
+              case "right": 
+                right.push(child); 
+                break;
+              case "center": 
+                center.push(child); 
+                break;
             }
           }
           
         })
         
         if (left.length > 0 || center.length > 0 || right.length > 0) {
+          var middleRatio = undefined;
+          var middleSize = undefined;
+          
+          var centerRatio = undefined;
+          var centerSize = undefined;
+          
+          // Calculate the default ratio/ size for the middle panel
+          if (this.props.mainSize) {
+            middleSize = this.props.mainSize;
+          } else if (this.props.mainRatio) {
+            middleRatio = this.props.mainRatio;
+          } else {
+            middleRatio = 6 - top.length - bottom.length;
+          }
+          
+          // Calculate the default ratio of the center panel
+          if (center.length > 0 && center[0].props.size) {
+            centerSize = center[0].props.size;
+          } else if (center.length > 0 && center[0].props.ratio) {
+            centerRatio = center[0].props.ratioM
+          } else if (center.length > 0 && !center[0].props.size && !center[0].props.ratio) {
+            centerRatio = 6 - left.length - right.length;
+          }
+          
           middle = (
-              <Panel layout="horizontal" ratio={ this.props.mainRatio } size={ this.props.mainSize } align="stretch">
+              <App.Panel layout="horizontal" ratio={ middleRatio } size={ middleSize } align="stretch">
                 { left }
-                { center.length > 0 ? (center[0].props.size ? center : center[0].props.ratio ? center : React.addons.cloneWithProps(center[0], { ratio: 4 })) : center  }
+                { center.length > 0 ? React.addons.cloneWithProps(center[0], { ratio: centerRatio, size: centerSize }) : center  }
                 { right }
-              </Panel>
+              </App.Panel>
             )
           
         }
         
         return (
-          <Panel layout="vertical" className={ extendClassNameWith("applayout-border", className) } style={ this.props.style } align="stretch">
+          <App.Panel layout="vertical" className={ base.extendClassNameWith("applayout-border", className) } style={ this.props.style } align="stretch">
               { top }
               { middle }
               { bottom }
-          </Panel>
+          </App.Panel>
         )
 
         return (<div>Hallo</div>);
@@ -111,7 +153,7 @@ var App = React.createClass({
     },
     
     render: function() {
-      return options.layouts[this.props.layout].render.call(this, extendClassNameWith("application", this.props.className));
+      return options.layouts[this.props.layout].render.call(this, base.extendClassNameWith("application", this.props.className));
     }
   });
 
@@ -119,13 +161,21 @@ App.Panel = React.createClass({
     getDefaultProps: function() {
       return {
         layout: Object.keys(options.layouts)[0],
+        scrollable: false,
         align: "stretch",
         style: { }
       }
     },
     
     render: function() {
-      return options.layouts[this.props.layout].render.call(this, base.extendClassNameWith("applayout-panel", this.props.className));
+      var className = this.props.className;
+      if (this.props.scrollable) {
+        console.log("scrollable")
+        className = base.extendClassNameWith("applayout-scroll", className);
+        console.log(className);
+      }
+      
+      return options.layouts[this.props.layout].render.call(this, base.extendClassNameWith("applayout-panel", className));
     }
   });
   
@@ -133,7 +183,7 @@ App.Panel = React.createClass({
 var base = {
   
   extendClassNameWith: function(className, classNames) {
-    return options.common.prefix + className + " " + classNames;
+    return (className ? (options.common.prefix + className) : "") + (classNames ? " " + classNames : "");
   },
   
   options: options,

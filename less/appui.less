@@ -200,6 +200,7 @@ table {
     .flex-grow(@num);
     .flex-shrink(0);
     .flex-basis(0);
+    overflow: hidden;
     }
 }
 
@@ -226,6 +227,10 @@ table {
 	overflow: hidden;
 }
 
+.pbm-applayout-none {
+  position: relative;
+}
+
 .pbm-applayout-vertical {
 	.flex-display;
 	.flex-flow(column nowrap);
@@ -247,6 +252,10 @@ table {
 .pbm-applayout-alignitems-center { .align-items(@align: center) }
 .pbm-applayout-alignitems-stretch { .align-items(@align: stretch) }
 .pbm-applayout-alignitems-baseline { .align-items(@align: baseline) }
+
+.pbm-applayout-scroll {
+  overflow-y: scroll;
+}
 
 // --------------------------------------------------
 // Basic Styles
