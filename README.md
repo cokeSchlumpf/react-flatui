@@ -23,6 +23,7 @@ A Panel is the most common container element.
 | Property        | Default       | Description                                                 |
 |-----------------|---------------|-------------------------------------------------------------|
 | `layout`        | `none`        | The layout which is used to arrange the children.<br />All below listed layouts are allowed.|
+| `scrollable`    | `false`       | If `true` there will be a scrollbar available for y-direction |
 
 #### Example
 ```xml
