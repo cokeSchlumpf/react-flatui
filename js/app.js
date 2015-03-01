@@ -13,9 +13,7 @@ var SampleApp = React.createClass({
     }
   },
   
-  render: function() {
-    console.log("RENDER SampleApp");
-    
+  render: function() {    
     return (
         <App layout="border">
           <App.Panel position="top" />
@@ -40,7 +38,6 @@ var SampleApp = React.createClass({
     Object.keys(data).forEach(function(item) {
       data[item].selected = value.indexOf(item) > -1
     });
-    console.log(data);
     
     this.setState({ listdata: data });
   },

@@ -34,9 +34,6 @@ function simpleLayout(orientation, classNames) {
               var extraProps = sizeFunction(child);
               if (child.props.key) extraProps.key = child.props.key;
               if (child.props.ref) extraProps.ref = child.props.ref;
-              // return React.addons.cloneWithProps(child, extraProps);
-              // child.props.className = child.props.className + " " + extraProps.className;
-              console.log(extraProps);
               return React.addons.cloneWithProps(child, { className: extraProps.className });
             } else {
               return child;

@@ -82,7 +82,6 @@ module.exports = React.createClass({
       
       var items = {}
       Object.keys(this.props.data).forEach(function(result) {
-        console.log(result);
         var data = self.props.data[result];
         items["id-" + result] = <ListItem { ...data } value={ result } onClick={ self._onChangeHandler } />; 
       });
