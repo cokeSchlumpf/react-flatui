@@ -2,14 +2,29 @@ var React = require("react/addons");
 var App = require("./appui");
 
 var data = {
-  1: { title: "Item 1", subtitle: "A nice item", info: "1" },
-  2: { title: "Item 2", subtitle: "Another item", info: "2", selected: true }
+  1: { title: "Item 1", info: "1", subtitle: "huhu" },
+  2: { title: "Item 2" , info: "22", subtitle: "Huhuuuu" } 
   }
+  
+var combodata = {
+  1: { title: "Item 1" },
+  2: { title: "Item 2" },
+  3: { title: "Item 3" },
+  4: { title: "Item 4" },
+  5: { title: "Item 5", selected: true },
+  6: { title: "Item 6" },
+  7: { title: "Item 7" },
+  8: { title: "Item 8" },
+  9: { title: "Item 9" },
+  10: { title: "Item 10" },
+}
+
 
 var SampleApp = React.createClass({
   getInitialState: function() {
     return {
-      listdata: data
+      listdata: data,
+      combo: combodata
     }
   },
   
@@ -19,14 +34,17 @@ var SampleApp = React.createClass({
           <App.Panel position="top" />
           <App.Panel position="left" />
           <App.Panel position="center" style={ { margin: "10px" } } scrollable="true">
+            <App.Combobox name="textCombo" data={ combodata } multiselect={ false } onChange={ this._onComboboxChange } />
             <App.Textbox name="textTest" value="Halloooo!" />
             <App.Checkbox name="checkTest" value="Klick mich!" caption="Lorem ipsum dolor" />
             <App.Radiobox name="radioTest" id="radioTest_1" value="Select me!" caption="Select me!" />
             <App.Radiobox name="radioTest" id="radioTest_2" value="No, me!" caption="No, me!" />
-            <App.Button caption="Submit!" onClick={ this._onButtonClick } /><br />
-            <App.Button caption="Submit!" type="submit" /><br />
-            <App.Textbox name="textTest" value="Halloooo!" rows={ 5 } /><br />
-            <App.Listbox onChange={ this._onListboxChange } data={ this.state.listdata } multiselect={ false } />
+            <App.Button caption="Submit!" onClick={ this._onButtonClick }>
+              <span>&#9660;</span>
+            </App.Button>
+            <App.Button caption="Submit!" type="submit" />
+            <App.Textbox name="textTest" value="Halloooo!" rows={ 5 } />
+            <App.Listbox onChange={ this._onListboxChange } data={ this.state.listdata } multiselect={ true } />
           </App.Panel>
         </App>
       );
@@ -35,11 +53,24 @@ var SampleApp = React.createClass({
   _onListboxChange: function(value) {
     var self = this;
     
+    console.log(value);
+    
     Object.keys(data).forEach(function(item) {
       data[item].selected = value.indexOf(item) > -1
     });
     
     this.setState({ listdata: data });
+  },
+  
+  _onComboboxChange: function(value) {
+      var self = this;
+      console.log(value);
+      
+      Object.keys(combodata).forEach(function(item) {
+          combodata[item].selected = value.indexOf(item) > -1
+      });
+      
+      this.setState({ combo: combodata });
   },
   
   _onButtonClick: function(value) {

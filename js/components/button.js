@@ -9,6 +9,7 @@ module.exports = React.createClass({
     
     getDefaultProps: function() {
       return {
+        caption: "",
         onClick: function() { console.log("Clicked Button"); }
       };
     },
@@ -25,11 +26,33 @@ module.exports = React.createClass({
   
       if (className) { classes[className] = true; }
       
+      
+      
       return (
           <button className={ cx(classes) } { ...other } onClick={ this._onClickHandler }>
-            <span className="left-icon">Hallo</span>
+            <span className="left-icon">
+              { 
+                React.Children.map(this.props.children, function(child, index) {
+                  if (child.position == "left") {
+                    return child;
+                  } else {
+                    return undefined;
+                  }
+                })
+              }
+            </span>
             { this.props.caption }
-            <span className="right-icon">Bla</span>
+            <span className="right-icon">
+              { 
+                React.Children.map(this.props.children, function(child, index) {
+                  if (child.position != "left") {
+                    return child;
+                  } else {
+                    return undefined;
+                  }
+                })
+              }
+            </span>
           </button>
         );
     },

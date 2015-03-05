@@ -421,7 +421,14 @@ body {
   border: 2px solid #dddddd;
   padding: 3px;
 }
-.ui-control-textbox:focus {
+.ui-control-textbox-container {
+  border: 2px solid #dddddd;
+}
+.ui-control-textbox-container .ui-control-textbox {
+  border: none;
+}
+.ui-control-textbox:focus,
+.ui-control-textbox-container-focused {
   border-color: #9b59b6;
 }
 .ui-control-checkbox input[type="checkbox"],
@@ -503,10 +510,11 @@ body {
   display: inline-block;
   min-width: 300px;
   border: 2px solid #dddddd;
+  background-color: #ffffff;
 }
 .ui-control-listbox .ui-control-listitem {
   line-height: 25px;
-  padding: 3px;
+  padding: 3px 8px 3px 8px;
   cursor: default;
 }
 .ui-control-listbox.ui-control-selectable .ui-control-listitem:hover {
@@ -530,6 +538,25 @@ body {
 }
 .ui-control-listitem-complex:last-child {
   border: none;
+}
+.ui-control-combobox {
+  overflow-y: show;
+}
+.ui-control-combobox .ui-control-button {
+  border: none;
+}
+.ui-control-combobox .ui-control-listbox {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-top: none;
+}
+.ui-control-combobox .ui-control-combobox-item {
+  line-height: 25px;
+  display: inline-block;
+  margin: 3px;
 }
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
 @import url(http://fonts.googleapis.com/css?family=Cabin:400,700,600);
@@ -954,7 +981,14 @@ body {
   border: 2px solid #dddddd;
   padding: 3px;
 }
-.ui-control-textbox:focus {
+.ui-control-textbox-container {
+  border: 2px solid #dddddd;
+}
+.ui-control-textbox-container .ui-control-textbox {
+  border: none;
+}
+.ui-control-textbox:focus,
+.ui-control-textbox-container-focused {
   border-color: #9b59b6;
 }
 .ui-control-checkbox input[type="checkbox"],
@@ -1036,10 +1070,11 @@ body {
   display: inline-block;
   min-width: 300px;
   border: 2px solid #dddddd;
+  background-color: #ffffff;
 }
 .ui-control-listbox .ui-control-listitem {
   line-height: 25px;
-  padding: 3px;
+  padding: 3px 8px 3px 8px;
   cursor: default;
 }
 .ui-control-listbox.ui-control-selectable .ui-control-listitem:hover {
@@ -1063,6 +1098,25 @@ body {
 }
 .ui-control-listitem-complex:last-child {
   border: none;
+}
+.ui-control-combobox {
+  overflow-y: show;
+}
+.ui-control-combobox .ui-control-button {
+  border: none;
+}
+.ui-control-combobox .ui-control-listbox {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-top: none;
+}
+.ui-control-combobox .ui-control-combobox-item {
+  line-height: 25px;
+  display: inline-block;
+  margin: 3px;
 }
 html,
 body {

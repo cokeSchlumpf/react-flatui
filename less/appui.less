@@ -392,7 +392,16 @@ html, body {
   padding: 3px;
 }
 
-.ui-control-textbox:focus {
+.ui-control-textbox-container {
+  border: @controlBorder;
+  
+  .ui-control-textbox {
+    border: none;
+  }
+}
+
+.ui-control-textbox:focus,
+.ui-control-textbox-container-focused {
   border-color: @colorMainLight;
 }
 
@@ -483,10 +492,11 @@ html, body {
   display: inline-block;
   min-width: 300px;
   border: @controlBorder;
+  background-color: @colorBase;
   
   .ui-control-listitem {
     line-height: 25px;
-    padding: 3px;
+    padding: 3px 8px 3px 8px;
     cursor: default;
   }
 }
@@ -506,4 +516,28 @@ html, body {
 
 .ui-control-listitem-complex:last-child {
   border: none;
+}
+
+// --- Combobox
+.ui-control-combobox {
+  .ui-control-button {
+    border: none;
+  }
+  
+  .ui-control-listbox {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;  
+    z-index: 100;
+    border-top: none;
+  }
+  
+  overflow-y: show;
+  
+  .ui-control-combobox-item {
+    line-height: 25px;
+    display: inline-block;
+    margin: 3px;    
+  }
 }

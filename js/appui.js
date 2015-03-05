@@ -3,6 +3,7 @@ var Base = require("./components/base");
 
 var App = Base.App;
 App.Textbox = require("./components/textbox");
+App.Combobox = require("./components/combobox");
 App.Checkbox = require("./components/checkbox");
 App.Radiobox = require("./components/radiobox");
 App.Button = require("./components/button");

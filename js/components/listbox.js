@@ -53,7 +53,7 @@ var ListItem = React.createClass({
 
 module.exports = React.createClass({
     propTypes: {
-      data: React.PropTypes.object,
+      data: React.PropTypes.object.isRequired,
       listitem: React.PropTypes.any,
       multiselect: React.PropTypes.bool,
       onChange: React.PropTypes.func
