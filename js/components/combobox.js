@@ -61,7 +61,7 @@ module.exports = React.createClass({
     
     _renderDownButton: function() {
       return (
-        <Button className="button-inline" onClick={ this._onButtonClickHandler } size="auto">
+        <Button className="button-inline" onClick={ this._handleButtonClick } size="auto">
           <span>&#9660;</span>
         </Button>
         );
@@ -106,19 +106,19 @@ module.exports = React.createClass({
       return (
           <App.Panel className={ this._getClassNames() }>
             { this.state.expanded ?
-                <Textbox name={ name } { ...other } value={ textboxvalue } onBlur={ this._onTextboxBlur } onChange={ this._onTextboxChange }>
+                <Textbox name={ name } { ...other } value={ textboxvalue } onBlur={ this._handleTextboxBlur } onChange={ this._handleTextboxChange }>
                   { this._renderDownButton() }
                 </Textbox>
               :
                 <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
-                  <App.Panel ratio="1" onClick={ this._onButtonClickHandler }>
+                  <App.Panel ratio="1" onClick={ this._handleButtonClick }>
                     { values }
                   </App.Panel>
                   { this._renderDownButton() }
                 </App.Panel>
             }
             { this.state.expanded && Object.keys(listdata).length > 0 && 
-              <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._onListChange } multiselect={ multiselect } />
+              <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } multiselect={ multiselect } />
             }
           </App.Panel>
         );
@@ -138,11 +138,11 @@ module.exports = React.createClass({
       })
     },
     
-    _onButtonClickHandler: function(event) {
+    _handleButtonClick: function(event) {
       if (this.state.expanded) this._close(); else this._expand();
     },
     
-    _onTextboxChange: function(value) {
+    _handleTextboxChange: function(value) {
       if(setStateTimeout) clearTimeout(setStateTimeout)
       var self = this;
       
@@ -151,7 +151,7 @@ module.exports = React.createClass({
       }, SETSTATE_TIMEOUT);
     },
     
-    _onTextboxBlur: function() {
+    _handleTextboxBlur: function() {
       if (blurTimeout) clearTimeout(blurTimeout);
       var self = this;
       
@@ -178,7 +178,7 @@ module.exports = React.createClass({
       }, BLUR_TIMEOUT);
     },
     
-    _onListChange: function(value) {
+    _handleListboxChange: function(value) {
       var self = this;
       if (blurTimeout) clearTimeout(blurTimeout);
       if (!this.props.multiple) this._close(function() {
