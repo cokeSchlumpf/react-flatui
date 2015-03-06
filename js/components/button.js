@@ -33,7 +33,7 @@ module.exports = React.createClass({
             <span className="left-icon">
               { 
                 React.Children.map(this.props.children, function(child, index) {
-                  if (child.position == "left") {
+                  if (child && child.props.position == "left") {
                     return child;
                   } else {
                     return undefined;
@@ -45,7 +45,7 @@ module.exports = React.createClass({
             <span className="right-icon">
               { 
                 React.Children.map(this.props.children, function(child, index) {
-                  if (child.position != "left") {
+                  if (child && child.props.position != "left") {
                     return child;
                   } else {
                     return undefined;

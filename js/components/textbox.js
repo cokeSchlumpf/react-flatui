@@ -28,7 +28,7 @@ module.exports = React.createClass({
     },
     
     render: function() {
-      var { onChange, className, value, rows, children, ...other } = this.props;
+      var { onChange, className, value, defaultValue, rows, children, ...other } = this.props;
       var 
         cx = React.addons.classSet,
         output,
@@ -59,7 +59,8 @@ module.exports = React.createClass({
           onBlur={ this._onBlurHandler } 
           { ...other } 
           id={ this.props.id ? this.props.id : this.props.name } 
-          defaultValue={ value } />
+          defaultValue={ defaultValue ? defaultValue : value }
+          value={ value ? value : undefined } />
       } else {
         textbox = <textarea 
           className={ cx(classes) } 
@@ -68,7 +69,8 @@ module.exports = React.createClass({
           onBlur={ this._onBlurHandler } 
           { ...other } 
           id={ this.props.id ? this.props.id : this.props.name } 
-          defaultValue={ value } 
+          defaultValue={ defaultValue ? defaultValue : value }
+          value={ value ? value : undefined }
           rows={ this.props.rows } />
       }
       
@@ -77,8 +79,8 @@ module.exports = React.createClass({
           <App.Panel layout="horizontal" className={ cx(containerClasses) } align="stretch">
             <App.Panel layout="vertical" size="auto" className={ cx(controlsClasses) }>
               {
-                React.Children.map(this.props.children, function(child, index) {
-                    if (child.position == "left") {
+                React.Children.map(children, function(child, index) {
+                    if (child && child.props.position == "left") {
                       return child;
                     } else {
                       return undefined;
@@ -89,8 +91,8 @@ module.exports = React.createClass({
             { textbox }
             <App.Panel layout="vertical" size="auto" className={ cx(controlsClasses) }>
               {
-                React.Children.map(this.props.children, function(child, index) {
-                    if (child.position != "left") {
+                React.Children.map(children, function(child, index) {
+                    if (child && child.props.position != "left") {
                       return child;
                     } else {
                       return undefined;

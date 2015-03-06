@@ -5,6 +5,7 @@ var App = base.App;
 var Textbox = require("./textbox");
 var Button = require("./button");
 var Listbox = require("./listbox");
+var objectAssign = require('object-assign');
 
 var BLUR_TIMEOUT = 100;
 var SETSTATE_TIMEOUT = 500;
@@ -68,7 +69,7 @@ module.exports = React.createClass({
     },
     
     _getTextboxName: function() {
-      if (this.props.multiple) {
+      if (this.props.multiselect) {
         return this.props.name + "-textbox";
       } else {
         return this.props.name;
@@ -80,40 +81,33 @@ module.exports = React.createClass({
       var 
         self = this,    // Used in inner code blocks ...
         listdata = {},  // The data which will be displayed in the listbox (only not selected items)
-        textboxvalue,   // The value of the textbox when getting the focus
         values,         // The selected values (multiple selection)
-        selected;       // The selected item in the listbox
+        selectedItems;  // Variable with selected items for multiple selection
       
       selected = this.state.selected;
       
       // Calculation of values and textboxvalue
       Object.keys(data).forEach(function(key) {
         if (data[key].selected) {
-          if (!multiselect || values == undefined) {
-            values = {}
-            if (!self.state.textboxvalue) textboxvalue = data[key].title
-            // if (!selected) selected = key;
-          }
+          if (!multiselect || values == undefined) { values = {} }
           values["id-" + key] = <span className="ui-control-combobox-item">{ data[key].title }</span>;
         } 
       });
       
-      textboxvalue = textboxvalue ? textboxvalue : this.state.textboxvalue      
+      selectedItems = [];
       
       // Calculation of list items
-      Object.keys(data).forEach(function(key) {
+      Object.keys(data).forEach(function(key) {        
         if (!multiselect) {
-          var title = data[key].title;
-          listdata[key] = {};
-          Object.keys(data[key]).forEach(function(property) { listdata[key][property] = data[key][property] });
-          listdata[key].selected = selected == key;
-          
-          if (!selected && title.indexOf(textboxvalue) > -1) {
-            listdata[key].selected = true;
-            selected = key;
-          }
+          listdata[key] = objectAssign({}, data[key], { selected: selected == key });
+        } else if (!data[key].selected) {
+          listdata[key] = objectAssign({}, data[key], { selected: selected == key });
+        } else {
+          selectedItems.push(key);
         }
       });
+      
+      this._selectedItems = selectedItems;
       
       var next, previous;
       if (selected && Object.keys(listdata).length > 0) {
@@ -139,7 +133,13 @@ module.exports = React.createClass({
       return (
           <App.Panel className={ this._getClassNames() } onKeyDown={ this._handleKeyDown }>
             { this.state.expanded ?
-                <Textbox name={ this._getTextboxName() } { ...other } value={ textboxvalue } onBlur={ this._handleTextboxBlur } onChange={ this._handleTextboxChange }>
+                <Textbox name={ this._getTextboxName() } { ...other } value={ this.state.textboxvalue } onBlur={ this._handleTextboxBlur } onChange={ this._handleTextboxChange }>
+                  { multiselect && 
+                      <App.Panel layout="horizontal" size="auto" position="left">
+                        { values }
+                      </App.Panel>
+                  }
+                  
                   { this._renderDownButton() }
                 </Textbox>
               :
@@ -151,11 +151,13 @@ module.exports = React.createClass({
                 </App.Panel>
             }
             { this.state.expanded && Object.keys(listdata).length > 0 && 
-              <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } multiselect={ multiselect } name={ this.props.name + "-listbox" } />
+              <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } name={ this.props.name + "-listbox" } />
             }
           </App.Panel>
         );
     },
+    
+    _selectedItems: undefined,
     
     _close: function(cb) {      
       this.setState({ expanded: false, textboxvalue: undefined, selected: undefined }, function() {
@@ -164,11 +166,23 @@ module.exports = React.createClass({
     },
     
     _expand: function() {
-      this.setState({ expanded: true }, function() {
-        var textfield = document.getElementsByName(this.props.name)[0];
-        textfield.focus();
-        textfield.select();
-      })
+      var 
+        i,
+        selected,
+        textboxvalue,
+        keys = Object.keys(this.props.data);
+      
+      if (!this.props.multiselect) {
+        for (i = 0; i < keys.length; i++) {
+          if (this.props.data[keys[i]].selected) {
+            selected = keys[i];
+            textboxvalue = this.props.data[keys[i]].title;
+            break;
+          }
+        }
+      }
+      
+      this.setState({ expanded: true, textboxvalue:  textboxvalue, selected: selected }, this._selectTextbox)
     },
     
     _handleButtonClick: function(event) {
@@ -180,11 +194,19 @@ module.exports = React.createClass({
       
       if (!this.state.selected) {
         this._handleTextboxBlur();
-      } else if (!this.props.multiple) {
+      } else if (!this.props.multiselect) {
         var selected = this.state.selected;
         this._close(function() {
           if (self.props.onChange) self.props.onChange(selected);
         });
+      } else {
+        var selected = this.state.selected;
+        var items = this._selectedItems;
+        items.push(selected);
+        
+        this.setState({ textboxvalue: undefined, selected: undefined }, function() {
+            if (self.props.onChange) self.props.onChange(items);
+          });
       }
     },
     
@@ -192,15 +214,15 @@ module.exports = React.createClass({
     
     _previousItem: undefined,
     
+    _selectTextbox: function() {
+      textfield = document.getElementById(this._getTextboxName());
+      textfield.focus();
+      textfield.select();
+    },
+    
     _selectListboxItem: function(item) {
       if (item) {
-        var self = this;
-        this.setState({ selected: item }, function() {
-          var textfield = document.getElementById(self._getTextboxName());
-          textfield.value = self.props.data[item].title;
-          textfield.focus();
-          textfield.select();
-        });
+        this.setState({ selected: item, textboxvalue: this.props.data[item].title }, this._selectTextbox)
       }
     },
     
@@ -224,12 +246,20 @@ module.exports = React.createClass({
     },
     
     _handleTextboxChange: function(value) {
-      if(setStateTimeout) clearTimeout(setStateTimeout)
-      var self = this;
+      var 
+        i,
+        self = this,
+        selected,
+        keys = Object.keys(this.props.data);
       
-      setStateTimeout = setTimeout(function() {
-        self.setState({ textboxvalue: value, selected: undefined  });  
-      }, SETSTATE_TIMEOUT);
+      for (var i = 0; i < keys.length; i++) {
+        if (this.props.data[keys[i]].title.indexOf(value) > -1) {
+          selected = keys[i];
+          break;
+        }  
+      } 
+           
+      self.setState({ textboxvalue: value, selected: selected  });  
     },
     
     _handleTextboxBlur: function() {
@@ -237,7 +267,7 @@ module.exports = React.createClass({
       var self = this;
       
       blurTimeout = setTimeout(function() {
-        var field = document.getElementsByName(self.props.name)[0];
+        var field = document.getElementsByName(self._getTextboxName())[0];
         if (field == undefined) return;
         var currentValue = field.value;
         
@@ -245,16 +275,17 @@ module.exports = React.createClass({
         var value = [];
         
         Object.keys(self.props.data).forEach(function(key) {
-          if (currentValue === self.props.data[key].title) {
+          if (currentValue == self.props.data[key].title) {
             if (!self.props.data[key].selected) changed = true;
             value.push(key);
-          } else if (self.props.multiple && self.props.data[key].selected) {
+          } else if (self.props.multiselect && self.props.data[key].selected) {
             value.push(key);
           }
         });
-        
+
         self._close(function() {
-          if (changed && self.props.onChange) { self.props.onChange(value.length == 1 ? value[0] : value) }
+          if (changed && self.props.onChange) { 
+            self.props.onChange(!self.props.multiselect ? value[0] : value) }
         });
       }, BLUR_TIMEOUT);
     },
@@ -262,8 +293,18 @@ module.exports = React.createClass({
     _handleListboxChange: function(value) {
       var self = this;
       if (blurTimeout) clearTimeout(blurTimeout);
-      if (!this.props.multiple) this._close(function() {
-        if (self.props.onChange) self.props.onChange(value);
-      });
+     
+      if (!this.props.multiselect) {
+        this._close(function() {
+          if (self.props.onChange) self.props.onChange(value);
+        });
+      } else {
+        var items = this._selectedItems;
+        items.push(value);
+        self.setState({ textboxvalue: undefined, selected: undefined }, function() {
+          if (self.props.onChange) self.props.onChange(items);
+          self._selectTextbox();
+        });
+      }
     }
   });

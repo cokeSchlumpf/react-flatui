@@ -19,12 +19,26 @@ var combodata = {
   10: { title: "Item 10" },
 }
 
+var combodataMultiple = {
+  1: { title: "Item 1" },
+  2: { title: "Item 2", selected: true },
+  3: { title: "Item 3" },
+  4: { title: "Item 4" },
+  5: { title: "Item 5", selected: true },
+  6: { title: "Item 6" },
+  7: { title: "Item 7" },
+  8: { title: "Item 8" },
+  9: { title: "Item 9" },
+  10: { title: "Item 10" },
+}
+
 
 var SampleApp = React.createClass({
   getInitialState: function() {
     return {
       listdata: data,
-      combo: combodata
+      combo: combodata,
+      multiple: combodataMultiple
     }
   },
   
@@ -34,8 +48,11 @@ var SampleApp = React.createClass({
           <App.Panel position="top" />
           <App.Panel position="left" />
           <App.Panel position="center" style={ { margin: "10px" } } scrollable="true">
-            <App.Combobox name="textCombo" data={ combodata } multiselect={ false } onChange={ this._onComboboxChange } />
-            <App.Textbox name="textTest" value="Halloooo!" />
+            <App.Combobox name="textCombo" data={ combodata } onChange={ this._onComboboxChange } />
+            <br /><br />
+            <App.Combobox name="textComboMultiple" data={ combodataMultiple } multiselect={ true } onChange={ this._onComboboxMultipleChange } />
+            <br /><br />
+            <App.Textbox name="textTest" defaultValue="Hallooo!" />
             <App.Checkbox name="checkTest" value="Klick mich!" caption="Lorem ipsum dolor" />
             <App.Radiobox name="radioTest" id="radioTest_1" value="Select me!" caption="Select me!" />
             <App.Radiobox name="radioTest" id="radioTest_2" value="No, me!" caption="No, me!" />
@@ -71,6 +88,17 @@ var SampleApp = React.createClass({
       });
       
       this.setState({ combo: combodata });
+  },
+  
+  _onComboboxMultipleChange: function(value) {
+      var self = this;
+      console.log(value);
+      
+      Object.keys(combodataMultiple).forEach(function(item) {
+          combodataMultiple[item].selected = value.indexOf(item) > -1
+      });
+      
+      this.setState({ multiple: combodataMultiple });
   },
   
   _onButtonClick: function(value) {
