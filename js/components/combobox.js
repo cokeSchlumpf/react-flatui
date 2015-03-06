@@ -213,7 +213,10 @@ module.exports = React.createClass({
     },
     
     _handleKeyDown: function(event) {
-      if (event && this[keyHandlers[event.which]]) this[keyHandlers[event.which]](event);
+      if (event && this[keyHandlers[event.which]]) {
+        this[keyHandlers[event.which]](event);
+        event.preventDefault();
+      }
     },
     
     _handleTextboxChange: function(value) {
@@ -259,4 +262,4 @@ module.exports = React.createClass({
         if (self.props.onChange) self.props.onChange(value);
       });
     }
-  })
+  });
