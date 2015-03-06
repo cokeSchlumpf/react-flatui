@@ -44,7 +44,7 @@ var SampleApp = React.createClass({
             </App.Button>
             <App.Button caption="Submit!" type="submit" />
             <App.Textbox name="textTest" value="Halloooo!" rows={ 5 } />
-            <App.Listbox onChange={ this._onListboxChange } data={ this.state.listdata } multiselect={ true } />
+            <App.Listbox name="testList" onChange={ this._onListboxChange } data={ this.state.listdata } multiselect={ true } />
           </App.Panel>
         </App>
       );
@@ -80,98 +80,4 @@ var SampleApp = React.createClass({
 });
 
 React.render(<SampleApp />, document.body);
-  
-  /*
-React.render(
-  <App layout="border">
-    <App.Panel position="top" style={ { backgroundColor: "#ff0000" } } scrollable={ true } className="test">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   
-
-Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.   
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.   
-
-At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.   
-
-Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus.   
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   
-
-Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo</App.Panel>
-    <App.Panel position="center" style={ { backgroundColor: "#ffff00" } }>CENTER</App.Panel>
-    <App.Panel position="bottom" style={ { backgroundColor: "#00ff00" }}>BOTTOM</App.Panel>
-    <App.ListTable position="left"></App.ListTable>
-    <App.Panel position="right" style={ { backgroundColor: "#0000ff" } }>RIGHT</App.Panel>
-  </App>, document.body);
-*/
-
-
-/*
-var ExampleStore = require("./store");
-var ExampleActions = require("./actions");
-
-function getExampleState() {
-  return {
-    data: ExampleStore.getData()
-  };
-}
-
-var ExampleApp = React.createClass({
-    
-    getInitialState: function() {
-      return getExampleState();
-    },
-    
-    componentDidMount: function() {
-      ExampleStore.addChangeListener(this._onChange); 
-    },
-    
-    componentWillUnmount: function() {
-      ExampleStore.removeChangeListener(this._onChange);
-    },
-    
-    render: function() {
-      return (
-        <App className="myApp" layout="border">
-          <App.Panel position="top" size="auto" style={ { backgroundColor: "#ff0000" } }>
-            <App.Titlebar>
-              <App.Text className="title">Online Notes</App.Text>
-              <App.Text className="subtitle">Lorem Ipsum Dolor</App.Text>
-              <App.Text className="user">Bla bla</App.Text>
-            </App.Titlebar>
-            <App.Toolbar>
-              <App.Text>Hallo { this.state.data.name }!</App.Text>
-            </App.Toolbar>
-          </App.Panel>
-          <App.Panel position="left" id="sidebar">LEFT</App.Panel>
-          <App.Panel position="center" id="main">
-            <App.Form.Textfield id="username" label="Your Name" value={ this.state.data.name } onChange={ this._onNameChange } />
-            <App.Form.Textfield id="hobbies" label="Your Hobbies" value={ this.state.data.hobbies } onChange={ this._onHobbiesChange } />
-          </App.Panel>
-        </App>
-      );
-    },
-    
-    _onChange: function() {
-      this.setState(getExampleState());
-    },
-    
-    _onNameChange: function(name) {
-      ExampleActions.update(name, this.state.data.hobbies);
-    },
-    
-    _onHobbiesChange: function(hobbies) {
-      ExampleActions.update(this.state.data.name, hobbies)
-    }
-  })
-  
-React.render(<ExampleApp />, document.body);
-*/
 

@@ -31,7 +31,7 @@ var ListItem = React.createClass({
     });
 
     return (
-      <App.Panel className={ className } layout="horizontal" justify="center" align="center" onClick={ this._onClickHandler }>
+      <App.Panel className={ className } layout="horizontal" justify="center" align="center" onClick={ this._onClickHandler } id={ this.props.id }>
         <App.Panel layout="vertical">
           <App.Panel className="ui-control-title" size="auto">{ this.props.title }</App.Panel>
           { this.props.subtitle &&
@@ -53,6 +53,7 @@ var ListItem = React.createClass({
 
 module.exports = React.createClass({
     propTypes: {
+      name: React.PropTypes.string.isRequired,
       data: React.PropTypes.object.isRequired,
       listitem: React.PropTypes.any,
       multiselect: React.PropTypes.bool,
@@ -64,6 +65,14 @@ module.exports = React.createClass({
         listitem: ListItem,
         multiselect: false
       };
+    },
+    
+    _getContainerName: function() {
+      return this.props.name + "-container";
+    },
+    
+    _createId: function(value) {
+      return "id-" + value;
     },
     
     render: function() {
@@ -83,14 +92,35 @@ module.exports = React.createClass({
       var items = {}
       Object.keys(this.props.data).forEach(function(result) {
         var data = self.props.data[result];
-        items["id-" + result] = <ListItem { ...data } value={ result } onClick={ self._onChangeHandler } />; 
+        var id = self._createId(result);
+        items[id] = <ListItem { ...data } value={ result } onClick={ self._onChangeHandler } id={ id } />; 
       });
       
       return (
-          <App.Panel { ...this.props } className={ cx(classes) } layout="vertical" justify="start" scrollable="true">
+          <App.Panel { ...this.props } className={ cx(classes) } layout="vertical" justify="start" scrollable="true" id={ this._getContainerName() }>
             { items }
           </App.Panel>
         );
+    },
+    
+    componentDidUpdate: function() {
+      this._updateScrollPosition();
+    },
+    
+    componentDidMount: function() {
+      this._updateScrollPosition();
+    },
+    
+    _updateScrollPosition: function() {
+      var selected = this._getSelected();
+      if (selected.length > 0) {
+        var item = document.getElementById(this._createId(selected[0]));
+        var offset = item.offsetTop;
+        if (document.getElementById(this._getContainerName()).childNodes[1]) {
+          offset -= document.getElementById(this._getContainerName()).childNodes[1].offsetTop;
+        }
+        document.getElementById(this._getContainerName()).scrollTop = offset;
+      }
     },
     
     _getSelected: function() {
