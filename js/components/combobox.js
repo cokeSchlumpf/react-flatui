@@ -57,7 +57,7 @@ module.exports = React.createClass({
       if (className) { classes[className] = true; }
       
       return cx(classes);
-    }
+    },
     
     _renderDownButton: function() {
       return (
@@ -107,14 +107,14 @@ module.exports = React.createClass({
           <App.Panel className={ this._getClassNames() }>
             { this.state.expanded ?
                 <Textbox name={ name } { ...other } value={ textboxvalue } onBlur={ this._onTextboxBlur } onChange={ this._onTextboxChange }>
-                  { this._renderDownButton(); }
+                  { this._renderDownButton() }
                 </Textbox>
               :
                 <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
                   <App.Panel ratio="1" onClick={ this._onButtonClickHandler }>
                     { values }
                   </App.Panel>
-                  { this._renderDownButton(); }
+                  { this._renderDownButton() }
                 </App.Panel>
             }
             { this.state.expanded && Object.keys(listdata).length > 0 && 
