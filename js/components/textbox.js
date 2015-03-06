@@ -77,7 +77,7 @@ module.exports = React.createClass({
       if (children) {
         output = 
           <App.Panel layout="horizontal" className={ cx(containerClasses) } align="stretch">
-            <App.Panel layout="vertical" size="auto" className={ cx(controlsClasses) }>
+            <App.Panel layout="vertical" size="auto" justify="center" align="center" className={ cx(controlsClasses) }>
               {
                 React.Children.map(children, function(child, index) {
                     if (child && child.props.position == "left") {
@@ -89,7 +89,7 @@ module.exports = React.createClass({
               }
             </App.Panel>
             { textbox }
-            <App.Panel layout="vertical" size="auto" className={ cx(controlsClasses) }>
+            <App.Panel layout="vertical" size="auto" justify="center" align="center" className={ cx(controlsClasses) }>
               {
                 React.Children.map(children, function(child, index) {
                     if (child && child.props.position != "left") {

@@ -558,6 +558,18 @@ body {
   display: inline-block;
   margin: 3px;
 }
+.ui-control-combobox-multiselect .ui-control-combobox-item {
+  background-color: #9b59b6;
+  color: #ffffff;
+  font: 10pt "Open Sans", sans-serif;
+  padding: 2px 3px;
+}
+.ui-control-combobox-multiselect .ui-control-combobox-item .ui-control-combobox-item-remove {
+  border-left: 1px solid #fff;
+  margin: 0px 0px 0px 10px;
+  padding: 0px 3px 0px 5px;
+  cursor: default;
+}
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
 @import url(http://fonts.googleapis.com/css?family=Cabin:400,700,600);
 html,
@@ -1117,6 +1129,18 @@ body {
   line-height: 25px;
   display: inline-block;
   margin: 3px;
+}
+.ui-control-combobox-multiselect .ui-control-combobox-item {
+  background-color: #9b59b6;
+  color: #ffffff;
+  font: 10pt "Open Sans", sans-serif;
+  padding: 2px 3px;
+}
+.ui-control-combobox-multiselect .ui-control-combobox-item .ui-control-combobox-item-remove {
+  border-left: 1px solid #fff;
+  margin: 0px 0px 0px 10px;
+  padding: 0px 3px 0px 5px;
+  cursor: default;
 }
 html,
 body {

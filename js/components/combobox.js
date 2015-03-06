@@ -90,7 +90,13 @@ module.exports = React.createClass({
       Object.keys(data).forEach(function(key) {
         if (data[key].selected) {
           if (!multiselect || values == undefined) { values = {} }
-          values["id-" + key] = <span className="ui-control-combobox-item">{ data[key].title }</span>;
+          values["id-" + key] = 
+            <span className="ui-control-combobox-item" size="auto">
+              { data[key].title }
+              { multiselect &&
+                <span className="ui-control-combobox-item-remove" data-id={ key } onClick={ self._handleRemoveClick }>X</span>
+              }
+            </span>;
         } 
       });
       
@@ -135,7 +141,7 @@ module.exports = React.createClass({
             { this.state.expanded ?
                 <Textbox name={ this._getTextboxName() } { ...other } value={ this.state.textboxvalue } onBlur={ this._handleTextboxBlur } onChange={ this._handleTextboxChange }>
                   { multiselect && 
-                      <App.Panel layout="horizontal" size="auto" position="left">
+                      <App.Panel layout="horizontal" size="auto" align="center" position="left">
                         { values }
                       </App.Panel>
                   }
@@ -144,7 +150,7 @@ module.exports = React.createClass({
                 </Textbox>
               :
                 <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
-                  <App.Panel ratio="1" onClick={ this._handleButtonClick }>
+                  <App.Panel ratio="1" onClick={ this._handleButtonClick } layout="horizontal" justify="start" align="center">
                     { values }
                   </App.Panel>
                   { this._renderDownButton() }
@@ -187,6 +193,20 @@ module.exports = React.createClass({
     
     _handleButtonClick: function(event) {
       if (this.state.expanded) this._handleTextboxBlur(); else this._expand();
+    },
+    
+    _handleRemoveClick: function(event) {
+      var 
+        index,
+        key = event.target.attributes["data-id"].value,
+        select = this._selectedItems;
+      
+      index = select.indexOf(key);
+      select.splice(index, 1);
+      
+      if (this.props.onChange) this.props.onChange(select);
+      
+      event.stopPropagation();
     },
     
     _handleEnterKey: function(event) {
