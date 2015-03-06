@@ -75,9 +75,28 @@ module.exports = React.createClass({
       if (children) {
         output = 
           <App.Panel layout="horizontal" className={ cx(containerClasses) } align="stretch">
+            <App.Panel layout="vertical" size="auto" className={ cx(controlsClasses) }>
+              {
+                React.Children.map(this.props.children, function(child, index) {
+                    if (child.position == "left") {
+                      return child;
+                    } else {
+                      return undefined;
+                    }
+                  })
+              }
+            </App.Panel>
             { textbox }
             <App.Panel layout="vertical" size="auto" className={ cx(controlsClasses) }>
-              { this.props.children }
+              {
+                React.Children.map(this.props.children, function(child, index) {
+                    if (child.position != "left") {
+                      return child;
+                    } else {
+                      return undefined;
+                    }
+                  })
+              }
             </App.Panel>
           </App.Panel>
       } else {

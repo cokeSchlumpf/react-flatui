@@ -219,6 +219,10 @@ module.exports = React.createClass({
       }
     },
     
+    _handleEscKey: function(event) {
+      this._close();
+    },
+    
     _handleTextboxChange: function(value) {
       if(setStateTimeout) clearTimeout(setStateTimeout)
       var self = this;
