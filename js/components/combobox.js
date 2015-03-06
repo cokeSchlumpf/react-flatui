@@ -12,6 +12,16 @@ var SETSTATE_TIMEOUT = 500;
 var setStateTimeout;
 var blurTimeout;
 
+var keyHandlers = {
+  38: 'handleUpKey',
+  40: 'handleDownKey',
+  32: 'handleSpaceKey',
+  13: 'handleEnterKey',
+  27: 'handleEscKey',
+  74: 'handleDownKey',
+  75: 'handleUpKey'
+}
+
 module.exports = React.createClass({
     propTypes: {
       data: React.PropTypes.object.isRequired,
@@ -33,20 +43,11 @@ module.exports = React.createClass({
       };
     },
     
-    render: function() {
-      var { onChange, className, name, selectOnly, multiselect, data, ...other } = this.props;
+    _getClassNames: function() {
       var 
-        self = this,
-        listdata = {},
-        textboxvalue,
-        values,
-        button = 
-          <Button className="button-inline" onClick={ this._onButtonClickHandler } size="auto">
-            <span>&#9660;</span>
-          </Button>,
+        className = this.props.className;
         cx = React.addons.classSet;
-      
-      /** assemble class name */
+        
       var classes = {
         "ui-control": true,
         "ui-control-combobox": true,
@@ -55,6 +56,26 @@ module.exports = React.createClass({
       
       if (className) { classes[className] = true; }
       
+      return cx(classes);
+    }
+    
+    _renderDownButton: function() {
+      return (
+        <Button className="button-inline" onClick={ this._onButtonClickHandler } size="auto">
+          <span>&#9660;</span>
+        </Button>
+        );
+    },
+    
+    render: function() {
+      var { onChange, className, name, selectOnly, multiselect, data, ...other } = this.props;
+      var 
+        self = this,    // Used in inner code blocks ...
+        listdata = {},  // The data which will be displayed in the listbox (only not selected items)
+        textboxvalue,   // The value of the textbox when getting the focus
+        values;         // The selected values (multiple selection)
+      
+      // Calculation of values and textboxvalue
       Object.keys(data).forEach(function(key) {
         if (data[key].selected) {
           if (!multiselect || values == undefined) {
@@ -67,6 +88,7 @@ module.exports = React.createClass({
       
       textboxvalue = textboxvalue ? textboxvalue : this.state.textboxvalue      
       
+      // Calculation of list items
       Object.keys(data).forEach(function(key) {
         if (!multiselect || !data[key].selected) {
           var title = data[key].title;
@@ -82,17 +104,17 @@ module.exports = React.createClass({
       });
       
       return (
-          <App.Panel className={ cx(classes) }>
+          <App.Panel className={ this._getClassNames() }>
             { this.state.expanded ?
                 <Textbox name={ name } { ...other } value={ textboxvalue } onBlur={ this._onTextboxBlur } onChange={ this._onTextboxChange }>
-                  { button }
+                  { this._renderDownButton(); }
                 </Textbox>
               :
                 <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
                   <App.Panel ratio="1" onClick={ this._onButtonClickHandler }>
                     { values }
                   </App.Panel>
-                  { button }
+                  { this._renderDownButton(); }
                 </App.Panel>
             }
             { this.state.expanded && Object.keys(listdata).length > 0 && 

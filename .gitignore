@@ -5,3 +5,4 @@ npm-debug.log
 lib/*
 !lib/.gitkeep
 .DS_Store
+js/.bundle.js
