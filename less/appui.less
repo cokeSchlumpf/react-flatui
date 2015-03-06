@@ -547,13 +547,17 @@ html, body {
     background-color: @colorMainLight;
     color: @colorMainText;
     .small();
-    padding: 2px 3px;
+    padding: 2px 2px 2px 3px;
     
     .ui-control-combobox-item-remove {
       border-left: 1px solid #fff;
       margin: 0px 0px 0px 10px;
-      padding: 0px 3px 0px 5px;
+      padding: 0px 5px 0px 5px;
       cursor: default;
     }  
+    
+    .ui-control-combobox-item-remove:hover {
+      background-color: @colorMain;
+    }
   }
 }
