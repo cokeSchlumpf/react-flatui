@@ -75,6 +75,24 @@ module.exports = React.createClass({
       return "id-" + value;
     },
     
+    _renderHiddenControl: function() {
+      var 
+        self = this,
+        items = {},
+        selected = [];
+      
+      Object.keys(this.props.data).forEach(function(key) {
+        if (self.props.data[key].selected) selected.push(key);
+        items[self._createId(key)] = <option value={ key }>{ self.props.data[key].title }</option>
+      });
+      
+      return (
+          <select name={ this.props.name } id={ this.props.name } multiple={ this.props.multiselect } value={ this.props.multiselect ? selected : selected[0] } style={{ display: "none" }}>
+            {items}
+          </select>
+        );
+    },
+    
     render: function() {
       var { onChange, className, ...other } = this.props;
       var cx = React.addons.classSet;
@@ -99,6 +117,7 @@ module.exports = React.createClass({
       return (
           <App.Panel { ...this.props } className={ cx(classes) } layout="vertical" justify="start" scrollable="true" id={ this._getContainerName() }>
             { items }
+            { self._renderHiddenControl() }
           </App.Panel>
         );
     },

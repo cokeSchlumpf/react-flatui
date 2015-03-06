@@ -76,6 +76,24 @@ module.exports = React.createClass({
       }
     },
     
+    _renderHiddenControl: function() {
+      var 
+        self = this,
+        items = {},
+        selected = [];
+      
+      Object.keys(this.props.data).forEach(function(key) {
+        if (self.props.data[key].selected) selected.push(key);
+        items["id-" + key] = <option value={ key }>{ self.props.data[key].title }</option>
+      });
+      
+      return (
+          <select name={ this.props.name } id={ this.props.name } multiple={ this.props.multiselect } value={ this.props.multiselect ? selected : selected[0] } style={{ display: "none" }}>
+            {items}
+          </select>
+        );
+    },
+    
     render: function() {
       var { onChange, className, name, selectOnly, multiselect, data, ...other } = this.props;
       var 
@@ -154,6 +172,7 @@ module.exports = React.createClass({
                     { values }
                   </App.Panel>
                   { this._renderDownButton() }
+                  { this._renderHiddenControl() }
                 </App.Panel>
             }
             { this.state.expanded && Object.keys(listdata).length > 0 && 
