@@ -14,19 +14,23 @@ module.exports = React.createClass({
     
     render: function() {
       var { onChange, className, ...other } = this.props;
-      var cx = React.addons.classSet;
-      
-      /** assemble class name */
-      var classes = {
-        "ui-control": true,
-        "ui-control-textbox": true
-      };
-
-      if (className) { classes[className] = true; }
       
       return (
-          <input className={ cx(classes) } onChange={ this._onChangeHandler } { ...other } />
+          <input className={ this._getClassName() } onChange={ this._onChangeHandler } { ...other } />
         );
+    },
+    
+    _getClassName: function() {
+      var 
+        cx = React.addons.classSet,
+        className = this.props.className,
+        classes = {
+          "ui-controlgroup": true
+        };
+        
+      if (className) { classes[className] = true; }
+      
+      return cx(classes);
     },
     
     _onChangeHandler: function(event) {
