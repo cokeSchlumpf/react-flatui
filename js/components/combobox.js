@@ -155,29 +155,31 @@ module.exports = React.createClass({
       this._previousItem = previous;
       
       return (
-          <App.Panel className={ this._getClassNames() } onKeyDown={ this._handleKeyDown }>
-            { this.state.expanded ?
-                <Textbox name={ this._getTextboxName() } { ...other } value={ this.state.textboxvalue } onBlur={ this._handleTextboxBlur } onChange={ this._handleTextboxChange }>
-                  { multiselect && 
-                      <App.Panel layout="horizontal" size="auto" align="center" position="left">
-                        { values }
-                      </App.Panel>
-                  }
-                  
-                  { this._renderDownButton() }
-                </Textbox>
-              :
-                <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
-                  <App.Panel ratio="1" onClick={ this._handleButtonClick } layout="horizontal" justify="start" align="center">
-                    { values }
+          <App.Panel { ...other } className={ this._getClassNames() } onKeyDown={ this._handleKeyDown }>
+            <div style={{ position: "relative" }}>
+              { this.state.expanded ?
+                  <Textbox name={ this._getTextboxName() } value={ this.state.textboxvalue } onBlur={ this._handleTextboxBlur } onChange={ this._handleTextboxChange }>
+                    { multiselect && 
+                        <App.Panel layout="horizontal" size="auto" align="center" position="left">
+                          { values }
+                        </App.Panel>
+                    }
+                    
+                    { this._renderDownButton() }
+                  </Textbox>
+                :
+                  <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
+                    <App.Panel ratio="1" onClick={ this._handleButtonClick } layout="horizontal" justify="start" align="center">
+                      { values }
+                    </App.Panel>
+                    { this._renderDownButton() }
+                    { this._renderHiddenControl() }
                   </App.Panel>
-                  { this._renderDownButton() }
-                  { this._renderHiddenControl() }
-                </App.Panel>
-            }
-            { this.state.expanded && Object.keys(listdata).length > 0 && 
-              <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } name={ this.props.name + "-listbox" } />
-            }
+              }
+              { this.state.expanded && Object.keys(listdata).length > 0 && 
+                <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } name={ this.props.name + "-listbox" } />
+              }
+            </div>
           </App.Panel>
         );
     },

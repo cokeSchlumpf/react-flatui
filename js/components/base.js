@@ -1,7 +1,24 @@
 var React = require("react/addons");
 
+var Container = React.createClass({
+  render: function() {
+    var result = (this.props.element ?
+        <this.props.element { ...this.props }>
+          { this.props.children }
+        </this.props.element>
+      :
+        <div { ...this.props }>
+          { this.props.children }
+        </div>);
+  
+    return result;
+  }
+});
+
 function simpleLayout(orientation, classNames) {
-  var sizeFunction = function(child) {
+  var { justify, align, element, ...other } = this.props;
+  
+  var sizeFunction = function(child) {    
     var result = {
       className: base.extendClassNameWith("applayout-item", ""),
       style: { }
@@ -19,28 +36,28 @@ function simpleLayout(orientation, classNames) {
     return result;
   }
   
-  var justify = this.props.justify ? this.props.justify : "start";
-  var align = this.props.align ? this.props.align : "start";
+  justify = justify ? justify : "start";
+  align = align ? align : "start";
   
   classNames = base.extendClassNameWith("applayout-" + orientation, classNames)
   classNames = base.extendClassNameWith("applayout-justify-" + justify, classNames)
   classNames = base.extendClassNameWith("applayout-alignitems-" + align, classNames) 
 
+  var content = React.Children.map(this.props.children, function(child, index) {
+      if (child && child.props) {
+        var extraProps = sizeFunction(child);
+        if (child.props.key) extraProps.key = child.props.key;
+        if (child.props.ref) extraProps.ref = child.props.ref;
+        return React.addons.cloneWithProps(child, { className: extraProps.className });
+      } else {
+        return child;
+      }
+    });
+
   return (
-      <div {...this.props} className={ classNames }>
-        {
-          React.Children.map(this.props.children, function(child, index) {
-            if (child && child.props) {
-              var extraProps = sizeFunction(child);
-              if (child.props.key) extraProps.key = child.props.key;
-              if (child.props.ref) extraProps.ref = child.props.ref;
-              return React.addons.cloneWithProps(child, { className: extraProps.className });
-            } else {
-              return child;
-            }
-          }) 
-        }
-      </div>
+    <Container { ...other } className={ classNames }>
+      { content }
+    </Container>
     );
 }
 
@@ -56,7 +73,7 @@ var options = {
           classNames = base.extendClassNameWith("applayout-none", className)
           
           return (
-              <div { ...this.props } className={ classNames } >{ this.props.children }</div>
+              <Container { ...this.props } className={ classNames } >{ this.props.children }</Container>
             );
       }
     },
@@ -141,9 +158,7 @@ var options = {
               { middle }
               { bottom }
           </App.Panel>
-        )
-
-        return (<div>Hallo</div>);
+        );
       }
     }
   }
@@ -168,7 +183,8 @@ App.Panel = React.createClass({
         layout: Object.keys(options.layouts)[0],
         scrollable: false,
         align: "stretch",
-        style: { }
+        style: { },
+        element: undefined
       }
     },
     

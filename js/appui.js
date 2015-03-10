@@ -8,6 +8,8 @@ App.Checkbox = require("./components/checkbox");
 App.Radiobox = require("./components/radiobox");
 App.Button = require("./components/button");
 App.Listbox = require("./components/listbox");
+App.Form = require("./components/form");
+App.Formfield = require("./components/formfield");
 
 /*
  ...field
@@ -15,6 +17,7 @@ App.Listbox = require("./components/listbox");
  FieldGroup
  DropdownButton
  ToggleButton
+ Validators?
  
  Table
  TreeTable
