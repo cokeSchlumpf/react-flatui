@@ -1,5 +1,6 @@
 var React = require("react/addons");
 var base = require("./base");
+var objectAssign = require('object-assign');
 
 var App = base.App;
 var options = base.options;
@@ -54,7 +55,7 @@ var ListItem = React.createClass({
 module.exports = React.createClass({
     propTypes: {
       name: React.PropTypes.string.isRequired,
-      data: React.PropTypes.object.isRequired,
+      value: React.PropTypes.object.isRequired,
       listitem: React.PropTypes.any,
       multiselect: React.PropTypes.bool,
       onChange: React.PropTypes.func
@@ -81,9 +82,9 @@ module.exports = React.createClass({
         items = {},
         selected = [];
       
-      Object.keys(this.props.data).forEach(function(key) {
-        if (self.props.data[key].selected) selected.push(key);
-        items[self._createId(key)] = <option value={ key }>{ self.props.data[key].title }</option>
+      Object.keys(this.props.value).forEach(function(key) {
+        if (self.props.value[key].selected) selected.push(key);
+        items[self._createId(key)] = <option value={ key }>{ self.props.value[key].title }</option>
       });
       
       return (
@@ -108,10 +109,10 @@ module.exports = React.createClass({
       if (className) { classes[className] = true; }
       
       var items = {}
-      Object.keys(this.props.data).forEach(function(result) {
-        var data = self.props.data[result];
+      Object.keys(this.props.value).forEach(function(result) {
+        var value = self.props.value[result];
         var id = self._createId(result);
-        items[id] = <ListItem { ...data } value={ result } onClick={ self._onChangeHandler } id={ id } />; 
+        items[id] = <ListItem { ...value } value={ result } onClick={ self._onChangeHandler } id={ id } />; 
       });
       
       return (
@@ -146,11 +147,31 @@ module.exports = React.createClass({
       var selected = [];
       var self = this;
       
-      Object.keys(this.props.data).forEach(function(item) {
-        if (self.props.data[item].selected) selected.push(item);
+      Object.keys(this.props.value).forEach(function(item) {
+        if (self.props.value[item].selected) selected.push(item);
       });
       
       return selected;
+    },
+    
+    _propagateChange: function(value) {
+      if (this.props.onChange) {
+        var
+          self = this, 
+          data = objectAssign({}, this.props.value);
+        
+        Object.keys(data).forEach(function(key) {
+          if (self.props.multiselect && value.indexOf(key) > -1) {
+            data[key].selected = true;
+          } else if (!self.props.multiselect && value == key) {
+            data[key].selected = true;
+          } else {
+            data[key].selected = false;
+          }
+        });
+        
+        this.props.onChange(data, value);
+      }
     },
     
     _onChangeHandler: function(selectedValue) {
@@ -158,14 +179,14 @@ module.exports = React.createClass({
       var index = selectedItems.indexOf(selectedValue);
       
       if (this.props.onChange && !this.props.multiselect && index == -1) {
-        this.props.onChange(selectedValue);
+        this._propagateChange(selectedValue);
       } else if (this.props.onChange && this.props.multiselect) { 
         if (index > -1) {
           selectedItems.splice(index, 1);
-          this.props.onChange(selectedItems);
+          this._propagateChange(selectedItems);
         } else {
           selectedItems.push(selectedValue);
-          this.props.onChange(selectedItems);
+          this._propagateChange(selectedItems);
         }
       }
     }

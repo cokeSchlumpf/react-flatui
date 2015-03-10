@@ -24,9 +24,10 @@ var keyHandlers = {
 
 module.exports = React.createClass({
     propTypes: {
-      data: React.PropTypes.object.isRequired,
+      value: React.PropTypes.object.isRequired,
       multiselect: React.PropTypes.bool,
       name: React.PropTypes.string.isRequired,
+      onChange: React.PropTypes.func
     },
     
     getInitialState: function() {        
@@ -82,9 +83,9 @@ module.exports = React.createClass({
         items = {},
         selected = [];
       
-      Object.keys(this.props.data).forEach(function(key) {
-        if (self.props.data[key].selected) selected.push(key);
-        items["id-" + key] = <option value={ key }>{ self.props.data[key].title }</option>
+      Object.keys(this.props.value).forEach(function(key) {
+        if (self.props.value[key].selected) selected.push(key);
+        items["id-" + key] = <option value={ key }>{ self.props.value[key].title }</option>
       });
       
       return (
@@ -95,7 +96,7 @@ module.exports = React.createClass({
     },
     
     render: function() {
-      var { onChange, className, name, selectOnly, multiselect, data, ...other } = this.props;
+      var { onChange, className, name, selectOnly, multiselect, value, ...other } = this.props;
       var 
         self = this,    // Used in inner code blocks ...
         listdata = {},  // The data which will be displayed in the listbox (only not selected items)
@@ -105,12 +106,12 @@ module.exports = React.createClass({
       selected = this.state.selected;
       
       // Calculation of values and textboxvalue
-      Object.keys(data).forEach(function(key) {
-        if (data[key].selected) {
+      Object.keys(value).forEach(function(key) {
+        if (value[key].selected) {
           if (!multiselect || values == undefined) { values = {} }
           values["id-" + key] = 
             <span className="ui-control-combobox-item" size="auto">
-              { data[key].title }
+              { value[key].title }
               { multiselect &&
                 <span className="ui-control-combobox-item-remove" data-id={ key } onClick={ self._handleRemoveClick }>X</span>
               }
@@ -121,11 +122,11 @@ module.exports = React.createClass({
       selectedItems = [];
       
       // Calculation of list items
-      Object.keys(data).forEach(function(key) {        
+      Object.keys(value).forEach(function(key) {        
         if (!multiselect) {
-          listdata[key] = objectAssign({}, data[key], { selected: selected == key });
-        } else if (!data[key].selected) {
-          listdata[key] = objectAssign({}, data[key], { selected: selected == key });
+          listdata[key] = objectAssign({}, value[key], { selected: selected == key });
+        } else if (!value[key].selected) {
+          listdata[key] = objectAssign({}, value[key], { selected: selected == key });
         } else {
           selectedItems.push(key);
         }
@@ -177,7 +178,7 @@ module.exports = React.createClass({
                   </App.Panel>
               }
               { this.state.expanded && Object.keys(listdata).length > 0 && 
-                <Listbox data={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } name={ this.props.name + "-listbox" } />
+                <Listbox value={ listdata } style={{ maxHeight: "200px", display: "block", height: "auto" }} onChange={ this._handleListboxChange } name={ this.props.name + "-listbox" } />
               }
             </div>
           </App.Panel>
@@ -197,13 +198,13 @@ module.exports = React.createClass({
         i,
         selected,
         textboxvalue,
-        keys = Object.keys(this.props.data);
+        keys = Object.keys(this.props.value);
       
       if (!this.props.multiselect) {
         for (i = 0; i < keys.length; i++) {
-          if (this.props.data[keys[i]].selected) {
+          if (this.props.value[keys[i]].selected) {
             selected = keys[i];
-            textboxvalue = this.props.data[keys[i]].title;
+            textboxvalue = this.props.value[keys[i]].title;
             break;
           }
         }
@@ -224,8 +225,8 @@ module.exports = React.createClass({
       
       index = select.indexOf(key);
       select.splice(index, 1);
-      
-      if (this.props.onChange) this.props.onChange(select);
+
+      this._propagateChange(select);
       
       event.stopPropagation();
     },
@@ -238,7 +239,7 @@ module.exports = React.createClass({
       } else if (!this.props.multiselect) {
         var selected = this.state.selected;
         this._close(function() {
-          if (self.props.onChange) self.props.onChange(selected);
+          self._propagateChange(selected);
         });
       } else {
         var selected = this.state.selected;
@@ -246,7 +247,7 @@ module.exports = React.createClass({
         items.push(selected);
         
         this.setState({ textboxvalue: undefined, selected: undefined }, function() {
-            if (self.props.onChange) self.props.onChange(items);
+            self._propagateChange(items);
           });
       }
     },
@@ -263,7 +264,7 @@ module.exports = React.createClass({
     
     _selectListboxItem: function(item) {
       if (item) {
-        this.setState({ selected: item, textboxvalue: this.props.data[item].title }, this._selectTextbox)
+        this.setState({ selected: item, textboxvalue: this.props.value[item].title }, this._selectTextbox)
       }
     },
     
@@ -291,10 +292,10 @@ module.exports = React.createClass({
         i,
         self = this,
         selected,
-        keys = Object.keys(this.props.data);
+        keys = Object.keys(this.props.value);
       
       for (var i = 0; i < keys.length; i++) {
-        if (this.props.data[keys[i]].title.indexOf(value) > -1) {
+        if (this.props.value[keys[i]].title.indexOf(value) > -1) {
           selected = keys[i];
           break;
         }  
@@ -315,35 +316,55 @@ module.exports = React.createClass({
         var changed = false;
         var value = [];
         
-        Object.keys(self.props.data).forEach(function(key) {
-          if (currentValue == self.props.data[key].title) {
-            if (!self.props.data[key].selected) changed = true;
+        Object.keys(self.props.value).forEach(function(key) {
+          if (currentValue == self.props.value[key].title) {
+            if (!self.props.value[key].selected) changed = true;
             value.push(key);
-          } else if (self.props.multiselect && self.props.data[key].selected) {
+          } else if (self.props.multiselect && self.props.value[key].selected) {
             value.push(key);
           }
         });
 
         self._close(function() {
-          if (changed && self.props.onChange) { 
-            self.props.onChange(!self.props.multiselect ? value[0] : value) }
+          if (changed) { 
+            self._propagateChange(!self.props.multiselect ? value[0] : value) }
         });
       }, BLUR_TIMEOUT);
     },
     
-    _handleListboxChange: function(value) {
+    _propagateChange: function(value) {
+      if (this.props.onChange) {
+        var
+          self = this, 
+          data = objectAssign({}, this.props.value);
+        
+        Object.keys(data).forEach(function(key) {
+          if (self.props.multiselect && value.indexOf(key) > -1) {
+            data[key].selected = true;
+          } else if (!self.props.multiselect && value == key) {
+            data[key].selected = true;
+          } else {
+            data[key].selected = false;
+          }
+        });
+        
+        this.props.onChange(data, value);
+      }
+    },
+    
+    _handleListboxChange: function(data, value) {
       var self = this;
       if (blurTimeout) clearTimeout(blurTimeout);
      
       if (!this.props.multiselect) {
         this._close(function() {
-          if (self.props.onChange) self.props.onChange(value);
+          self._propagateChange(value);
         });
       } else {
         var items = this._selectedItems;
         items.push(value);
         self.setState({ textboxvalue: undefined, selected: undefined }, function() {
-          if (self.props.onChange) self.props.onChange(items);
+          self._propagateChange(value);
           self._selectTextbox();
         });
       }
