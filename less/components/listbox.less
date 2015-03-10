@@ -1,0 +1,32 @@
+// --- Listbox
+.ui-control-listbox {
+  height: 150px;
+  overflow-y: auto;
+  display: inline-block;
+  min-width: 300px;
+  border: @controlBorder;
+  background-color: @colorBase;
+  
+  .ui-control-listitem {
+    line-height: 25px;
+    padding: 3px 8px 3px 8px;
+    cursor: default;
+  }
+}
+
+.ui-control-listbox.ui-control-selectable .ui-control-listitem:hover {
+  .selectableHover();
+}
+
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected,
+.ui-control-listbox.ui-control-selectable .ui-control-listitem.ui-control-selected:hover {
+  .selected();
+}
+
+.ui-control-listitem-complex {
+  border-bottom: 1px solid @colorBaseLight; 
+} 
+
+.ui-control-listitem-complex:last-child {
+  border: none;
+}

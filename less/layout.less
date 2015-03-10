@@ -1,0 +1,52 @@
+// --------------------------------------------------
+// Flexbox based layout elements
+// --------------------------------------------------
+.pbm-applayout-item-fixed(1);
+.pbm-applayout-item-fixed(2);
+.pbm-applayout-item-fixed(3);
+.pbm-applayout-item-fixed(4);
+.pbm-applayout-item-fixed(5);
+.pbm-applayout-item-fixed(6);
+.pbm-applayout-item-fixed(7);
+.pbm-applayout-item-fixed(8);
+.pbm-applayout-item-fixed(9);
+.pbm-applayout-item-fixed(10);
+
+.pbm-application {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	
+	overflow: hidden;
+}
+
+.pbm-applayout-none {
+  position: relative;
+}
+
+.pbm-applayout-vertical {
+	.flex-display;
+	.flex-flow(column nowrap);
+}
+
+.pbm-applayout-horizontal {
+	.flex-display;
+	.flex-flow(row nowrap);
+}
+
+.pbm-applayout-justify-start { .justify-content(flex-start) }
+.pbm-applayout-justify-end { .justify-content(flex-end) }
+.pbm-applayout-justify-center { .justify-content(center) }
+.pbm-applayout-justify-space-between { .justify-content(space-between) }
+.pbm-applayout-justify-space-around { .justify-content(space-around) }
+
+.pbm-applayout-alignitems-start { .align-items(@align: flex-start) }
+.pbm-applayout-alignitems-end { .align-items(@align: flex-end) }
+.pbm-applayout-alignitems-center { .align-items(@align: center) }
+.pbm-applayout-alignitems-stretch { .align-items(@align: stretch) }
+.pbm-applayout-alignitems-baseline { .align-items(@align: baseline) }
+
+.pbm-applayout-scroll {
+  overflow-y: auto;
+}

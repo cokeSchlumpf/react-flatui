@@ -1,0 +1,21 @@
+// --- Textbox
+.ui-control-textbox {
+  .default();
+  
+  line-height: 25px;
+  border: @controlBorder;
+  padding: 3px;
+}
+
+.ui-control-textbox-container {
+  border: @controlBorder;
+  
+  .ui-control-textbox {
+    border: none;
+  }
+}
+
+.ui-control-textbox:focus,
+.ui-control-textbox-container-focused {
+  border-color: @colorMainLight;
+}

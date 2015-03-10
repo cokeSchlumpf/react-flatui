@@ -1,0 +1,39 @@
+// --------------------------------------------------
+// Basic Styles
+// --------------------------------------------------
+
+// --- Import additional fonts.
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
+@import url(http://fonts.googleapis.com/css?family=Cabin:400,700,600);
+
+.small() {
+  font: 10pt "Open Sans", sans-serif;
+}
+
+.default() {
+  font: 12pt "Open Sans", sans-serif;
+}
+
+.base() {
+  background-color: @colorBase;
+  color: @colorBaseText;
+}
+
+.main() {
+  background-color: @colorMain;
+  color: @colorMainText;
+}
+
+.secondary() {
+  background-color: @colorSecondary;
+  color: @colorSecondaryText; 
+}
+
+html, body {
+  width: 100%;
+  height: 100px;
+  
+  color: @colorBaseText;
+  background-color: @colorBase;
+  .default();
+}

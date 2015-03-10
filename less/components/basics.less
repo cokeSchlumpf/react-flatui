@@ -1,0 +1,28 @@
+// --- Basics
+.ui-control-small {
+  .small();
+  color: @colorBaseHeavy;
+}
+
+.ui-control-info {
+  .small();
+  color: @colorMainLight;
+}
+
+.selected() {
+  .main();
+  
+  .ui-control-small {
+    color: @colorMainText !important;
+  }
+  
+  .ui-control-info {
+    color: @colorMainText !important;
+  }
+}
+
+.selectableHover() {
+  background-color: @colorBaseLight;
+}
+
+@controlBorder: 2px solid @colorBaseLight;

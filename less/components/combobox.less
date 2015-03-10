@@ -1,0 +1,43 @@
+// --- Combobox
+.ui-control-combobox {
+  .ui-control-button {
+    border: none;
+  }
+  
+  .ui-control-listbox {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;  
+    z-index: 100;
+    border-top: none;
+  }
+  
+  overflow-y: show;
+  
+  .ui-control-combobox-item {
+    line-height: 25px;
+    display: inline-block;
+    margin: 3px;    
+  }
+}
+
+.ui-control-combobox-multiselect {
+  .ui-control-combobox-item {
+    background-color: @colorMainLight;
+    color: @colorMainText;
+    .small();
+    padding: 2px 2px 2px 3px;
+    
+    .ui-control-combobox-item-remove {
+      border-left: 1px solid #fff;
+      margin: 0px 0px 0px 10px;
+      padding: 0px 5px 0px 5px;
+      cursor: default;
+    }  
+    
+    .ui-control-combobox-item-remove:hover {
+      background-color: @colorMain;
+    }
+  }
+}
