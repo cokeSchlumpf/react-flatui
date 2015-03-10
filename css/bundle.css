@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
-@import url(http://fonts.googleapis.com/css?family=Cabin:400,700,600);
+@import url(http://fonts.googleapis.com/css?family=PT+Mono);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,300);
 html,
 body,
 div,
@@ -373,20 +374,155 @@ html,
 body {
   width: 100%;
   height: 100px;
-  color: #333333;
   background-color: #ffffff;
-  font: 12pt "Open Sans", sans-serif;
+  color: #333333;
+  font: 14px "Open Sans", sans-serif;
+  line-height: 20px;
+}
+p {
+  margin: 0 0 10px;
+}
+.lead {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.1;
+  color: inherit;
+}
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small,
+h1 .small,
+h2 .small,
+h3 .small,
+h4 .small,
+h5 .small,
+h6 .small,
+.h1 .small,
+.h2 .small,
+.h3 .small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
+  color: #999999;
+}
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+h1 small,
+.h1 small,
+h2 small,
+.h2 small,
+h3 small,
+.h3 small,
+h1 .small,
+.h1 .small,
+h2 .small,
+.h2 .small,
+h3 .small,
+.h3 .small {
+  font-size: 65%;
+}
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+h4 small,
+.h4 small,
+h5 small,
+.h5 small,
+h6 small,
+.h6 small,
+h4 .small,
+.h4 .small,
+h5 .small,
+.h5 .small,
+h6 .small,
+.h6 .small {
+  font-size: 75%;
+}
+h1,
+.h1 {
+  font-size: 36px;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 10px;
+}
+h2,
+.h2 {
+  font-size: 30px;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 10px;
+}
+h3,
+.h3 {
+  font-size: 24px;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 10px;
+}
+h4,
+.h4 {
+  font-size: 18px;
+}
+h5,
+.h5 {
+  font-size: 14px;
+}
+h6,
+.h6 {
+  font-size: 12px;
+}
+abbr[data-original-title],
+abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted #999999;
 }
 .ui-control-small {
-  font: 10pt "Open Sans", sans-serif;
+  font: 12px "Open Sans", sans-serif;
   color: #999999;
 }
 .ui-control-info {
-  font: 10pt "Open Sans", sans-serif;
+  font: 12px "Open Sans", sans-serif;
   color: #9b59b6;
 }
 .ui-control-button {
-  font: 12pt "Open Sans", sans-serif;
+  color: #333333;
+  font: 14px "Open Sans", sans-serif;
   line-height: 25px;
   padding: 3px;
   border: 2px solid #dddddd;
@@ -448,7 +584,7 @@ body {
   font-size: 200%;
   top: -1px;
   left: 1px;
-  font-family: monospace;
+  font-family: "PT Mono", monospace;
 }
 .ui-control-checkbox input:checked + label:after,
 .ui-control-radio input:checked + label:after {
@@ -480,7 +616,7 @@ body {
 .ui-control-combobox-multiselect .ui-control-combobox-item {
   background-color: #9b59b6;
   color: #ffffff;
-  font: 10pt "Open Sans", sans-serif;
+  font: 12px "Open Sans", sans-serif;
   padding: 2px 2px 2px 3px;
 }
 .ui-control-combobox-multiselect .ui-control-combobox-item .ui-control-combobox-item-remove {
@@ -528,7 +664,9 @@ body {
   border: none;
 }
 .ui-control-textbox {
-  font: 12pt "Open Sans", sans-serif;
+  background-color: #ffffff;
+  color: #333333;
+  font: 14px "Open Sans", sans-serif;
   line-height: 25px;
   border: 2px solid #dddddd;
   padding: 3px;

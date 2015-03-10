@@ -1,23 +1,24 @@
 // --- Button
 .ui-control-button {
-  .default();
+  .base-colors();
+  font: @font-base;
   line-height: 25px;
   padding: 3px;
   
-  border: 2px solid @colorBaseLight;
-  background-color: @colorBase;
+  border: @control-border;
+  background-color: @color-base;
 }
 
 .ui-control-button:hover {
-  background-color: @colorBaseLight; 
+  background-color: @color-base-light; 
 }
 
 .ui-control-button[type="submit"] {
-  border-color: @colorMain;
-  background-color: @colorMainLight;
-  color: @colorMainText;  
+  border-color: @color-main;
+  background-color: @color-main-light;
+  color: @color-main-text;  
 }
 
 .ui-control-button[type="submit"]:hover {
-  background-color: @colorMain;
+  background-color: @color-main;
 }

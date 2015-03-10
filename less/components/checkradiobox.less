@@ -19,8 +19,8 @@
     left: 0px;
     width:17px;
     height:16px;
-    background: @colorBase;
-    border: @controlBorder;
+    background: @color-base;
+    border: @control-border;
   }
   
   input[type="radio"] + label span.ui-control-display-element {
@@ -33,7 +33,7 @@
     left: 6px;
     content: "x";
     font-weight: bold;
-    color: @colorBaseLight;
+    color: @color-base-light;
   }
   
   input[type="radio"] + label:hover:after,
@@ -42,11 +42,11 @@
     font-size: 200%;
     top: -1px;
     left: 1px;
-    font-family: monospace;
+    font-family: @font-family-monospace;
   }
   
   input:checked + label:after {
-    color: @colorMain;
+    color: @color-main;
   }
   
   span {

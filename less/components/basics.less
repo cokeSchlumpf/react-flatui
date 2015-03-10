@@ -1,28 +1,28 @@
 // --- Basics
 .ui-control-small {
-  .small();
-  color: @colorBaseHeavy;
+  font:   @font-small;
+  color:  @color-base-heavy;
 }
 
 .ui-control-info {
-  .small();
-  color: @colorMainLight;
+  font:   @font-small;
+  color:  @color-main-light;
 }
 
 .selected() {
-  .main();
+  .main-colors();
   
   .ui-control-small {
-    color: @colorMainText !important;
+    color: @color-main-text !important;
   }
   
   .ui-control-info {
-    color: @colorMainText !important;
+    color: @color-main-text !important;
   }
 }
 
 .selectableHover() {
-  background-color: @colorBaseLight;
+  background-color: @color-base-light;
 }
 
-@controlBorder: 2px solid @colorBaseLight;
+@control-border: 2px solid @color-base-light;
