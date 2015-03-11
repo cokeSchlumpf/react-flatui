@@ -13,26 +13,27 @@ App.Formfield = require("./components/formfield");
 App.Fieldset = require("./components/fieldset");
 
 /*
-  Allow Seperators in Listbox.
+[ ] Allow Seperators in Listbox.
   
- ...field
- Form
- FieldGroup
- DropdownButton
- ToggleButton
- Validators?
+[x] ...field
+[x] Form
+[x] FieldGroup
+[x] Check-/ Radiobox-Group
+[ ] DropdownButton
+[ ] ToggleButton
+[ ] Validators? (Validate Textfield onBlur - No change will be emitted onChange, only after successfull validation)
  
- Table
- TreeTable
+[ ] Table
+[ ] TreeTable
  
- Progressbar
- Slider (Range)
+[ ] Progressbar
+[ ] Slider (Range)
  
- Date Picker
- Time Picker
- Tabs
+[ ] Date Picker
+[ ] Time Picker
+[ ] Tabs
  
- File Upload?
+[ ] File Upload?
  */
  
 
