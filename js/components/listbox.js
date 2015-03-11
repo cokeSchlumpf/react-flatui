@@ -169,7 +169,6 @@ module.exports = React.createClass({
             data[key].selected = false;
           }
         });
-        
         this.props.onChange(data, value);
       }
     },
