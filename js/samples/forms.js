@@ -34,9 +34,9 @@ module.exports = React.createClass({
               <App.Formfield name="firstName" element={ App.Textbox } size="auto" label="First Name" />
               <App.Formfield name="lastName" element={ App.Textbox } size="auto" label="Last Name" />
 
-              <App.Fieldset label="Additional information" border={ false } name="additional">
-                <App.Formfield name="age" element={ App.Textbox } size="auto" label="Age" />
-                <App.Formfield name="sex" element={ App.Combobox } size="auto" label="Sex" />
+              <App.Fieldset label="Additional information" border={ true } name="additional" layout="horizontal">
+                <App.Formfield name="age" element={ App.Textbox } orientation="vertical" label="Age" />
+                <App.Formfield name="sex" element={ App.Combobox } orientation="vertical" label="Sex" />
               </App.Fieldset>
             </App.Form>
             

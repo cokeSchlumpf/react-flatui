@@ -138,7 +138,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-2 {
   -webkit-flex-grow: 2;
@@ -153,7 +153,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-3 {
   -webkit-flex-grow: 3;
@@ -168,7 +168,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-4 {
   -webkit-flex-grow: 4;
@@ -183,7 +183,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-5 {
   -webkit-flex-grow: 5;
@@ -198,7 +198,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-6 {
   -webkit-flex-grow: 6;
@@ -213,7 +213,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-7 {
   -webkit-flex-grow: 7;
@@ -228,7 +228,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-8 {
   -webkit-flex-grow: 8;
@@ -243,7 +243,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-9 {
   -webkit-flex-grow: 9;
@@ -258,7 +258,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-applayout-item-fixed-10 {
   -webkit-flex-grow: 10;
@@ -273,7 +273,7 @@ table {
   -moz-flex-basis: 0;
   -ms-flex-basis: 0;
   flex-basis: 0;
-  overflow: hidden;
+  overflow: show;
 }
 .pbm-application {
   width: 100%;
@@ -611,6 +611,7 @@ abbr[title] {
 }
 .ui-control-combobox .ui-control-button {
   border: none;
+  line-height: 23px;
 }
 .ui-control-combobox .ui-control-listbox {
   position: absolute;
@@ -688,6 +689,7 @@ abbr[title] {
 }
 .ui-control-textbox-container .ui-control-textbox {
   border: none;
+  height: 25px !important;
 }
 .ui-control-textbox:focus,
 .ui-control-textbox-container-focused {
@@ -716,6 +718,12 @@ abbr[title] {
   background-color: #cc0000;
   color: #ffffff;
   padding: 1px 5px 3px 5px;
+}
+.pbm-applayout-horizontal > .ui-controlgroup {
+  margin-right: 20px;
+}
+.pbm-applayout-horizontal > .ui-controlgroup:last-child {
+  margin-right: 0;
 }
 .ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   position: relative;

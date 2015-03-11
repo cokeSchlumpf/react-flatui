@@ -1,5 +1,7 @@
 var React = require("react/addons");
-var options = require("./base").options;
+var base = require("./base");
+var options = base.options;
+var App = base.App;
 var objectAssign = require('object-assign');
 var abstract = require("./_abstractFormContainer");
 
@@ -16,7 +18,7 @@ module.exports = React.createClass(objectAssign({}, abstract, {
     },
     
     render: function() {
-      var { className, label, onChange, ...other } = this.props;
+      var { className, label, onChange, layout, ...other } = this.props;
       
       return (
           <fieldset className={ this._getClassName() } { ...other }>
@@ -24,7 +26,9 @@ module.exports = React.createClass(objectAssign({}, abstract, {
               <legend>{ label }</legend>
             }
             
-            { this._modifyChildren() }
+            <App.Panel layout={ layout } style={{ height: "auto" }}>
+              { this._modifyChildren() }
+            </App.Panel>
           </fieldset>
         );
     },
