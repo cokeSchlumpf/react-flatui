@@ -174,7 +174,7 @@ module.exports = React.createClass({
                     { this._renderDownButton() }
                   </Textbox>
                 :
-                  <App.Panel className="ui-control-textbox-container" layout="horizontal" align="stretch">
+                  <App.Panel className="ui-control-textbox-container-inner" layout="horizontal" align="stretch">
                     <App.Panel ratio="1" onClick={ this._handleButtonClick } layout="horizontal" justify="start" align="center">
                       { values }
                     </App.Panel>

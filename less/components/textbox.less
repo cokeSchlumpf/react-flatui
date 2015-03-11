@@ -7,7 +7,7 @@
   padding: 3px;
 }
 
-.ui-control-textbox-container {
+.ui-control-textbox-container-inner {
   border: @control-border;
   
   .ui-control-textbox {
@@ -26,4 +26,19 @@
 .ui-control-textbox:focus.ui-control-error,
 .ui-control-textbox-container-focused.ui-control-error {
   border-color: @color-error;
+}
+
+.ui-control-textbox-container {
+  
+  position: relative;
+  
+  .ui-control-listbox {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;  
+    z-index: 100;
+    border-top: none;
+  }
+  
 }

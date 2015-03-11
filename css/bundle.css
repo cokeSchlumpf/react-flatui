@@ -685,10 +685,10 @@ abbr[title] {
   border: 2px solid #dddddd;
   padding: 3px;
 }
-.ui-control-textbox-container {
+.ui-control-textbox-container-inner {
   border: 2px solid #dddddd;
 }
-.ui-control-textbox-container .ui-control-textbox {
+.ui-control-textbox-container-inner .ui-control-textbox {
   border: none;
   height: 25px !important;
 }
@@ -702,6 +702,17 @@ abbr[title] {
 .ui-control-textbox-container-focused.ui-control-error {
   border-color: #cc0000;
 }
+.ui-control-textbox-container {
+  position: relative;
+}
+.ui-control-textbox-container .ui-control-listbox {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-top: none;
+}
 .ui-controlgroup {
   margin-bottom: 20px;
   overflow-y: visible;
@@ -709,16 +720,18 @@ abbr[title] {
 .ui-controlgroup div {
   overflow: visible !important;
 }
-.ui-controlgroup > label {
+.ui-controlgroup > .ui-controlgroup-label > label {
   display: block;
   padding: 5px 0;
-  line-height: 25px;
 }
 .ui-controlgroup .ui-controlgroup-errortext {
   display: block;
   background-color: #cc0000;
   color: #ffffff;
   padding: 1px 5px 3px 5px;
+}
+.ui-controlgroup-horizontal > .ui-controlgroup-label > label {
+  line-height: 25px;
 }
 .pbm-applayout-horizontal > .ui-controlgroup {
   margin-right: 20px;
@@ -727,7 +740,7 @@ abbr[title] {
   margin-right: 0;
 }
 .ui-controlgroup.pbm-applayout-vertical > .ui-controlgroup-label {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   position: relative;

@@ -7,10 +7,9 @@
     overflow: visible !important; // To allow listbox for comboboxes...
   }
   
-  > label {
+  > .ui-controlgroup-label > label {
     display: block;
-    padding: 5px 0;
-    line-height: 25px;    
+    padding: 5px 0;  
   }
   
   .ui-controlgroup-errortext {
@@ -19,6 +18,10 @@
     color: @color-error-text;
     padding: 1px 5px 3px 5px;
   }
+}
+
+.ui-controlgroup-horizontal > .ui-controlgroup-label > label {
+  line-height: 25px; 
 }
 
 .pbm-applayout-horizontal > .ui-controlgroup {
@@ -30,5 +33,5 @@
 }
 
 .ui-controlgroup.pbm-applayout-vertical > .ui-controlgroup-label {
-  margin-bottom: (@line-height-base / 2);
+  margin-bottom: 5px;
 }

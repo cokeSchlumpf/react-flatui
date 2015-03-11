@@ -36,7 +36,7 @@ module.exports = React.createClass({
               </p>
             </App.Panel>
             <App.Form value={ this.state.value } onChange={ this._handleFormChange } layout="vertical" justify="start" style={{ height: "auto" }}>
-              <App.Formfield name="firstName" element={ App.Textbox } size="auto" label="First Name" />
+              <App.Formfield name="firstName" element={ App.Textbox } size="auto" label="First Name" autocompleteList={ [ "Mario", "Michi", "Karla", "Gert" ] } autocompleteMode="contains" />
               <App.Formfield name="lastName" element={ App.Textbox } size="auto" label="Last Name" />
 
               <App.Fieldset label="Additional information" border={ true } name="additional" layout="horizontal">
