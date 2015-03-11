@@ -19,7 +19,7 @@ App.Selectgroup = require("./components/selectgroup");
 [x] ...field
 [x] Form
 [x] FieldGroup
-[ ] Check-/ Radiobox-Group
+[x] Check-/ Radiobox-Group
 [ ] Autocomplete Field
 [ ] DropdownButton
 [ ] ToggleButton
