@@ -24,7 +24,8 @@ App.Selectgroup = require("./components/selectgroup");
 [ ] DropdownButton
 [ ] ToggleButton
 [ ] Validators? (Validate Textfield onBlur - No change will be emitted onChange, only after successfull validation)
- 
+[ ] Tabs
+
 [ ] Table
 [ ] TreeTable
 [ ] Popup (right click)
@@ -34,7 +35,6 @@ App.Selectgroup = require("./components/selectgroup");
  
 [ ] Date Picker
 [ ] Time Picker
-[ ] Tabs
  
 [ ] File Upload?
  */
