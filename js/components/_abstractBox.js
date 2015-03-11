@@ -7,18 +7,20 @@ module.exports = function(type) {
         caption: React.PropTypes.string,
         name: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
+        selected: React.PropTypes.bool
       },
       
       getDefaultProps: function() {
         return {
+          selected: false,
           value: "Check me!",
           onChange: function(checked, value) { console.log(value + ": " + checked); }
         };
       },
       
       render: function() {
-        var { onChange, className, ...other } = this.props;
+        var { onChange, className, selected, ...other } = this.props;
         var cx = React.addons.classSet;
         
         /** assemble class name */
@@ -28,6 +30,10 @@ module.exports = function(type) {
   
         classes["ui-control-" + type] = true;
         if (className) { classes[className] = true; }
+        
+        if (selected) {
+          other["checked"] = "checked";
+        }
         
         return (
             <div className={ cx(classes) }>

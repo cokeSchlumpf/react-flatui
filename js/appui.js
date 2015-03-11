@@ -11,20 +11,23 @@ App.Listbox = require("./components/listbox");
 App.Form = require("./components/form");
 App.Formfield = require("./components/formfield");
 App.Fieldset = require("./components/fieldset");
+App.Selectgroup = require("./components/selectgroup");
 
 /*
-[ ] Allow Seperators in Listbox.
+[ ] Allow Seperators in Listbox / Group By
   
 [x] ...field
 [x] Form
 [x] FieldGroup
-[x] Check-/ Radiobox-Group
+[ ] Check-/ Radiobox-Group
+[ ] Autocomplete Field
 [ ] DropdownButton
 [ ] ToggleButton
 [ ] Validators? (Validate Textfield onBlur - No change will be emitted onChange, only after successfull validation)
  
 [ ] Table
 [ ] TreeTable
+[ ] Popup (right click)
  
 [ ] Progressbar
 [ ] Slider (Range)

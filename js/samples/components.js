@@ -48,9 +48,9 @@ module.exports = React.createClass({
           <App.Panel position="top" />
           <App.Panel position="left" />
           <App.Panel position="center" style={ { margin: "10px" } } scrollable="true">
-            <App.Combobox name="textCombo" data={ combodata } onChange={ this._onComboboxChange } />
+            <App.Combobox name="textCombo" value={ combodata } onChange={ this._onComboboxChange } />
             <br /><br />
-            <App.Combobox name="textComboMultiple" data={ combodataMultiple } multiselect={ true } onChange={ this._onComboboxMultipleChange } />
+            <App.Combobox name="textComboMultiple" value={ combodataMultiple } multiselect={ true } onChange={ this._onComboboxMultipleChange } />
             <br /><br />
             <App.Textbox name="textTest" defaultValue="Hallooo!" />
             <App.Checkbox name="checkTest" value="Klick mich!" caption="Lorem ipsum dolor" />
@@ -61,7 +61,7 @@ module.exports = React.createClass({
             </App.Button>
             <App.Button caption="Submit!" type="submit" />
             <App.Textbox name="textTest" value="Halloooo!" rows={ 5 } />
-            <App.Listbox name="testList" onChange={ this._onListboxChange } data={ this.state.listdata } multiselect={ true } />
+            <App.Listbox name="testList" onChange={ this._onListboxChange } value={ this.state.listdata } multiselect={ true } />
           </App.Panel>
         </App>
       );
@@ -80,25 +80,11 @@ module.exports = React.createClass({
   },
   
   _onComboboxChange: function(value) {
-      var self = this;
-      console.log(value);
-      
-      Object.keys(combodata).forEach(function(item) {
-          combodata[item].selected = value.indexOf(item) > -1
-      });
-      
-      this.setState({ combo: combodata });
+      this.setState({ combo: value });
   },
   
   _onComboboxMultipleChange: function(value) {
-      var self = this;
-      console.log(value);
-      
-      Object.keys(combodataMultiple).forEach(function(item) {
-          combodataMultiple[item].selected = value.indexOf(item) > -1
-      });
-      
-      this.setState({ multiple: combodataMultiple });
+      this.setState({ multiple: value });
   },
   
   _onButtonClick: function(value) {
