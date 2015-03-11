@@ -10,8 +10,11 @@ App.Button = require("./components/button");
 App.Listbox = require("./components/listbox");
 App.Form = require("./components/form");
 App.Formfield = require("./components/formfield");
+App.Fieldset = require("./components/fieldset");
 
 /*
+  Allow Seperators in Listbox.
+  
  ...field
  Form
  FieldGroup

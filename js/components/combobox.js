@@ -40,6 +40,11 @@ module.exports = React.createClass({
     
     getDefaultProps: function() {
       return {
+        value: { 
+          1: { title: "A" },
+          2: { title: "B" },
+          3: { title: "C" }
+        },
         multiselect: false,
         onChange: function(newValue) { console.log(newValue); }
       };

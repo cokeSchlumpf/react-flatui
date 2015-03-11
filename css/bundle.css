@@ -404,7 +404,8 @@ h6,
 .h3,
 .h4,
 .h5,
-.h6 {
+.h6,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   font-family: inherit;
   font-weight: 400;
   line-height: 1.1;
@@ -433,7 +434,9 @@ h6 .small,
 .h3 .small,
 .h4 .small,
 .h5 .small,
-.h6 .small {
+.h6 .small,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend small,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend .small {
   color: #999999;
 }
 h1,
@@ -464,7 +467,8 @@ h4,
 h5,
 .h5,
 h6,
-.h6 {
+.h6,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -479,7 +483,9 @@ h4 .small,
 h5 .small,
 .h5 .small,
 h6 .small,
-.h6 .small {
+.h6 .small,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend small,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend .small {
   font-size: 75%;
 }
 h1,
@@ -501,7 +507,8 @@ h3,
   padding-bottom: 10px;
 }
 h4,
-.h4 {
+.h4,
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   font-size: 18px;
 }
 h5,
@@ -709,6 +716,30 @@ abbr[title] {
   background-color: #cc0000;
   color: #ffffff;
   padding: 1px 5px 3px 5px;
+}
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.ui-control-fieldset-hasborder {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.ui-control-fieldset-hasborder.ui-control-fieldset-haslabel {
+  margin-top: 10px;
+  padding-top: 20px;
+  position: relative;
+  overflow: visible;
+}
+.ui-control-fieldset-hasborder.ui-control-fieldset-haslabel legend {
+  position: absolute;
+  display: block;
+  top: -10px;
+  left: 10px;
+  padding: 0 5px;
+  background-color: #ffffff;
 }
 html,
 body {

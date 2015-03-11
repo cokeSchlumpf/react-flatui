@@ -5,13 +5,15 @@ module.exports = React.createClass({
   
   getInitialState: function() {
     return {
-      data: {
+      value: {
         lastName: "Horst",
         firstName: "Michael",
-        age: "12",
-        sex: {
-          1: { title: "male", selected: true },
-          2: { title: "female" }
+        additional: {
+          age: "12",
+          sex: {
+            1: { title: "male", selected: true },
+            2: { title: "female" }
+          }
         }
       }
     };
@@ -28,12 +30,14 @@ module.exports = React.createClass({
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
               </p>
             </App.Panel>
-            <App.Form data={ this.state.data } onChange={ this._handleFormChange } layout="vertical" justify="start" style={{ height: "auto" }}>
-              <App.Formfield name="sex" element={ App.Combobox } size="auto" label="Sex" />
+            <App.Form value={ this.state.value } onChange={ this._handleFormChange } layout="vertical" justify="start" style={{ height: "auto" }}>
               <App.Formfield name="firstName" element={ App.Textbox } size="auto" label="First Name" />
               <App.Formfield name="lastName" element={ App.Textbox } size="auto" label="Last Name" />
 
-              <App.Formfield name="age" element={ App.Textbox } size="auto" label="Age" />
+              <App.Fieldset label="Additional information" border={ false } name="additional">
+                <App.Formfield name="age" element={ App.Textbox } size="auto" label="Age" />
+                <App.Formfield name="sex" element={ App.Combobox } size="auto" label="Sex" />
+              </App.Fieldset>
             </App.Form>
             
             
@@ -45,6 +49,6 @@ module.exports = React.createClass({
   
   _handleFormChange: function(data) {
     console.log(data);
-    this.setState({ data: data });
+    this.setState({ value: data });
   }
 });

@@ -1,0 +1,32 @@
+// --- Fieldset
+.ui-control-fieldset:not(.ui-control-fieldset-hasborder) {
+  legend {
+    position: relative;
+    display: block;
+    width: 100%;
+    &:extend(.h4 all);
+  }
+}
+
+.ui-control-fieldset-hasborder {
+  border: 1px solid @color-base-light;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.ui-control-fieldset-hasborder.ui-control-fieldset-haslabel {
+  margin-top: 10px;
+  padding-top: 20px;
+  
+  position: relative;
+  overflow: visible;
+  
+  legend {
+    position: absolute;
+    display: block;
+    top: -10px;
+    left: 10px;
+    padding: 0 5px;
+    background-color: @color-base;
+  }
+}
