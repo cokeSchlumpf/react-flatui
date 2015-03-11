@@ -583,7 +583,8 @@ abbr[title] {
 .ui-control-checkbox input:checked + label:after,
 .ui-control-radio input:checked + label:after {
   position: absolute;
-  left: 6px;
+  left: 7px;
+  top: 2px;
   content: "x";
   font-weight: bold;
   color: #dddddd;
@@ -594,8 +595,8 @@ abbr[title] {
 .ui-control-radio input[type="radio"]:checked + label:after {
   content: "\2022";
   font-size: 200%;
-  top: -1px;
-  left: 1px;
+  top: 3px;
+  left: 2.5px;
   font-family: "PT Mono", monospace;
 }
 .ui-control-checkbox input:checked + label:after,
@@ -708,7 +709,7 @@ abbr[title] {
 .ui-controlgroup div {
   overflow: visible !important;
 }
-.ui-controlgroup label {
+.ui-controlgroup > label {
   display: block;
   padding: 5px 0;
   line-height: 25px;
@@ -724,6 +725,9 @@ abbr[title] {
 }
 .pbm-applayout-horizontal > .ui-controlgroup:last-child {
   margin-right: 0;
+}
+.ui-controlgroup.pbm-applayout-vertical > .ui-controlgroup-label {
+  margin-bottom: 10px;
 }
 .ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   position: relative;
@@ -748,6 +752,9 @@ abbr[title] {
   left: 10px;
   padding: 0 5px;
   background-color: #ffffff;
+}
+.ui-selectgroup {
+  margin-top: -3px;
 }
 html,
 body {

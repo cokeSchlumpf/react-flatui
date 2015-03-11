@@ -3,6 +3,7 @@ var base = require("./base");
 var Checkbox = require("./checkbox");
 var Radiobox = require("./radiobox");
 var App = base.App;
+var objectAssign = require('object-assign');
 
 module.exports = React.createClass({
     propTypes: {
@@ -28,7 +29,7 @@ module.exports = React.createClass({
       
       keys.forEach(function(key) {
         var id = "id-" + key;
-        items[id] = <Box value={ key } name={ name + "." + id } caption={ value[key].title } selected={ value[key].selected } onChange={ self._onChangeHandler } />
+        items[id] = <Box value={ key } name={ multiselect ? name + "." + id : name } id={ id } caption={ value[key].title } selected={ value[key].selected } onChange={ self._onChangeHandler } />
       });
       
       return (
@@ -43,7 +44,7 @@ module.exports = React.createClass({
         cx = React.addons.classSet,
         className = this.props.className,
         classes = {
-          "ui-controlgroup": true
+          "ui-selectgroup": true
         };
         
       if (className) { classes[className] = true; }
@@ -52,6 +53,19 @@ module.exports = React.createClass({
     },
     
     _onChangeHandler: function(selected, value) {
-      this.props.onChange(event.target.value);
+      var 
+        self = this,
+        newvalue = objectAssign({}, this.props.value),
+        keys = Object.keys(newvalue);
+        
+      keys.forEach(function(key) {
+        if (key == value) {
+          newvalue[key].selected = selected;
+        } else if (!self.props.multiselect) {
+          newvalue[key].selected = false;
+        }
+      });
+      
+      if (this.props.onChange) this.props.onChange(newvalue);
     }
   })

@@ -7,7 +7,7 @@
     overflow: visible !important; // To allow listbox for comboboxes...
   }
   
-  label {
+  > label {
     display: block;
     padding: 5px 0;
     line-height: 25px;    
@@ -27,4 +27,8 @@
 
 .pbm-applayout-horizontal > .ui-controlgroup:last-child {
   margin-right: 0;  
+}
+
+.ui-controlgroup.pbm-applayout-vertical > .ui-controlgroup-label {
+  margin-bottom: (@line-height-base / 2);
 }

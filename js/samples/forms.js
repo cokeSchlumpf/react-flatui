@@ -15,7 +15,7 @@ module.exports = React.createClass({
             2: { title: "female" }
           },
           hobbies: {
-            1: { title: "Fussball", selected: true },
+            1: { title: "Fussball" },
             2: { title: "Tennis" },
             3: { title: "Badminton" }
           }
@@ -42,7 +42,7 @@ module.exports = React.createClass({
               <App.Fieldset label="Additional information" border={ true } name="additional" layout="horizontal">
                 <App.Formfield name="age" element={ App.Textbox } orientation="vertical" label="Age" />
                 <App.Formfield name="sex" element={ App.Combobox } orientation="vertical" label="Sex" />
-                <App.Formfield name="hobbies" element={ App.Selectgroup } orientation="vertical" label="Hobbies" />
+                <App.Formfield name="hobbies" element={ App.Selectgroup } orientation="vertical" label="Hobbies" multiselect={ false } />
               </App.Fieldset>
             </App.Form>
             
