@@ -7,6 +7,30 @@ var menu = <App.Menu size="auto">
     <App.Menu.Separator />
     <App.Button label="Unterstrichen" />
   </App.Menu>
+  
+var table = {
+  columns: {
+    id:       { label: "#" },
+    team:     { label: "Team" },
+    games:    { label: "Games" },
+    plus:     { label: "+" },
+    minus:    { label: "-" },
+    diff:     { label: "Diff."},
+    points:   { label: "Points" }
+  },
+  
+  value: {
+    1: { id: 1, team: "FC Bayern München", games: 10, plus: 28, minus: 3, diff: 25, points: 27 },
+    2: { id: 2, team: "Borussia Dortmund", games: 10, plus: 21, minus: 8, diff: 13, points: 25 },
+    3: { id: 3, team: "VfB Stuttgart", games: 10, plus: 10, minus: 39, diff: -29, points: 8 },
+    4: { id: 1, team: "SC Freiburg", games: 10, plus: 28, minus: 3, diff: 25, points: 27 },
+    5: { id: 2, team: "Vfl Wolfsburg", games: 10, plus: 21, minus: 8, diff: 13, points: 25 },
+    6: { id: 3, team: "Hamburger SV", games: 10, plus: 10, minus: 39, diff: -29, points: 8 },
+    7: { id: 1, team: "TSG Hoffenheim", games: 10, plus: 28, minus: 3, diff: 25, points: 27 },
+    8: { id: 2, team: "1. FC Köln", games: 10, plus: 21, minus: 8, diff: 13, points: 25 },
+    9: { id: 3, team: "SC Paderborn", games: 10, plus: 10, minus: 39, diff: -29, points: 8 },
+  }
+}
 
 module.exports = React.createClass({
   
@@ -47,7 +71,7 @@ module.exports = React.createClass({
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
               </p>
             </App.Panel>
-            <App.Form value={ this.state.value } onChange={ this._handleFormChange } layout="vertical" justify="start" style={{ height: "auto" }}>
+            <App.Form value={ this.state.value } onChange={ this._handleFormChange } layout="vertical" justify="start" style={{ height: "auto" }} size="auto">
               <App.Formfield name="firstName" element={ App.Textbox } size="auto" label="First Name" autocompleteList={ [ "Mario", "Michi", "Karla", "Gert" ] } autocompleteMode="contains" />
               <App.Formfield name="lastName" element={ App.Textbox } size="auto" label="Last Name" />
 
@@ -60,9 +84,8 @@ module.exports = React.createClass({
               <App.Fieldset layout="horizontal" border={ false } justify="start" size="auto" name="buttons">
                 <App.Button label="Select" name="fonts" size={ 300 } dropdown={ menu } />
               </App.Fieldset>
-              <div>
-              Hallo
-              </div>
+
+              <App.Table columns={ table.columns } value={ table.value } />
             </App.Form>
             
             

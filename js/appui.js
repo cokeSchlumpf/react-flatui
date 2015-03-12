@@ -13,6 +13,7 @@ App.Formfield = require("./components/formfield");
 App.Fieldset = require("./components/fieldset");
 App.Selectgroup = require("./components/selectgroup");
 App.Menu = require("./components/menu");
+App.Table = require("./components/table");
 
 /*
 [ ] Allow Seperators in Listbox / Group By
@@ -29,7 +30,8 @@ App.Menu = require("./components/menu");
 
 [ ] Table
 [ ] TreeTable
-[ ] Popup (right click)
+[x] Popup (right click) - Just show up a menu on right click...
+[ ] Dialogs/ MsgBox
  
 [ ] Progressbar
 [ ] Slider (Range)
