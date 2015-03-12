@@ -228,7 +228,8 @@ module.exports = React.createClass({
         className = this.props.className,
         classes = {
           "ui-control": true,
-          "ui-control-table": true
+          "ui-control-table": true,
+          "ui-control-table-selectable": this.props.onChange
         };
         
       if (className) { classes[className] = true; }
