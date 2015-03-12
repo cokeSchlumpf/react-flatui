@@ -22,8 +22,8 @@ App.Menu = require("./components/menu");
 [x] FieldGroup
 [x] Check-/ Radiobox-Group
 [x] Autocomplete Field
-[ ] DropdownButton
-[ ] ToggleButton
+[x] DropdownButton
+[x] ToggleButton
 [ ] Validators? (Validate Textfield onBlur - No change will be emitted onChange, only after successfull validation)
 [ ] Tabs
 
