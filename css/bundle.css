@@ -862,6 +862,9 @@ abbr[title] {
 .ui-control-table .ui-control-table-header .ui-control-table-header-menu {
   min-width: 20px;
 }
+.ui-control-table .ui-control-table-row {
+  cursor: default;
+}
 .ui-control-table .ui-control-table-row .ui-control-table-row-menu {
   min-width: 20px;
 }
@@ -870,6 +873,17 @@ abbr[title] {
 }
 .ui-control-table .ui-control-table-row-even {
   background-color: #eee;
+}
+.ui-control-table .ui-control-table-row-selected {
+  background-color: #8e44ad;
+  color: #ffffff;
+}
+.ui-control-table-selectable .ui-control-table-row:hover {
+  background-color: #dddddd;
+}
+.ui-control-table-selectable .ui-control-table-row-selected:hover {
+  background-color: #8e44ad;
+  color: #ffffff;
 }
 .ui-form > .ui-control-table,
 .ui-control-fieldset > .ui-control-table {

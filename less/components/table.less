@@ -29,6 +29,8 @@
   }
   
   .ui-control-table-row {
+    cursor: default;
+    
     .ui-control-table-row-menu {
       min-width: 20px;
     }
@@ -41,11 +43,21 @@
   .ui-control-table-row-even {
     background-color: #eee;
   }
+  
+  .ui-control-table-row-selected {
+    background-color: @color-main;
+    color: @color-main-text;
+  }
 }
 
 .ui-control-table-selectable {
   .ui-control-table-row:hover {
     background-color: @color-base-light;
+  }
+  
+  .ui-control-table-row-selected:hover {
+    background-color: @color-main;
+    color: @color-main-text;
   }
 }
 

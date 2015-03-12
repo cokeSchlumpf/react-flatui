@@ -4,6 +4,7 @@ var base = require("./base");
 var options = base.options;
 var App = base.App;
 var Button = require("./button");
+var objectAssign = require('object-assign');
 
 var ColumnHeader = React.createClass({
     propTypes: {
@@ -115,14 +116,16 @@ var Cell = React.createClass({
 var Row = React.createClass({
     propTypes: {
       columns: React.PropTypes.object.isRequired,
-      isEvenRow: React.PropTypes.object.isRequired,
-      row: React.PropTypes.number.isRequired,
+      isEvenRow: React.PropTypes.bool.isRequired,
+      row: React.PropTypes.string.isRequired,
+      selected: React.PropTypes.bool,
       value: React.PropTypes.object.isRequired
     },
     
     getDefaultProps: function() {
       return {
-        isEvenRow: false
+        isEvenRow: false,
+        selected: false
       }
     },
     
@@ -165,7 +168,8 @@ var Row = React.createClass({
         classes = {
           "ui-control": true,
           "ui-control-table-row": true,
-          "ui-control-table-row-even": this.props.isEvenRow
+          "ui-control-table-row-even": this.props.isEvenRow,
+          "ui-control-table-row-selected": this.props.selected
         };
         
       if (className) { classes[className] = true; }      
@@ -203,7 +207,7 @@ module.exports = React.createClass({
       keys.forEach(function(key) {
         var id = self._getRowId(key);
         even = !even;
-        result[id] = <Row value={ value[key] } columns={ columns } row={ key } isEvenRow={ even } size="auto" />
+        result[id] = <Row columns={ columns } row={ key } isEvenRow={ even } size="auto" { ...value[key] } onClick={ self._handleRowClick(key) }/>
       });
       
       return result;
@@ -229,7 +233,7 @@ module.exports = React.createClass({
         classes = {
           "ui-control": true,
           "ui-control-table": true,
-          "ui-control-table-selectable": this.props.onChange
+          "ui-control-table-selectable": this.props.onChange != undefined
         };
         
       if (className) { classes[className] = true; }
@@ -237,7 +241,26 @@ module.exports = React.createClass({
       return cx(classes);
     },
     
-    _onChangeHandler: function(event) {
-      this.props.onChange(event.target.value);
+    _handleRowClick: function(key) {
+      var 
+        self = this,
+        keys = Object.keys(this.props.value);
+      
+      return function() {
+
+        if (self.props.onChange) {
+          var data = objectAssign({}, self.props.value);
+          
+          if (self.props.multiselect) {
+            data[key].selected = !data[key].selected;  
+          } else {
+            keys.forEach(function(k) {
+              data[k].selected = k === key && !data[key].selected;
+            });
+          }
+          
+          self.props.onChange(data, key, data[key].selected);
+        }
+      };
     }
   });

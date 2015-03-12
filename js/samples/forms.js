@@ -10,7 +10,7 @@ var menu = <App.Menu size="auto">
   
 var table = {
   columns: {
-    id:       { label: "#" },
+    id:       { label: "#", size: 50 },
     team:     { label: "Team" },
     games:    { label: "Games" },
     plus:     { label: "+" },
@@ -20,15 +20,15 @@ var table = {
   },
   
   value: {
-    1: { id: 1, team: "FC Bayern München", games: 10, plus: 28, minus: 3, diff: 25, points: 27 },
-    2: { id: 2, team: "Borussia Dortmund", games: 10, plus: 21, minus: 8, diff: 13, points: 25 },
-    3: { id: 3, team: "VfB Stuttgart", games: 10, plus: 10, minus: 39, diff: -29, points: 8 },
-    4: { id: 1, team: "SC Freiburg", games: 10, plus: 28, minus: 3, diff: 25, points: 27 },
-    5: { id: 2, team: "Vfl Wolfsburg", games: 10, plus: 21, minus: 8, diff: 13, points: 25 },
-    6: { id: 3, team: "Hamburger SV", games: 10, plus: 10, minus: 39, diff: -29, points: 8 },
-    7: { id: 1, team: "TSG Hoffenheim", games: 10, plus: 28, minus: 3, diff: 25, points: 27 },
-    8: { id: 2, team: "1. FC Köln", games: 10, plus: 21, minus: 8, diff: 13, points: 25 },
-    9: { id: 3, team: "SC Paderborn", games: 10, plus: 10, minus: 39, diff: -29, points: 8 },
+    1: { value: { id: 1, team: "FC Bayern München", games: 10, plus: 28, minus: 3, diff: 25, points: 27 }, className: "", selected: false },
+    2: { value: { id: 2, team: "Borussia Dortmund", games: 10, plus: 21, minus: 8, diff: 13, points: 25 }, className: "", selected: false },
+    3: { value: { id: 3, team: "VfB Stuttgart", games: 10, plus: 10, minus: 39, diff: -29, points: 8 }, className: "", selected: false },
+    4: { value: { id: 1, team: "SC Freiburg", games: 10, plus: 28, minus: 3, diff: 25, points: 27 }, className: "", selected: false },
+    5: { value: { id: 2, team: "Vfl Wolfsburg", games: 10, plus: 21, minus: 8, diff: 13, points: 25 }, className: "", selected: true },
+    6: { value: { id: 3, team: "Hamburger SV", games: 10, plus: 10, minus: 39, diff: -29, points: 8 }, className: "", selected: false },
+    7: { value: { id: 1, team: "TSG Hoffenheim", games: 10, plus: 28, minus: 3, diff: 25, points: 27 }, className: "", selected: false },
+    8: { value: { id: 2, team: "1. FC Köln", games: 10, plus: 21, minus: 8, diff: 13, points: 25 }, className: "", selected: false },
+    9: { value: { id: 3, team: "SC Paderborn", games: 10, plus: 10, minus: 39, diff: -29, points: 8 }, className: "", selected: false }
   }
 }
 
@@ -37,6 +37,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       value: {
+        table: table.value,
         buttons: {
           fonts: {
             kursiv: false
@@ -85,7 +86,7 @@ module.exports = React.createClass({
                 <App.Button label="Select" name="fonts" size={ 300 } dropdown={ menu } />
               </App.Fieldset>
 
-              <App.Table columns={ table.columns } value={ table.value } />
+              <App.Table columns={ table.columns } name="table" multiselect={ true } />
             </App.Form>
             
             
