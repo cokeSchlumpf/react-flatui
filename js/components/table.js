@@ -213,9 +213,11 @@ module.exports = React.createClass({
       var { columns, className, multiselect, onChange, value, ...other } = this.props;
       
       return (
-          <App.Panel className={ this._getClassName() } layout="vertical" justify="start">
+          <App.Panel className={ this._getClassName() } layout="vertical" justify="start" { ...other }>
             <Header columns={ columns } size="auto" />
-            { this._renderRows() }
+            <App.Panel className="ui-control-table-body" layout="vertical" justify="start" scrollable="true">
+              { this._renderRows() }
+            </App.Panel>
           </App.Panel>
         );
     },

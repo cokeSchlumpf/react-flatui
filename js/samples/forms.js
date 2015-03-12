@@ -71,7 +71,7 @@ module.exports = React.createClass({
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
               </p>
             </App.Panel>
-            <App.Form value={ this.state.value } onChange={ this._handleFormChange } layout="vertical" justify="start" style={{ height: "auto" }} size="auto">
+            <App.Form value={ this.state.value } onChange={ this._handleFormChange } layout="vertical" justify="start">
               <App.Formfield name="firstName" element={ App.Textbox } size="auto" label="First Name" autocompleteList={ [ "Mario", "Michi", "Karla", "Gert" ] } autocompleteMode="contains" />
               <App.Formfield name="lastName" element={ App.Textbox } size="auto" label="Last Name" />
 

@@ -843,7 +843,6 @@ abbr[title] {
   min-height: 100px;
   position: relative;
   padding-top: 27px;
-  overflow-y: auto;
 }
 .ui-control-table .ui-control-table-header {
   position: absolute;
