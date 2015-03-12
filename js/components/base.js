@@ -1,4 +1,5 @@
 var React = require("react/addons");
+var objectAssign = require("object-assign");
 
 var Container = React.createClass({
   render: function() {
@@ -48,7 +49,7 @@ function simpleLayout(orientation, classNames) {
         var extraProps = sizeFunction(child);
         if (child.props.key) extraProps.key = child.props.key;
         if (child.props.ref) extraProps.ref = child.props.ref;
-        return React.addons.cloneWithProps(child, { className: extraProps.className });
+        return React.addons.cloneWithProps(child, objectAssign(extraProps, { size: undefined, ratio: undefined }));
       } else {
         return child;
       }

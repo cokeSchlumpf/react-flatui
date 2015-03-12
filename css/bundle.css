@@ -839,10 +839,16 @@ abbr[title] {
   background-color: #dddddd;
 }
 .ui-control-table {
-  border: 2px solid #dddddd;
   min-height: 100px;
   position: relative;
   padding-top: 27px;
+}
+.ui-control-table .ui-control-resize {
+  position: absolute;
+  height: 100%;
+  background-color: #ff0000;
+  width: 20px;
+  right: 0;
 }
 .ui-control-table .ui-control-table-header {
   position: absolute;
@@ -850,14 +856,15 @@ abbr[title] {
   left: 0;
   width: 100%;
   height: 27px;
-  background-color: #dddddd;
-  border-bottom: 1px solid #999999;
+  border-bottom: 2px solid #dddddd;
 }
 .ui-control-table .ui-control-table-header .ui-control-table-header-column {
+  position: relative;
   padding: 3px 10px;
-  border-right: 1px solid #999999;
-  border-bottom: 1px solid #999999;
-  margin-bottom: -1px;
+  border-bottom: 2px solid #dddddd;
+  border-right: 2px solid #dddddd;
+  margin-bottom: -2px;
+  font-weight: 600;
 }
 .ui-control-table .ui-control-table-header .ui-control-table-header-menu {
   min-width: 20px;
@@ -873,6 +880,7 @@ abbr[title] {
 }
 .ui-control-table .ui-control-table-row-even {
   background-color: #eee;
+  border-bottom: 1px solid #dddddd;
 }
 .ui-control-table .ui-control-table-row-selected {
   background-color: #8e44ad;
@@ -888,6 +896,19 @@ abbr[title] {
 .ui-form > .ui-control-table,
 .ui-control-fieldset > .ui-control-table {
   margin-bottom: 20px;
+}
+.ui-control-draggable {
+  overflow: show;
+}
+.ui-control-draggable .ui-control-draggable-area {
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  top: 50%;
+  left: 50%;
+  margin-top: -500px;
+  margin-left: -500px;
+  z-index: 20;
 }
 html,
 body {

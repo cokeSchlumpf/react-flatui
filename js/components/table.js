@@ -4,6 +4,7 @@ var base = require("./base");
 var options = base.options;
 var App = base.App;
 var Button = require("./button");
+var Draggable = require("./draggable");
 var objectAssign = require('object-assign');
 
 var ColumnHeader = React.createClass({
@@ -13,13 +14,15 @@ var ColumnHeader = React.createClass({
       label: React.PropTypes.string,
       sortable: React.PropTypes.string
     },
-    
+        
     render: function() {
       var { className, filterable, label, sortable, ...other } = this.props;
       
       return (
-          <App.Panel layout="horizontal" className={ this._getClassName() } { ...other }>
+          <App.Panel layout="horizontal" className={ this._getClassName() } { ...other } ref="container">
             { label }
+            
+            <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this._handleWidthChange } />
           </App.Panel>
         );
     },
@@ -35,8 +38,13 @@ var ColumnHeader = React.createClass({
         
       if (className) { classes[className] = true; }      
       return cx(classes);
+    },
+    
+    _handleWidthChange: function(x) {
+      console.log("NEW COLUMN WIDTH! " + x);
     }
-  });
+    
+});
 
 var Header = React.createClass({
     propTypes: {
@@ -144,7 +152,7 @@ var Row = React.createClass({
       keys.forEach(function(key) {
         var id = self._getCellId(key);
         
-        result[id] = <Cell value={ value[key] } />
+        result[id] = <Cell value={ value[key] } ratio={ columns[key].ratio } size={ columns[key].size } className={ columns[key].className } style={ objectAssign({}, columns[key].style, columns[key].cellStyle ) }  />
       });
       
       return result;
@@ -207,7 +215,7 @@ module.exports = React.createClass({
       keys.forEach(function(key) {
         var id = self._getRowId(key);
         even = !even;
-        result[id] = <Row columns={ columns } row={ key } isEvenRow={ even } size="auto" { ...value[key] } onClick={ self._handleRowClick(key) }/>
+        result[id] = <Row columns={ columns } row={ key } isEvenRow={ even } size="auto" onClick={ self._handleRowClick(key) } { ...value[key] } />
       });
       
       return result;
