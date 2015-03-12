@@ -9,6 +9,10 @@
   background-color: @color-base;
 }
 
+.ui-control-button::-moz-focus-inner {
+  border: 0;
+}
+
 .ui-control-button:hover {
   background-color: @color-base-light; 
 }
@@ -51,4 +55,36 @@
     content: "\2713";
     color: @color-success;
   }  
+}
+
+.ui-control-button-container {
+  position: relative;
+  
+  .ui-control-menu {
+    position: absolute;
+    margin-top: -2px;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+  }
+}
+
+.ui-control-button-dropdown-triangle {
+  position: relative;
+  margin-right: 40px;
+  
+  .left-icon:before {
+    display: none;  
+  }
+  
+  .right-icon {
+    margin-left: 20px;
+  }
+  
+  .right-icon:after {
+    content: "\25BC";
+    position: absolute;
+    top: 4px;
+    right: 15px;
+  }
 }

@@ -1,13 +1,22 @@
 var React = require("react/addons");
 var App = require("../appui");
 
+var menu = <App.Menu size="auto">
+    <App.Button label="Fett" />
+    <App.Button label="Kursiv" name="kursiv" toggle="true" toggle={ true } value={ true } />
+    <App.Menu.Separator />
+    <App.Button label="Unterstrichen" />
+  </App.Menu>
+
 module.exports = React.createClass({
   
   getInitialState: function() {
     return {
       value: {
         buttons: {
-          ok: false
+          fonts: {
+            kursiv: false
+          }
         },
         lastName: "Horst",
         firstName: "Michael",
@@ -31,7 +40,7 @@ module.exports = React.createClass({
     return (
         <App layout="border">
           <App.Panel position="left" />
-          <App.Panel position="center" layout="vertical">
+          <App.Panel position="center" layout="vertical" scrollable="true">
             <App.Panel size="auto">
               <h1>Forms Sample <small>Subtitle</small></h1>
               <p className="lead">
@@ -49,8 +58,11 @@ module.exports = React.createClass({
               </App.Fieldset>
               
               <App.Fieldset layout="horizontal" border={ false } justify="start" size="auto" name="buttons">
-                <App.Button label="Select" toggle={ true } name="ok" size={ 300 } />
+                <App.Button label="Select" name="fonts" size={ 300 } dropdown={ menu } />
               </App.Fieldset>
+              <div>
+              Hallo
+              </div>
             </App.Form>
             
             

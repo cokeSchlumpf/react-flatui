@@ -540,6 +540,9 @@ abbr[title] {
   border: 2px solid #dddddd;
   background-color: #ffffff;
 }
+.ui-control-button::-moz-focus-inner {
+  border: 0;
+}
 .ui-control-button:hover {
   background-color: #dddddd;
 }
@@ -573,6 +576,32 @@ abbr[title] {
 .ui-control-button-toggle-on:hover .left-icon:before {
   content: "\2713";
   color: #00cc00;
+}
+.ui-control-button-container {
+  position: relative;
+}
+.ui-control-button-container .ui-control-menu {
+  position: absolute;
+  margin-top: -2px;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+}
+.ui-control-button-dropdown-triangle {
+  position: relative;
+  margin-right: 40px;
+}
+.ui-control-button-dropdown-triangle .left-icon:before {
+  display: none;
+}
+.ui-control-button-dropdown-triangle .right-icon {
+  margin-left: 20px;
+}
+.ui-control-button-dropdown-triangle .right-icon:after {
+  content: "\25BC";
+  position: absolute;
+  top: 4px;
+  right: 15px;
 }
 .ui-control-checkbox input[type="checkbox"],
 .ui-control-radio input[type="checkbox"],
@@ -636,6 +665,8 @@ abbr[title] {
 .ui-control-combobox .ui-control-button {
   border: none;
   line-height: 23px;
+  padding: 3px;
+  height: 100%;
 }
 .ui-control-combobox .ui-control-listbox {
   position: absolute;
@@ -793,6 +824,19 @@ abbr[title] {
 }
 .ui-selectgroup {
   margin-top: -3px;
+}
+.ui-control-menu {
+  border: 2px solid #dddddd;
+  min-width: 200px;
+  height: auto;
+}
+.ui-control-menu .ui-control-button {
+  border: none;
+  text-align: left;
+}
+.ui-control-menu .ui-control-separator {
+  height: 1px !important;
+  background-color: #dddddd;
 }
 html,
 body {
