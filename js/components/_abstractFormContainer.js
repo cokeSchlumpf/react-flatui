@@ -23,7 +23,7 @@ module.exports = {
         keys = Object.keys(value ? value : {});
         
       return React.Children.map(this.props.children, function(child) {
-          if (child && child.props && child.props.name && keys.indexOf(child.props.name) > -1) {
+          if (child && child.props && child.props.name && child.type && keys.indexOf(child.props.name) > -1) {
             var 
               childOnChange = child.props.onChange,
               childKey = child.props.key,

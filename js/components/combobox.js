@@ -17,9 +17,7 @@ var keyHandlers = {
   38: '_handleUpKey',
   40: '_handleDownKey',
   13: '_handleEnterKey',
-  27: '_handleEscKey',
-  74: '_handleDownKey',
-  75: '_handleUpKey'
+  27: '_handleEscKey'
 }
 
 module.exports = React.createClass({

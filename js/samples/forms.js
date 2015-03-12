@@ -6,6 +6,9 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       value: {
+        buttons: {
+          ok: false
+        },
         lastName: "Horst",
         firstName: "Michael",
         additional: {
@@ -43,6 +46,10 @@ module.exports = React.createClass({
                 <App.Formfield name="age" element={ App.Textbox } orientation="vertical" label="Age" />
                 <App.Formfield name="sex" element={ App.Combobox } orientation="vertical" label="Sex" />
                 <App.Formfield name="hobbies" element={ App.Selectgroup } orientation="vertical" label="Hobbies" multiselect={ false } />
+              </App.Fieldset>
+              
+              <App.Fieldset layout="horizontal" border={ false } justify="start" size="auto" name="buttons">
+                <App.Button label="Select" toggle={ true } name="ok" size={ 300 } />
               </App.Fieldset>
             </App.Form>
             

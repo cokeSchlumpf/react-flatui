@@ -20,7 +20,7 @@ App.Selectgroup = require("./components/selectgroup");
 [x] Form
 [x] FieldGroup
 [x] Check-/ Radiobox-Group
-[ ] Autocomplete Field
+[x] Autocomplete Field
 [ ] DropdownButton
 [ ] ToggleButton
 [ ] Validators? (Validate Textfield onBlur - No change will be emitted onChange, only after successfull validation)

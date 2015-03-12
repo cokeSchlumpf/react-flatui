@@ -536,7 +536,7 @@ abbr[title] {
   color: #333333;
   font: 14px "Open Sans", sans-serif;
   line-height: 25px;
-  padding: 3px;
+  padding: 3px 20px;
   border: 2px solid #dddddd;
   background-color: #ffffff;
 }
@@ -550,6 +550,29 @@ abbr[title] {
 }
 .ui-control-button[type="submit"]:hover {
   background-color: #8e44ad;
+}
+.ui-control-button-toggle,
+.ui-control-button-toggle:hover {
+  position: relative;
+}
+.ui-control-button-toggle .left-icon:before,
+.ui-control-button-toggle:hover .left-icon:before {
+  position: absolute;
+  left: 6px;
+  margin-top: -12px;
+  top: 50%;
+  font-family: "PT Mono", monospace;
+  font-weight: 400;
+}
+.ui-control-button-toggle-off .left-icon:before,
+.ui-control-button-toggle-off:hover .left-icon:before {
+  content: "\2717";
+  color: #cc0000;
+}
+.ui-control-button-toggle-on .left-icon:before,
+.ui-control-button-toggle-on:hover .left-icon:before {
+  content: "\2713";
+  color: #00cc00;
 }
 .ui-control-checkbox input[type="checkbox"],
 .ui-control-radio input[type="checkbox"],
@@ -742,6 +765,9 @@ abbr[title] {
 .ui-controlgroup.pbm-applayout-vertical > .ui-controlgroup-label {
   margin-bottom: 5px;
 }
+.ui-control-fieldset {
+  margin-bottom: 20px;
+}
 .ui-control-fieldset:not(.ui-control-fieldset-hasborder) legend {
   position: relative;
   display: block;
@@ -750,7 +776,6 @@ abbr[title] {
 .ui-control-fieldset-hasborder {
   border: 1px solid #dddddd;
   padding: 10px;
-  margin-bottom: 20px;
 }
 .ui-control-fieldset-hasborder.ui-control-fieldset-haslabel {
   margin-top: 10px;

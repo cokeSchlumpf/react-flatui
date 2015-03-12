@@ -3,7 +3,7 @@
   .base-colors();
   font: @font-base;
   line-height: 25px;
-  padding: 3px;
+  padding: 3px 20px;
   
   border: @control-border;
   background-color: @color-base;
@@ -21,4 +21,34 @@
 
 .ui-control-button[type="submit"]:hover {
   background-color: @color-main;
+}
+
+.ui-control-button-toggle,
+.ui-control-button-toggle:hover {
+  position: relative;
+  
+  .left-icon:before {
+    position: absolute;
+    left: 6px;
+    margin-top: -12px;
+    top: 50%;
+    font-family: @font-family-monospace;
+    font-weight: 400;
+  }
+}
+
+.ui-control-button-toggle-off,
+.ui-control-button-toggle-off:hover {
+  .left-icon:before {
+    content: "\2717";
+    color: @color-error;
+  }
+}
+
+.ui-control-button-toggle-on,
+.ui-control-button-toggle-on:hover {  
+  .left-icon:before {
+    content: "\2713";
+    color: @color-success;
+  }  
 }
