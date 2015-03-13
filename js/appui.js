@@ -36,6 +36,9 @@ App.Table = require("./components/table");
 [ ] Progressbar
 [ ] Slider (Range)
  
+ 
+ 
+ 
 [ ] Date Picker
 [ ] Time Picker
  

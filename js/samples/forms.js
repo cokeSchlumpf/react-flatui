@@ -78,12 +78,12 @@ module.exports = React.createClass({
 
               <App.Fieldset label="Additional information" border={ true } name="additional" layout="horizontal">
                 <App.Formfield name="age" element={ App.Textbox } orientation="vertical" label="Age" />
-                <App.Formfield name="sex" element={ App.Combobox } orientation="vertical" label="Sex" />
+                <App.Formfield name="sex" element={ App.Combobox } multiselect={ true } orientation="vertical" label="Sex" />
                 <App.Formfield name="hobbies" element={ App.Selectgroup } orientation="vertical" label="Hobbies" multiselect={ false } />
               </App.Fieldset>
               
               <App.Fieldset layout="horizontal" border={ false } justify="start" size="auto" name="buttons">
-                <App.Button label="Select" name="fonts" size={ 300 } dropdown={ menu } />
+                <App.Button label="Select" name="fonts" size={ "auto" } dropdown={ menu } />
               </App.Fieldset>
 
               <App.Table columns={ table.columns } name="table" multiselect={ true } />

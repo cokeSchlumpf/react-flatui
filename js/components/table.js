@@ -13,7 +13,16 @@ var ColumnHeader = React.createClass({
       filterable: React.PropTypes.bool,
       label: React.PropTypes.string,
       onColumnWidthChange: React.PropTypes.func,
-      sortable: React.PropTypes.string
+      onClickSort: React.PropTypes.func,
+      sortable: React.PropTypes.string,
+      sorted: React.PropTypes.bool,
+    },
+    
+    getDefaultProps: function() {
+      return {
+        sortable: false,
+        sorted: false
+      }
     },
         
     render: function() {
@@ -21,8 +30,7 @@ var ColumnHeader = React.createClass({
       
       return (
           <App.Panel layout="horizontal" className={ this._getClassName() } { ...other } ref="container">
-            { label }
-            
+            <div className="ui-control-column-header-soue">{ label }</div>
             <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
           </App.Panel>
         );
@@ -34,7 +42,9 @@ var ColumnHeader = React.createClass({
         className = this.props.className,
         classes = {
           "ui-control": true,
-          "ui-control-table-header-column": true
+          "ui-control-table-header-column": true,
+          "ui-control-table-header-column-sortable": this.props.sortable,
+          "ui-control-table-header-column-sorted": this.props.sorted
         };
         
       if (className) { classes[className] = true; }      

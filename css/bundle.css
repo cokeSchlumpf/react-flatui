@@ -679,7 +679,7 @@ abbr[title] {
 .ui-control-combobox .ui-control-combobox-item {
   line-height: 25px;
   display: inline-block;
-  margin: 3px;
+  margin: 0 0 0 3px;
 }
 .ui-control-combobox-multiselect .ui-control-combobox-item {
   background-color: #9b59b6;
@@ -741,6 +741,7 @@ abbr[title] {
 }
 .ui-control-textbox-container-inner {
   border: 2px solid #dddddd;
+  height: 31px;
 }
 .ui-control-textbox-container-inner .ui-control-textbox {
   border: none;
