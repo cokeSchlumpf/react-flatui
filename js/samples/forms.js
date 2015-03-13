@@ -55,6 +55,11 @@ module.exports = React.createClass({
             1: { title: "Fussball" },
             2: { title: "Tennis" },
             3: { title: "Badminton" }
+          },
+          schule: {
+            1: { title: "Grundschule" },
+            2: { title: "Mittelschule" },
+            3: { title: "Gymnasium" }
           }
         }
       }
@@ -79,7 +84,7 @@ module.exports = React.createClass({
               <App.Fieldset label="Additional information" border={ true } name="additional" layout="horizontal">
                 <App.Formfield name="age" element={ App.Textbox } orientation="vertical" label="Age" />
                 <App.Formfield name="sex" element={ App.Combobox } multiselect={ true } orientation="vertical" label="Sex" />
-                <App.Formfield name="hobbies" element={ App.Selectgroup } orientation="vertical" label="Hobbies" multiselect={ false } />
+                <App.Formfield name="schule" element={ App.Buttongroup } orientation="vertical" label="Hobbies" multiselect={ false } />
               </App.Fieldset>
               
               <App.Fieldset layout="horizontal" border={ false } justify="start" size="auto" name="buttons">

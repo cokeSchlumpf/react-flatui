@@ -14,6 +14,7 @@ App.Fieldset = require("./components/fieldset");
 App.Selectgroup = require("./components/selectgroup");
 App.Menu = require("./components/menu");
 App.Table = require("./components/table");
+App.Buttongroup = require("./components/buttongroup");
 
 /*
 [ ] Allow Seperators in Listbox / Group By

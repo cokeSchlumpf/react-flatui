@@ -1,0 +1,29 @@
+// --- Buttongroup
+.ui-control-buttongroup {
+  .ui-control-button-toggle-off,
+  .ui-control-button-toggle-off:hover {
+    .left-icon:before {  
+      content: "";   
+    }
+  }
+}
+
+.ui-control-buttongroup-horizontal {
+  .ui-control-button {
+    border-right: none;
+  }
+  
+  .ui-control-button-container:last-child .ui-control-button {
+    border-right: @control-border; 
+  }
+}
+
+.ui-control-buttongroup-vertical {
+  .ui-control-button {
+    border-bottom: none;
+  }
+  
+  .ui-control-button-container:last-child .ui-control-button {
+    border-bottom: @control-border; 
+  }
+}

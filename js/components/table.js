@@ -32,9 +32,11 @@ var ColumnHeader = React.createClass({
     },
     
     _renderContextmenu: function() {
-      <Menu>
-        <Button label="Filter mal..." />
-      </Menu>
+      return (
+          <Menu>
+            <Button label="Filter mal..." />
+          </Menu>
+        );
     },
 
     render: function() {
@@ -44,6 +46,7 @@ var ColumnHeader = React.createClass({
           <App.Panel layout="horizontal" justify="start" className={ this._getClassName() } { ...other } ref="container">
             <div className="ui-control-column-header-label" size="auto" onClick={ this._handleLabelClick } onContextMenu={ this._handleContextMenu }>{ label }</div>
             <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
+            { this.state.contextmenu && this._renderContextmenu() }
           </App.Panel>
         );
     },

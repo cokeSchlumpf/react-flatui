@@ -603,6 +603,22 @@ abbr[title] {
   top: 4px;
   right: 15px;
 }
+.ui-control-buttongroup .ui-control-button-toggle-off .left-icon:before,
+.ui-control-buttongroup .ui-control-button-toggle-off:hover .left-icon:before {
+  content: "";
+}
+.ui-control-buttongroup-horizontal .ui-control-button {
+  border-right: none;
+}
+.ui-control-buttongroup-horizontal .ui-control-button-container:last-child .ui-control-button {
+  border-right: 2px solid #dddddd;
+}
+.ui-control-buttongroup-vertical .ui-control-button {
+  border-bottom: none;
+}
+.ui-control-buttongroup-vertical .ui-control-button-container:last-child .ui-control-button {
+  border-bottom: 2px solid #dddddd;
+}
 .ui-control-checkbox input[type="checkbox"],
 .ui-control-radio input[type="checkbox"],
 .ui-control-checkbox input[type="radio"],
@@ -877,6 +893,11 @@ abbr[title] {
   position: absolute;
   right: -25px;
   color: #999999;
+}
+.ui-control-table .ui-control-table-header .ui-control-table-header-column .ui-control-menu {
+  position: absolute;
+  top: 100%;
+  left: 10px;
 }
 .ui-control-table .ui-control-table-header .ui-control-table-header-column-sortable .ui-control-column-header-label:hover:after,
 .ui-control-table .ui-control-table-header .ui-control-table-header-column-sortable-desc .ui-control-column-header-label:hover:after {

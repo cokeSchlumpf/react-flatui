@@ -13,6 +13,7 @@ module.exports = React.createClass({
       dropdown: React.PropTypes.element,
       dropdownStyle: React.PropTypes.string,
       label: React.PropTypes.string,
+      title: React.PropTypes.string,
       labelToggled: React.PropTypes.string,
       name: React.PropTypes.string,
       onChange: React.PropTypes.func,
@@ -24,7 +25,8 @@ module.exports = React.createClass({
     getDefaultProps: function() {
       return {
         dropdownStyle: "triangle",
-        label: "",
+        label: undefined,
+        title: "",
         labelToggled: "",
         onClick: function() { console.log("Clicked Button"); },
         toggle: false,
@@ -39,11 +41,13 @@ module.exports = React.createClass({
     },
     
     render: function() {
-      var { onClick, className, label, labelToggled, value, dropdown, name, ...other } = this.props;
+      var { onClick, className, label, title, labelToggled, value, dropdown, name, ...other } = this.props;
       
       if (dropdown && typeof value === "object") {
         dropdown = React.addons.cloneWithProps(dropdown, { value: value, onChange: this._handleDropdownChange });
       }
+      
+      if (!label) label = title;
       
       return (
           <App.Panel className="ui-control-container ui-control-button-container" layout="vertical" align="stretch">
