@@ -262,8 +262,6 @@ module.exports = React.createClass({
         self = this,
         keys = Object.keys(value),
         result = objectAssign({}, value);
-        
-      console.log(arguments);
       
       keys.sort(function(a, b) {
         var valueA = value[a].value[column];
