@@ -19,6 +19,7 @@
   
   .ui-control-table-header {
     position: absolute;
+    cursor: default;
     top: 0;
     left: 0;
     width: 100%;
@@ -31,7 +32,34 @@
       border-bottom: @control-border;
       margin-bottom: -2px;
       font-weight: 600;
+      
+      .ui-control-column-header-label {
+        position: relative;
+      }
+      
+      .ui-control-column-header-label:after {
+        position: absolute;
+        right: -25px;
+        color: @color-base-heavy;
+      }
     } 
+    
+    .ui-control-table-header-column-sortable,
+    .ui-control-table-header-column-sortable-desc {      
+      .ui-control-column-header-label:hover:after { content: "\25B3"; }
+    }
+    
+    .ui-control-table-header-column-sorted-asc .ui-control-column-header-label:after { content: "\25B3"; }
+    
+    .ui-control-table-header-column-sorted-asc {
+      .ui-control-column-header-label:hover:after { content: "\25BD"; }
+    }
+    
+    .ui-control-table-header-column-sorted-desc .ui-control-column-header-label:after { content: "\25BD"; }
+    
+    .ui-control-table-header-column-sorted {
+      border-bottom-color: @color-main
+    }
     
     .ui-control-table-header-menu {
       min-width: 20px;

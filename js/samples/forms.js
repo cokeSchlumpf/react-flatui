@@ -10,13 +10,13 @@ var menu = <App.Menu size="auto">
   
 var table = {
   columns: {
-    id:       { label: "#", size: 50, className: "text-center" },
-    team:     { label: "Team", ratio: 2 },
+    id:       { label: "#", size: 50, className: "text-center", sortable: true, sorted: "asc" },
+    team:     { label: "Team", ratio: 2, sortable: true },
     games:    { label: "Games" },
     plus:     { label: "+" },
     minus:    { label: "-" },
     diff:     { label: "Diff."},
-    points:   { label: "Points" }
+    points:   { label: "Points", sortable: true }
   },
   
   value: {

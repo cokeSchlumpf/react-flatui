@@ -13,15 +13,14 @@ var ColumnHeader = React.createClass({
       filterable: React.PropTypes.bool,
       label: React.PropTypes.string,
       onColumnWidthChange: React.PropTypes.func,
-      onClickSort: React.PropTypes.func,
-      sortable: React.PropTypes.string,
-      sorted: React.PropTypes.bool,
+      onSort: React.PropTypes.func,
+      sortable: React.PropTypes.bool,
+      sorted: React.PropTypes.string, // 'asc' or 'desc' or undefined
     },
     
     getDefaultProps: function() {
       return {
         sortable: false,
-        sorted: false
       }
     },
         
@@ -29,8 +28,8 @@ var ColumnHeader = React.createClass({
       var { className, filterable, label, sortable, ...other } = this.props;
       
       return (
-          <App.Panel layout="horizontal" className={ this._getClassName() } { ...other } ref="container">
-            <div className="ui-control-column-header-soue">{ label }</div>
+          <App.Panel layout="horizontal" justify="start" className={ this._getClassName() } { ...other } ref="container">
+            <div className="ui-control-column-header-label" size="auto" onClick={ this._handleLabelClick }>{ label }</div>
             <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
           </App.Panel>
         );
@@ -44,18 +43,25 @@ var ColumnHeader = React.createClass({
           "ui-control": true,
           "ui-control-table-header-column": true,
           "ui-control-table-header-column-sortable": this.props.sortable,
-          "ui-control-table-header-column-sorted": this.props.sorted
+          "ui-control-table-header-column-sorted": this.props.sorted != undefined
         };
-        
+      classes["ui-control-table-header-column-sorted-" + this.props.sorted] = this.props.sorted != undefined;
       if (className) { classes[className] = true; }      
       return cx(classes);
+    },
+    
+    _handleLabelClick: function() {
+      if (this.props.onSort && this.props.sortable) {
+        if (this.props.sorted == "asc") this.props.onSort("desc"); else this.props.onSort("asc");
+      }
     }
 });
 
 var Header = React.createClass({
     propTypes: {
       columns: React.PropTypes.object,
-      onColumnWidthChange: React.PropTypes.func
+      onColumnWidthChange: React.PropTypes.func,
+      onSort: React.PropTypes.func
     },
     
     _getColumnId: function(key) {
@@ -71,7 +77,7 @@ var Header = React.createClass({
         
       keys.forEach(function(key) {
         var id = self._getColumnId(key);
-        result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } />
+        result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } onSort={ self._handleColumnSort(key) } />
       });
       
       return result;
@@ -108,6 +114,14 @@ var Header = React.createClass({
       return function(value) {
         if (self.props.onColumnWidthChange) self.props.onColumnWidthChange(key, value);
       };
+    },
+    
+    _handleColumnSort: function(key) {
+      var self = this;
+      
+      return function(value) {
+        if (self.props.onSort) self.props.onSort(key, value);
+      }
     }
   });
 
@@ -243,11 +257,52 @@ module.exports = React.createClass({
       return columns;
     },
     
+    _sortValue: function(value, column, asc) {
+      var 
+        self = this,
+        keys = Object.keys(value),
+        result = objectAssign({}, value);
+        
+      console.log(arguments);
+      
+      keys.sort(function(a, b) {
+        var valueA = value[a].value[column];
+        var valueB = value[b].value[column];
+        
+        console.log(value[a]);
+        console.log(valueA);
+        console.log(valueB);
+        
+        if(valueA < valueB) return -1;
+        if(valueA > valueB) return 1;
+        return 0;
+      });
+      
+      if (!asc) keys.reverse();
+      result.__keys = keys;
+      
+      return result;
+    },
+    
+    _prepareValue: function(columns) {
+      var
+        self = this; 
+        value = objectAssign(this.props.value),
+        keys = Object.keys(columns);
+        
+      keys.forEach(function(key) {
+        var column = columns[key];
+        if (column.sorted) value = self._sortValue(value, key, column.sorted == "asc");
+      });
+      
+      return value;
+    },
+    
     _renderRows: function(columns) {
       var
         self = this,
-        value = this.props.value,
-        keys = Object.keys(value),
+        value = this._prepareValue(columns),
+        keys = value.__keys ? value.__keys : Object.keys(value),
         even = true,
         result = {};
         
@@ -267,12 +322,18 @@ module.exports = React.createClass({
       
       return (
           <App.Panel className={ this._getClassName() } layout="vertical" justify="start" { ...other }>
-            <Header columns={ mergedColumns } size="auto" onColumnWidthChange={ this._handleColumnWidthChange } />
+            <Header columns={ mergedColumns } size="auto" onColumnWidthChange={ this._handleColumnWidthChange } onSort={ this._handleSort } />
             <App.Panel className="ui-control-table-body" layout="vertical" justify="start" scrollable="true">
               { this._renderRows(mergedColumns) }
             </App.Panel>
           </App.Panel>
         );
+    },
+    
+    _copyColumnState: function(prepareColumn) {
+      var columns = objectAssign({}, this.state.columns);
+      if (prepareColumn && !columns[prepareColumn]) columns[prepareColumn] = { }
+      return columns;
     },
     
     _getClassName: function() {
@@ -305,8 +366,7 @@ module.exports = React.createClass({
     },
     
     _handleColumnWidthChange: function(column, value) {
-      var columns = objectAssign({}, this.state.columns);
-      if (!columns[column]) columns[column] = { }
+      var columns = this._copyColumnState(column);
       columns[column].size = value;
       this._handleColumnConfigurationChange(columns);
     },
@@ -332,5 +392,16 @@ module.exports = React.createClass({
           self.props.onChange(data, key, data[key].selected);
         }
       };
+    },
+    
+    _handleSort: function(column, value) {
+      var 
+        self = this,
+        columns = this._copyColumnState(column),
+        keys = Object.keys(columns);
+        
+      keys.forEach(function(key) { columns[key].sorted = undefined });
+      columns[column].sorted = value;
+      this._handleColumnConfigurationChange(columns);
     }
   });
