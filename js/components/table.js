@@ -269,10 +269,6 @@ module.exports = React.createClass({
         var valueA = value[a].value[column];
         var valueB = value[b].value[column];
         
-        console.log(value[a]);
-        console.log(valueA);
-        console.log(valueB);
-        
         if(valueA < valueB) return -1;
         if(valueA > valueB) return 1;
         return 0;
