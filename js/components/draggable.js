@@ -6,8 +6,8 @@ var MOUSEUP_TIMEOUT = 50;
 
 module.exports = React.createClass({
     propTypes: {
-      movex: React.PropTypes.boolean,
-      movey: React.PropTypes.boolean,
+      movex: React.PropTypes.bool,
+      movey: React.PropTypes.bool,
       minx: React.PropTypes.number,
       maxx: React.PropTypes.number,
       miny: React.PropTypes.number,
@@ -55,7 +55,10 @@ module.exports = React.createClass({
         cx = React.addons.classSet,
         className = this.props.className,
         classes = {
-          "ui-control-draggable": true
+          "ui-control-draggable": true,
+          "ui-control-draggable-x": this.props.movex && !this.props.movey,
+          "ui-control-draggable-y": this.props.movey && !this.props.movex,
+          "ui-control-draggable-xy": this.props.movex && this.props.movey
         };
         
       if (className) { classes[className] = true; }
@@ -67,24 +70,29 @@ module.exports = React.createClass({
       var 
         self = this,
         containerRect = this.refs.element.getDOMNode().parentNode.getBoundingClientRect(),
-        resizeRect = this.refs.element.getDOMNode().getBoundingClientRect();
+        resizeRect = this.refs.element.getDOMNode().getBoundingClientRect(),
+        clientX = event.clientX,
+        clientY = event.clientY;
 
       this.setState({ 
         mousedown: true, 
         containerleft: containerRect.left, 
         containertop: containerRect.top,
-        left: this.props.movex ? resizeRect.left : undefined,
-        top: this.props.movey ? resizeRect.top : undefined,
-        mouseoffsetleft: event.screenX - resizeRect.left,
-        mouseoffsettop: event.screenY - resizeRect.top });
+        left: this.props.movex ? event.clientX - this.state.containerleft - this.state.mouseoffsetleft : undefined,
+        top: this.props.movey ? event.clientY - this.state.containertop - this.state.mouseoffsettop : undefined,
+        mouseoffsetleft: event.clientX - resizeRect.left,
+        mouseoffsettop: event.clientY - resizeRect.top });
     },
     
     _handleMouseMove: function(event) {
       if (this.state.mousedown) {
         var 
           self = this,
-          left = this.props.movex ? event.screenX - this.state.containerleft - this.state.mouseoffsetleft : undefined,
-          top =  this.props.movey ? event.screenY - this.state.containertop - this.state.mouseoffsettop : undefined;
+          left = this.props.movex ? event.clientX - this.state.containerleft - this.state.mouseoffsetleft : undefined,
+          top =  this.props.movey ? event.clientY - this.state.containertop - this.state.mouseoffsettop : undefined,
+          clientX = event.clientX,
+          clientY = event.clientY;
+
           
           if (this.props.movex && this.props.minx && left < this.props.minx) left = this.props.minx;
           if (this.props.movex && this.props.maxx && left > this.props.maxx) left = this.props.maxx;

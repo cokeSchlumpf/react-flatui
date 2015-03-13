@@ -8,9 +8,13 @@
   .ui-control-resize {
     position: absolute;
     height: 100%;
-    background-color: #ff0000;
-    width: 20px; 
+    width: 5px; 
+    top: 0;
     right: 0;
+  }
+  
+  .ui-control-draggable.ui-control-resize:hover {
+    background-color: @color-base-light;
   }
   
   .ui-control-table-header {
@@ -25,7 +29,6 @@
       position: relative;
       padding: 3px 10px;
       border-bottom: @control-border;
-      border-right: @control-border;
       margin-bottom: -2px;
       font-weight: 600;
     } 

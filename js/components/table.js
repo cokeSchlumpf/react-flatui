@@ -12,6 +12,7 @@ var ColumnHeader = React.createClass({
       className: React.PropTypes.string,
       filterable: React.PropTypes.bool,
       label: React.PropTypes.string,
+      onColumnWidthChange: React.PropTypes.func,
       sortable: React.PropTypes.string
     },
         
@@ -22,7 +23,7 @@ var ColumnHeader = React.createClass({
           <App.Panel layout="horizontal" className={ this._getClassName() } { ...other } ref="container">
             { label }
             
-            <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this._handleWidthChange } />
+            <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
           </App.Panel>
         );
     },
@@ -38,17 +39,13 @@ var ColumnHeader = React.createClass({
         
       if (className) { classes[className] = true; }      
       return cx(classes);
-    },
-    
-    _handleWidthChange: function(x) {
-      console.log("NEW COLUMN WIDTH! " + x);
     }
-    
 });
 
 var Header = React.createClass({
     propTypes: {
-      columns: React.PropTypes.object
+      columns: React.PropTypes.object,
+      onColumnWidthChange: React.PropTypes.func
     },
     
     _getColumnId: function(key) {
@@ -64,7 +61,7 @@ var Header = React.createClass({
         
       keys.forEach(function(key) {
         var id = self._getColumnId(key);
-        result[id] = <ColumnHeader { ... columns[key] } />
+        result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } />
       });
       
       return result;
@@ -93,6 +90,14 @@ var Header = React.createClass({
         
       if (className) { classes[className] = true; }      
       return cx(classes);
+    },
+    
+    _handleColumnWidthChange: function(key) {
+      var self = this;
+      
+      return function(value) {
+        if (self.props.onColumnWidthChange) self.props.onColumnWidthChange(key, value);
+      };
     }
   });
 
@@ -188,26 +193,50 @@ var Row = React.createClass({
 module.exports = React.createClass({
     propTypes: {
       columns: React.PropTypes.object,
+      mode: React.PropTypes.string, // 'client' or 'server'
       multiselect: React.PropTypes.bool,
       onChange: React.PropTypes.object,
+      onColumnConfigurationChange: React.PropTypes.func,
       value: React.PropTypes.object
     },
     
     getDefaultProps: function() {
       return {
+        mode: "client",
         onChange: function(newValue) { console.log(newValue); }
       };
+    },
+    
+    getInitialState: function() {
+      return {
+        columns: { }
+      }
     },
     
     _getRowId: function(key) {
       return "rid-" + key;
     },
     
-    _renderRows: function() {
+    _mergeColumnConfiguration: function(optionalState) {
+      var
+        self = this, 
+        columns = objectAssign({}, this.props.columns),
+        keys = Object.keys(columns);
+        
+      keys.forEach(function(key) {
+        if (self.state.columns[key]) {
+          var state = self.state.columns[key];
+          columns[key] = objectAssign(columns[key], state, optionalState);
+        }
+      });
+      
+      return columns;
+    },
+    
+    _renderRows: function(columns) {
       var
         self = this,
         value = this.props.value,
-        columns = this.props.columns,
         keys = Object.keys(value),
         even = true,
         result = {};
@@ -223,12 +252,14 @@ module.exports = React.createClass({
     
     render: function() {
       var { columns, className, multiselect, onChange, value, ...other } = this.props;
+      var 
+        mergedColumns = this._mergeColumnConfiguration();
       
       return (
           <App.Panel className={ this._getClassName() } layout="vertical" justify="start" { ...other }>
-            <Header columns={ columns } size="auto" />
+            <Header columns={ mergedColumns } size="auto" onColumnWidthChange={ this._handleColumnWidthChange } />
             <App.Panel className="ui-control-table-body" layout="vertical" justify="start" scrollable="true">
-              { this._renderRows() }
+              { this._renderRows(mergedColumns) }
             </App.Panel>
           </App.Panel>
         );
@@ -247,6 +278,27 @@ module.exports = React.createClass({
       if (className) { classes[className] = true; }
       
       return cx(classes);
+    },
+    
+    _handleColumnConfigurationChange: function(columns) {
+      var 
+        self = this,
+        notify = function() {
+          if (self.props.onColumnConfigurationChange) self.props.onColumnConfigurationChange(self._mergeColumnConfiguration(columns));
+        };
+      
+      if (this.props.mode == "client") {
+        this.setState({ columns: columns }, notify);
+      } else {
+        notify();
+      }
+    },
+    
+    _handleColumnWidthChange: function(column, value) {
+      var columns = objectAssign({}, this.state.columns);
+      if (!columns[column]) columns[column] = { }
+      columns[column].size = value;
+      this._handleColumnConfigurationChange(columns);
     },
     
     _handleRowClick: function(key) {
