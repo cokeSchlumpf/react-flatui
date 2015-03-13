@@ -5,6 +5,7 @@ var options = base.options;
 var App = base.App;
 var Button = require("./button");
 var Draggable = require("./draggable");
+var Menu = require("./menu");
 var objectAssign = require('object-assign');
 
 var ColumnHeader = React.createClass({
@@ -17,19 +18,31 @@ var ColumnHeader = React.createClass({
       sortable: React.PropTypes.bool,
       sorted: React.PropTypes.any, // 'asc' or 'desc' or false or undefined
     },
-    
+
     getDefaultProps: function() {
       return {
-        sortable: false,
+        sortable: false
       }
     },
-        
+    
+    getInitialState: function() {
+      return {
+        contextmenu: false
+      }
+    },
+    
+    _renderContextmenu: function() {
+      <Menu>
+        <Button label="Filter mal..." />
+      </Menu>
+    },
+
     render: function() {
       var { className, filterable, label, sortable, ...other } = this.props;
       
       return (
           <App.Panel layout="horizontal" justify="start" className={ this._getClassName() } { ...other } ref="container">
-            <div className="ui-control-column-header-label" size="auto" onClick={ this._handleLabelClick }>{ label }</div>
+            <div className="ui-control-column-header-label" size="auto" onClick={ this._handleLabelClick } onContextMenu={ this._handleContextMenu }>{ label }</div>
             <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
           </App.Panel>
         );
@@ -50,7 +63,13 @@ var ColumnHeader = React.createClass({
       return cx(classes);
     },
     
-    _handleLabelClick: function() {
+    _handleContextMenu: function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.setState({ contextmenu: true });
+    },
+    
+    _handleLabelClick: function(event) {
       if (this.props.onSort && this.props.sortable) {
         if (this.props.sorted == "asc") this.props.onSort("desc"); else this.props.onSort("asc");
       }
@@ -63,26 +82,26 @@ var Header = React.createClass({
       onColumnWidthChange: React.PropTypes.func,
       onSort: React.PropTypes.func
     },
-    
+
     _getColumnId: function(key) {
       return "cid-" + key;
     },
-    
+
     _renderColumns: function() {
       var 
         self = this,
         columns = this.props.columns,
         keys = Object.keys(columns),
         result = {};
-        
+
       keys.forEach(function(key) {
         var id = self._getColumnId(key);
         result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } onSort={ self._handleColumnSort(key) } />
       });
-      
+
       return result;
     },
-    
+
     render: function() {
       var { className, columns, ...other } = this.props;
   
@@ -319,8 +338,6 @@ module.exports = React.createClass({
       var { columns, className, multiselect, onChange, value, ...other } = this.props;
       var 
         mergedColumns = this._mergeColumnConfiguration();
-        
-      console.log(mergedColumns);
       
       return (
           <App.Panel className={ this._getClassName() } layout="vertical" justify="start" { ...other }>
