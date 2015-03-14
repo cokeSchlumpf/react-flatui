@@ -532,6 +532,13 @@ abbr[title] {
   font: 12px "Open Sans", sans-serif;
   color: #9b59b6;
 }
+.ui-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 .ui-control-button {
   color: #333333;
   font: 14px "Open Sans", sans-serif;
@@ -891,7 +898,9 @@ abbr[title] {
 }
 .ui-control-table .ui-control-table-header .ui-control-table-header-column .ui-control-column-header-label:after {
   position: absolute;
-  right: -25px;
+  right: -20px;
+  top: 1px;
+  font-size: 65%;
   color: #999999;
 }
 .ui-control-table .ui-control-table-header .ui-control-table-header-column .ui-control-menu {
@@ -932,7 +941,7 @@ abbr[title] {
   border-bottom: 1px solid #dddddd;
 }
 .ui-control-table .ui-control-table-row-selected {
-  background-color: #8e44ad;
+  background-color: #9b59b6;
   color: #ffffff;
 }
 .ui-control-table-selectable .ui-control-table-row:hover {

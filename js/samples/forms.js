@@ -8,10 +8,18 @@ var menu = <App.Menu size="auto">
     <App.Button label="Unterstrichen" />
   </App.Menu>
   
+var filter_1 = function(value) { value.indexOf("FC") > - 1 }
+var filter_2 = function(value) { value.indexOf("burg") > -1 }
+
+var filters = {
+  filter_1: { title: "Filter FC", filter: filter_1, selected: false },
+  filter_2: { title: "Filter burg", filter: filter_2, selected: false }
+}
+  
 var table = {
   columns: {
     id:       { label: "#", size: 50, className: "text-center", sortable: true, sorted: "asc" },
-    team:     { label: "Team", ratio: 2, sortable: true },
+    team:     { label: "Team", ratio: 2, sortable: true, filter: filters },
     games:    { label: "Games" },
     plus:     { label: "+" },
     minus:    { label: "-" },

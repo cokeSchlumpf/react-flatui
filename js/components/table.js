@@ -4,6 +4,7 @@ var base = require("./base");
 var options = base.options;
 var App = base.App;
 var Button = require("./button");
+var Buttongroup = require("./buttongroup");
 var Draggable = require("./draggable");
 var Menu = require("./menu");
 var objectAssign = require('object-assign');
@@ -11,9 +12,10 @@ var objectAssign = require('object-assign');
 var ColumnHeader = React.createClass({
     propTypes: {
       className: React.PropTypes.string,
-      filterable: React.PropTypes.bool,
+      filter: React.PropTypes.bool,
       label: React.PropTypes.string,
       onColumnWidthChange: React.PropTypes.func,
+      onFilter: React.PropTypes.func,
       onSort: React.PropTypes.func,
       sortable: React.PropTypes.bool,
       sorted: React.PropTypes.any, // 'asc' or 'desc' or false or undefined
@@ -32,9 +34,23 @@ var ColumnHeader = React.createClass({
     },
     
     _renderContextmenu: function() {
+      var 
+        self = this,
+        filter = this.props.filter,
+        keys = Object.keys(filter),
+        buttons = {};
+        
+      keys.forEach(function(key) {
+        var f = filter[key];
+        
+        buttons["btt-" + key] = <Button title={ f.title } value={ f.selected } toggle={ true } onChange={ self._handleFilter(key) } />
+      });
+        
+      console.log(buttons);
+      
       return (
           <Menu>
-            <Button label="Filter mal..." />
+            { buttons }
           </Menu>
         );
     },
@@ -46,6 +62,7 @@ var ColumnHeader = React.createClass({
           <App.Panel layout="horizontal" justify="start" className={ this._getClassName() } { ...other } ref="container">
             <div className="ui-control-column-header-label" size="auto" onClick={ this._handleLabelClick } onContextMenu={ this._handleContextMenu }>{ label }</div>
             <Draggable className="ui-control-resize" size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
+            { this.state.contextmenu && <App.Modal onClick={ this._handleModalClick } /> }
             { this.state.contextmenu && this._renderContextmenu() }
           </App.Panel>
         );
@@ -69,13 +86,30 @@ var ColumnHeader = React.createClass({
     _handleContextMenu: function(event) {
       event.stopPropagation();
       event.preventDefault();
-      this.setState({ contextmenu: true });
+      console.log(this.props.filter);
+      if (this.props.filter) { this.setState({ contextmenu: true }); }
+    },
+    
+    _handleFilter: function(key) {
+      var self = this;
+      return function(value) {
+        if (self.props.onFilter) {
+          var filter = objectAssign({}, self.props.filter); 
+          filter[key].selected = value;
+          self.props.onFilter(filter);
+        }
+      };
     },
     
     _handleLabelClick: function(event) {
       if (this.props.onSort && this.props.sortable) {
         if (this.props.sorted == "asc") this.props.onSort("desc"); else this.props.onSort("asc");
       }
+    },
+    
+    _handleModalClick: function(event) {
+      console.log("Hallo Freunde!");
+      this.setState(this.getInitialState());
     }
 });
 
@@ -83,6 +117,7 @@ var Header = React.createClass({
     propTypes: {
       columns: React.PropTypes.object,
       onColumnWidthChange: React.PropTypes.func,
+      onFilter: React.PropTypes.func,
       onSort: React.PropTypes.func
     },
 
@@ -99,7 +134,7 @@ var Header = React.createClass({
 
       keys.forEach(function(key) {
         var id = self._getColumnId(key);
-        result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } onSort={ self._handleColumnSort(key) } />
+        result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } onSort={ self._handleColumnSort(key) } onFilter={ self._handleColumnFilter(key) } />
       });
 
       return result;
@@ -135,6 +170,14 @@ var Header = React.createClass({
       
       return function(value) {
         if (self.props.onColumnWidthChange) self.props.onColumnWidthChange(key, value);
+      };
+    },
+    
+    _handleColumnFilter: function(key) {
+      var self = this;
+      
+      return function(value) {
+        if (self.props.onFilter) self.props.onFilter(key, value);
       };
     },
     
@@ -344,7 +387,7 @@ module.exports = React.createClass({
       
       return (
           <App.Panel className={ this._getClassName() } layout="vertical" justify="start" { ...other }>
-            <Header columns={ mergedColumns } size="auto" onColumnWidthChange={ this._handleColumnWidthChange } onSort={ this._handleSort } />
+            <Header columns={ mergedColumns } size="auto" onColumnWidthChange={ this._handleColumnWidthChange } onSort={ this._handleSort } onFilter={ this._handleFilter } />
             <App.Panel className="ui-control-table-body" layout="vertical" justify="start" scrollable="true">
               { this._renderRows(mergedColumns) }
             </App.Panel>
@@ -391,6 +434,12 @@ module.exports = React.createClass({
     _handleColumnWidthChange: function(column, value) {
       var columns = this._copyColumnState();
       columns[column].size = value;
+      this._handleColumnConfigurationChange(columns);
+    },
+    
+    _handleFilter: function(column, value) {
+      var columns = this._copyColumnState();
+      columns[column].filter = value;
       this._handleColumnConfigurationChange(columns);
     },
     

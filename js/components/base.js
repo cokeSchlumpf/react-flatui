@@ -199,6 +199,25 @@ App.Panel = React.createClass({
     }
   });
   
+App.Modal = React.createClass({
+  render: function() {
+    var { className, ...other } = this.props;
+    return (<div className={ this._getClassName() } { ...other } />);
+  },
+  
+  _getClassName: function() {
+    var 
+      cx = React.addons.classSet,
+      className = this.props.className,
+      classes = {
+        "ui-modal": true
+      };
+      
+    if (className) { classes[className] = true; }      
+    return cx(classes);
+  }
+});
+  
 
 var base = {
   
@@ -208,7 +227,7 @@ var base = {
   
   options: options,
   
-  App: App
+  App: App,
   
 }
 

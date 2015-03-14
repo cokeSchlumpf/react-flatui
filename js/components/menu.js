@@ -6,9 +6,27 @@ var objectAssign = require('object-assign');
 var abstract = require("./_abstractFormContainer");
 
 var separator = React.createClass({
+  propTypes: {
+    title: React.PropTypes.string  
+  },
+  
   render: function() {
-    return (<div className="ui-control-separator" />);
-  }
+    return (<div className={ this._getClassName() }>{ this.props.title }</div>);
+  },
+  
+   _getClassName: function() {
+      var 
+        cx = React.addons.classSet,
+        className = this.props.className,
+        classes = {
+          "ui-control-separator": true,
+          "ui-control-separator-label": this.props.label
+        };
+        
+      if (className) { classes[className] = true; }
+      
+      return cx(classes);
+    }
 });
 
 module.exports = React.createClass(objectAssign({}, abstract, {
