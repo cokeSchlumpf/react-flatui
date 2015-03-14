@@ -45,8 +45,6 @@ var ColumnHeader = React.createClass({
         
         buttons["btt-" + key] = <Button title={ f.title } value={ f.selected } toggle={ true } onChange={ self._handleFilter(key) } />
       });
-        
-      console.log(buttons);
       
       return (
           <Menu>
@@ -70,6 +68,7 @@ var ColumnHeader = React.createClass({
     
     _getClassName: function() {
       var 
+        self = this,
         cx = React.addons.classSet,
         className = this.props.className,
         classes = {
@@ -80,13 +79,21 @@ var ColumnHeader = React.createClass({
         };
       classes["ui-control-table-header-column-sorted-" + this.props.sorted] = this.props.sorted;
       if (className) { classes[className] = true; }      
+      
+      if (this.props.filter) {
+        classes["ui-control-table-header-filterable"] = true;
+        var keys = Object.keys(this.props.filter);
+        keys.forEach(function(key) {
+          if (self.props.filter[key].selected) classes["ui-control-table-header-filtered"] = true;
+        });
+      }
+      
       return cx(classes);
     },
     
     _handleContextMenu: function(event) {
       event.stopPropagation();
       event.preventDefault();
-      console.log(this.props.filter);
       if (this.props.filter) { this.setState({ contextmenu: true }); }
     },
     
@@ -95,6 +102,10 @@ var ColumnHeader = React.createClass({
       return function(value) {
         if (self.props.onFilter) {
           var filter = objectAssign({}, self.props.filter); 
+          if (filter[key].exclusive && value) {
+            var keys = Object.keys(filter);
+            keys.forEach(function(key) { filter[key].selected = false })
+          }
           filter[key].selected = value;
           self.props.onFilter(filter);
         }
@@ -108,7 +119,6 @@ var ColumnHeader = React.createClass({
     },
     
     _handleModalClick: function(event) {
-      console.log("Hallo Freunde!");
       this.setState(this.getInitialState());
     }
 });
@@ -313,6 +323,7 @@ module.exports = React.createClass({
         keys = Object.keys(columns);
         
       keys.forEach(function(key) {
+        if (columns[key].filter == true) columns[key].filter = self._createDefaultFilter(self.props.value, key);
         if (self.state.columns[key]) {
           var state = self.state.columns[key];
           columns[key] = objectAssign(columns[key], state, optionalState);
@@ -332,9 +343,6 @@ module.exports = React.createClass({
       keys = Object.keys(result);
       
       keys.sort(function(a, b) {
-        if (!value[b]) console.log(b);
-        if (!value[b].value) console.log(value[b]);
-        
         var valueA = value[a].value[column]
         var valueB = value[b].value[column];
         
@@ -349,16 +357,65 @@ module.exports = React.createClass({
       return result;
     },
     
+    _filterValue: function(value, column, func) {
+      var
+        self = this,
+        result = {},
+        keys;
+      
+      delete value.__keys; // usually it shouldn't be present, but it is :/ ...
+      keys = Object.keys(value);
+      
+      keys.forEach(function(key) {
+        if (value[key].value) {
+          var val = value[key].value[column];
+          if (func(val)) result[key] = value[key];
+        }
+      });
+      
+      return result;
+    },
+    
+    _createDefaultFilter: function(value, column) {
+      var
+        self = this,
+        result = { },
+        keys;
+        
+      delete value.__keys; // usually it shouldn't be present, but it is :/ ...
+      keys = Object.keys(value);
+      
+      keys.forEach(function(key) {
+        var val = value[key].value[column];
+        if (val && !result[val]) {
+          result[val] = { title: val, filter: function(value) { return value == val; }, selected: false, exclusive: true }
+        }
+      });
+      
+      return result;
+    },
+    
     _prepareValue: function(columns) {
       var
-        self = this; 
+        self = this,
+        mode = this.props.mode,
         value = objectAssign({}, this.props.value),
         keys = Object.keys(columns);
         
-      keys.forEach(function(key) {
-        var column = columns[key];
-        if (column.sorted) value = self._sortValue(value, key, column.sorted == "asc");
-      });
+      if (mode == "client") {
+        keys.forEach(function(key) {
+          var 
+            column = columns[key],
+            filter;
+
+          filter = Object.keys(column.filter ? column.filter : {});
+          filter.forEach(function(filterName) { 
+            var filter = column.filter[filterName];
+            if (filter.selected && filter.filter) value = self._filterValue(value, key, filter.filter) 
+          });
+          if (column.sorted) value = self._sortValue(value, key, column.sorted == "asc");
+        });
+      }
       
       return value;
     },

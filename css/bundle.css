@@ -538,6 +538,7 @@ abbr[title] {
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 200;
 }
 .ui-control-button {
   color: #333333;
@@ -906,7 +907,11 @@ abbr[title] {
 .ui-control-table .ui-control-table-header .ui-control-table-header-column .ui-control-menu {
   position: absolute;
   top: 100%;
-  left: 10px;
+  left: 0;
+  z-index: 300;
+}
+.ui-control-table .ui-control-table-header .ui-control-table-header-filtered {
+  color: #8e44ad;
 }
 .ui-control-table .ui-control-table-header .ui-control-table-header-column-sortable .ui-control-column-header-label:hover:after,
 .ui-control-table .ui-control-table-header .ui-control-table-header-column-sortable-desc .ui-control-column-header-label:hover:after {
