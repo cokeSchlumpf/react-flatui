@@ -28,7 +28,6 @@ module.exports = React.createClass({
         label: undefined,
         title: "",
         labelToggled: "",
-        onClick: function() { console.log("Clicked Button"); },
         toggle: false,
         value: false
       };

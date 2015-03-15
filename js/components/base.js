@@ -169,12 +169,19 @@ var App = React.createClass({
     getDefaultProps: function() {
       return {
         layout: Object.keys(options.layouts)[0],
-        align: "stretch"
+        align: "stretch",
+        scrollable: false
       }
     },
     
     render: function() {
-      return options.layouts[this.props.layout].render.call(this, base.extendClassNameWith("application", this.props.className));
+      var className = this.props.className;
+      if (this.props.scrollable) {
+        className = base.extendClassNameWith("application", className);
+        className = base.extendClassNameWith("applayout-scroll", className);
+      }
+      
+      return options.layouts[this.props.layout].render.call(this, className);
     }
   });
 

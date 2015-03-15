@@ -98,7 +98,8 @@ module.exports = React.createClass({
           id={ this.props.id ? this.props.id : this.props.name } 
           defaultValue={ defaultValue }
           value={ this.state.autocompleteSelected ? this.state.autocompleteSelected : value } 
-          autoComplete="off" />
+          autoComplete="off"
+          placeholder={ this.props.placeholder } />
       } else {
         textbox = <textarea 
           className={ cx(classes) } 
@@ -109,7 +110,8 @@ module.exports = React.createClass({
           id={ this.props.id ? this.props.id : this.props.name } 
           defaultValue={ defaultValue}
           value={ value }
-          rows={ this.props.rows } />
+          rows={ this.props.rows }
+          placeholder={ this.props.placeholder } />
       }
       
       if (children) {
