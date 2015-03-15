@@ -186,10 +186,10 @@ module.exports = React.createClass({
             output[item] = { title: item };
             break;
           case "contains":
-            if (item.indexOf(value) > -1) output[item] = { title: item };
+            if (item.toLowerCase().indexOf(value.toLowerCase()) > -1) output[item] = { title: item };
             break;
           case "startsWith":
-            if (item.indexOf(value) == 0) output[item] = { title: item };
+            if (item.toLowerCase().indexOf(value.toLowerCase()) == 0) output[item] = { title: item };
             break; 
         }
         

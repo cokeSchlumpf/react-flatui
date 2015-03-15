@@ -224,6 +224,23 @@ App.Modal = React.createClass({
     return cx(classes);
   }
 });
+
+App.Helper = {
+  getSelectedItem: function(value, multiselect) {
+    var
+      i, 
+      keys = Object.keys(value),
+      result = [];
+    
+    keys.forEach(function(key) {
+      if (value[key].selected) result.push(objectAssign({ key: key }, value[key]));
+    });
+    
+    if (!multiselect && result.length > 0) return result[0];
+    else if (!multiselect) return undefined;
+    else return result;
+  }
+};
   
 
 var base = {
@@ -234,7 +251,7 @@ var base = {
   
   options: options,
   
-  App: App,
+  App: App
   
 }
 

@@ -16,7 +16,7 @@ var SimpleExample = React.createClass({
   render: function() {
     var self = this;
     
-    var source = "React.createClass({\n  getInitialState: function() {\n    return { value: \"\" }  \n  },\n  \n  render: function() {\n    var self = this;\n    return (\n        <div>\n          <App.Textbox \n            name=\"textbox\" value={ this.state.value } placeholder=\"Enter your name\" \n            onChange={ function(newValue) { self.setState({ value: newValue }); } } />\n\n          { this.state.value.length > 0 ? <span>Hello { this.state.value }!</span> : <span>Hello!</span> }\n        </div>\n      );\n  }\n});";
+    var source = "React.createClass({\n  getInitialState: function() {\n    return { value: \"\" }  \n  },\n  \n  render: function() {\n    var self = this;\n    return (\n        <div>\n          <App.Textbox \n            name=\"textbox\" value={ this.state.value } placeholder=\"Enter your name\" \n            onChange={ function(newValue) { self.setState({ value: newValue }); } } />\n          <span>Hello { this.state.value }!</span>\n        </div>\n      );\n  }\n});";
     
     return (
         <Container>
@@ -32,6 +32,44 @@ var SimpleExample = React.createClass({
             { source }
           </Console>
         </Container>
+      );
+  }
+});
+
+var AutocompleteExample = React.createClass({
+  getInitialState: function() {
+    return {
+      value: "",
+      mode: {
+        contains: { title: "contains", selected: true },
+        startsWith: { title: "startsWith" },
+        none: { title: "none" }
+      }
+    }
+  },
+  
+  autocompleteData: [ "Germany", "France", "Italy", "Japan", "Canada", "United Kingdom", "United States" ],
+  
+  render: function() {
+    var
+      self = this, 
+      selectedMode = App.Helper.getSelectedItem(this.state.mode).key,
+      source = "React.createClass({\n  getInitialState: function() {\n    return {\n      value: \"\",\n      mode: {\n        contains: { title: \"contains\", selected: true },\n        startsWith: { title: \"startsWith\" },\n        none: { title: \"none\" }\n      }\n    }\n  },\n  \n  autocompleteData: [ \n    \"Germany\", \"France\", \"Italy\", \"Japan\", \n    \"Canada\", \"United Kingdom\", \"United States\" ],\n  \n  render: function() {\n    var\n      self = this, \n      selectedMode = App.Helper.getSelectedItem(this.state.mode).key;\n    \n    return (\n        <div>\n          <App.Textbox name=\"autocompletionTextbox\" value={ this.state.value } \n            autocompleteMode={ selectedMode } autocompleteList={ this.autocompleteData }\n            placeholder=\"Enter something\" \n            onChange={ function(newValue) { self.setState({ value: newValue }); } } />\n\n          <App.Selectgroup value={ this.state.mode } \n            onChange={ function(newValue) { self.setState({ mode: newValue }); } } />\n        </div>\n      );\n  }\n});";
+    
+    return (
+      <Container>
+        <h4>Autocompletion Example</h4>
+        <Example>
+          <div size="auto">
+            <App.Textbox name="autocompletionTextbox" value={ this.state.value } autocompleteMode={ selectedMode } autocompleteList={ this.autocompleteData } placeholder="Enter something" onChange={ function(newValue) { self.setState({ value: newValue }); } } />
+            <br />
+            <App.Selectgroup value={ this.state.mode } onChange={ function(newValue) { self.setState({ mode: newValue }); } } />
+          </div>
+        </Example>
+        <Console ratio="2">
+          { source }
+        </Console>
+      </Container>
       );
   }
 });
@@ -81,7 +119,7 @@ module.exports = React.createClass({
           <p><span className="code">App.Textbox</span> renders an input box with some additional features like addons and autocompletion.</p>
           <Properties properties={ this.properties } />
           <SimpleExample />
-          <SimpleExample />
+          <AutocompleteExample />
         </div>
       );
   }
