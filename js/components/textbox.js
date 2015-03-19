@@ -22,7 +22,7 @@ module.exports = React.createClass({
       onChange: React.PropTypes.func,
       rows: React.PropTypes.number,
       type: React.PropTypes.string,
-      value: React.PropTypes.string
+      value: React.PropTypes.any
     },
     
     // Unfortunately we need a focus state information in case we want to mark the container as focused since their is no CSS parent selector.

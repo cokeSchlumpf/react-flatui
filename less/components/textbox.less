@@ -7,6 +7,24 @@
   padding: 3px;
 }
 
+.ui-control-textbox-control {
+  .ui-control-button {
+    border: none;
+  }
+}
+
+.ui-control-textbox-control:last-child {
+  .ui-control-button {
+    border-left: @control-border;
+  }
+}
+
+.ui-control-textbox-control:first-child {
+  .ui-control-button {
+    border-right: @control-border;
+  }
+}
+
 .ui-control-textbox-container-inner {
   border: @control-border;
   height: 31px;

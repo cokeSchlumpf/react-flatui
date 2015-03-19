@@ -60,7 +60,63 @@ var Example = React.createClass({
   }
 });
 
+var Events = React.createClass({
+  render: function() {
+    var 
+      self = this,
+      keys = Object.keys(this.props.events),
+      rows = {};
+      
+    keys.forEach(function(key) {
+      var
+        event = self.props.events[key]
+        parameters = Object.keys(event.parameters);
+        
+      rows[key] = <tr>
+          <td rowSpan={ parameters.length + 1 }>{ key }</td>
+          <td colSpan={ 3 }>{ event.desc }</td>
+        </tr>
+        
+      parameters.forEach(function(param) {
+        var
+          parameter = event.parameters[param];
+          
+        rows[key + "." + param] = <tr>
+            <td>{ param }</td>
+            <td>{ parameter.type }</td>
+            <td>{ parameter.desc }</td>
+          </tr>
+      });
+    });
+      
+    return (
+      <div>
+        <h4>Events</h4>
+        <table>
+          <thead>
+            <tr>
+              <th width="15%">Name</th>
+              <th width="15%">Description</th>
+              <th width="20%"></th>
+              <th width="50%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            { rows }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+})
+
 var Properties = React.createClass({
+  
+  getDefaultProps: function() {
+    return {
+      isProperties: true
+    }
+  },
   
   render: function() {
     var 
@@ -129,14 +185,15 @@ var Properties = React.createClass({
     
     return (
       <div>
-        <h4>Properties</h4>
+        <h4>{ this.props.isProperties ? "Properties" : "Children Properties" }</h4>
+        { this.props.children }
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Default</th>
-              <th width="60%">Description</th>
+              <th width="15%">Name</th>
+              <th width="15%">Type</th>
+              <th width="20%">Default</th>
+              <th width="50%">Description</th>
             </tr>
           </thead>
           <tbody>
@@ -145,7 +202,7 @@ var Properties = React.createClass({
           { required &&
             <tfoot>
               <tr>
-                <td colspan="4">* Required</td>
+                <td colSpan="4">* Required</td>
               </tr>
             </tfoot>
           }
@@ -164,6 +221,8 @@ module.exports = {
   
   example: Example,
   
-  properties: Properties
+  properties: Properties,
+  
+  events: Events
   
 }

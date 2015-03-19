@@ -5,6 +5,7 @@ var Container = base.container;
 var Console = base.console;
 var Example = base.example;
 var Properties = base.properties;
+var Events = base.events;
 
 var SimpleExample = React.createClass({
   getInitialState: function() {
@@ -74,6 +75,46 @@ var AutocompleteExample = React.createClass({
   }
 });
 
+var AddonExample = React.createClass({
+  getInitialState: function() {
+    return {
+      value: 42
+    }
+  },
+  
+  render: function() {
+    var 
+      self = this
+      source = "React.createClass({\n  getInitialState: function() {\n    return { value: 42 }\n  },\n  \n  render: function() {\n    var \n      self = this;\n    \n    return (\n        <App.Textbox \n          name=\"autocompletionTextbox\" value={ this.state.value } placeholder=\"Enter something\" \n          onChange={ function(newValue) { self.setState({ value: newValue }); } }>\n          \n        <App.Button title=\"+\" position=\"left\" onClick={ self.add } />\n          <App.Button title=\"-\" onClick={ self.subtract } />\n        </App.Textbox>\n      );\n  },\n  \n  add: function() {\n    this.setState({ value: this.state.value + 1 });\n  },\n  \n  subtract: function() {\n    this.setState({ value: this.state.value - 1 });\n  }\n});";
+    
+    return (
+      <Container>
+        <h4>Addon Example</h4>
+        <Example>
+          <div size="auto">
+            <App.Textbox name="autocompletionTextbox" value={ this.state.value } placeholder="Enter something" onChange={ function(newValue) { self.setState({ value: newValue }); } }>
+              <App.Button title="+" position="left" onClick={ self.add } />
+              <App.Button title="-" onClick={ self.subtract } />
+            </App.Textbox>
+          </div>
+        </Example>
+        <Console ratio="2">
+          { source }
+        </Console>
+      </Container>
+      );
+  },
+  
+  add: function() {
+    this.setState({ value: this.state.value + 1 });
+  },
+  
+  subtract: function() {
+    this.setState({ value: this.state.value - 1 });
+  }
+});
+
+
 module.exports = React.createClass({
   properties: {
     autocompleteList: {
@@ -91,11 +132,6 @@ module.exports = React.createClass({
       required: true,
       desc: <p>The name of the control.</p>
     },
-    onChange: {
-      type: "Func",
-      desc: <p>Handler which will be called when the value changes.</p>,
-      parameters: [ "newValue" ]
-    },
     rows: {
       type: "Number",
       default: 1,
@@ -112,14 +148,37 @@ module.exports = React.createClass({
     }
   },
   
+  events: {
+    onChange: {
+        desc: "Triggered when Textfield value changes.",
+        parameters: {
+          value: { type: "String", desc: "The new value of the textfield." },
+          event: { type: "Native Event", desc: "The native browser event." }
+        }
+      }
+  },
+  
+  childrenProps: {
+    position: {
+      type: "left | right",
+      desc: <p>The position of the addon within the textfield.</p>,
+      default: "right"
+    }
+  },
+  
   render: function() {
-    console.log(App.Textbox.propTypes.autocompleteList);
     return (
         <div>
           <p><span className="code">App.Textbox</span> renders an input box with some additional features like addons and autocompletion.</p>
           <Properties properties={ this.properties } />
+          <Events events={ this.events } />
+          <Properties properties={ this.childrenProps } isProperties={ false }>
+            <p>If you add children properties to a textbox they will be rendered as addons to the textfield.</p>
+          </Properties>
+          <h4>Examples</h4>
           <SimpleExample />
           <AutocompleteExample />
+          <AddonExample />
         </div>
       );
   }
