@@ -148,7 +148,7 @@ module.exports = React.createClass({
             <p>Similar to the example above, you can create radioboxes:</p>
             <SingleRadioboxExample />
             
-            <p>You can also use the <code>Selectgroup</code> component to create Radio- or Checkboxes. With this method you can handle data more easily as with other select/ multiselect components:</p>
+            <p>You can also use the <code>Selectgroup</code> component to create Radio- or Checkboxes. With this method you can handle data more easily similar to other select/ multiselect components. The <code>onChange(newValue, selectedKey, selected, event)</code>-Handler is called when the data changes.</p>
             <SelectgroupExample />
           </article>
         )

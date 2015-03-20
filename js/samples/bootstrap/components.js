@@ -15,6 +15,7 @@ var Row = Bootstrap.Row;
 var Col = Bootstrap.Col;
 
 var components = {
+  Buttons: require("./button"),
   Textbox: require("./textbox"),
   "Check- & Radiobox": require("./selectbox")
 };

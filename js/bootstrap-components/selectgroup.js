@@ -62,7 +62,7 @@ module.exports = React.createClass({
       
       return function(selected, value, event) {
         if (self.props.onChange) {
-          self.props.onChange(updateListValue(self.props.value, self.props.multiselect, key, selected), key, event);
+          self.props.onChange(updateListValue(self.props.value, self.props.multiselect, key, selected), key, selected, event);
         }
       }
     }

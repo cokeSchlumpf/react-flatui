@@ -289,7 +289,7 @@ main .h3 {
   font-style: normal;
   font-weight: 400;
   position: absolute;
-  left: 3px;
+  left: 2px;
 }
 .checkbox label:hover input[type="checkbox"] + span:before,
 .radio label:hover input[type="checkbox"] + span:before {

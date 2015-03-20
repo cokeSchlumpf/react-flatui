@@ -17,6 +17,7 @@ App.Table = require("./components/table");
 App.Buttongroup = require("./components/buttongroup");
 
 App.Bootstrap = {
+  Button: require("./bootstrap-components/button"),
   Checkbox: require("./bootstrap-components/selectbox").Checkbox,
   Radiobox: require("./bootstrap-components/selectbox").Radiobox,
   Selectgroup: require("./bootstrap-components/selectgroup"),
