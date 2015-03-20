@@ -325,6 +325,49 @@ main .h3 {
 .radio label:before {
   border-radius: 9px;
 }
+.fu-dropdown-multiple li a,
+.fu-dropdown-single li a {
+  position: relative;
+  padding-left: 30px;
+}
+.fu-dropdown-multiple li a::after,
+.fu-dropdown-single li a::after {
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  position: absolute;
+  left: 7px;
+  top: 3px;
+}
+.fu-dropdown-multiple li a::before,
+.fu-dropdown-single li a::before {
+  content: " ";
+  display: inline-block;
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #cccccc;
+}
+.fu-dropdown-multiple li.fu-dropdown-item-selected a::after,
+.fu-dropdown-single li.fu-dropdown-item-selected a::after {
+  content: "\e014";
+  color: #17a086;
+}
+.fu-dropdown-single li a::before {
+  border-radius: 9px;
+}
+.fu-dropdown-single li.fu-dropdown-item-selected a::after {
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
+  top: 8px;
+  left: 9px;
+  content: " ";
+  background-color: #17a086;
+}
 html,
 body {
   width: 100%;
@@ -366,7 +409,8 @@ body {
 }
 .fu-example-container {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 .fu-example-container .fu-example {
   position: relative;

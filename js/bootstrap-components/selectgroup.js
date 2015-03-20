@@ -49,9 +49,8 @@ module.exports = React.createClass({
     
     render: function() {
       var { className, multiselect, value, ...other } = this.props;
-      
       return (
-          <div className={ this._getClassName() }> 
+          <div className={ this._getClassName() } { ...other }> 
             { this._renderItems() }
           </div>
         );
