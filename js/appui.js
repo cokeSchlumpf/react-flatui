@@ -19,6 +19,7 @@ App.Buttongroup = require("./components/buttongroup");
 App.Bootstrap = {
   Checkbox: require("./bootstrap-components/selectbox").Checkbox,
   Radiobox: require("./bootstrap-components/selectbox").Radiobox,
+  Selectgroup: require("./bootstrap-components/selectgroup"),
   Textbox: require("./bootstrap-components/textbox")
 }
 

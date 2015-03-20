@@ -34,7 +34,7 @@
     "build-js": "browserify . | uglifyjs -mc > js/bundle.js",
     "build-css": "catw -c 'lessc -' 'less/example.less' > css/bundle.css",
     "watch-js": "watchify -o js/bundle.js -v -d .",
-    "watch-css": "catw -c 'lessc less/example.less' 'less/*.less' 'less/components/*.less' -o css/bundle.css -v",
+    "watch-css": "catw -c 'lessc $FILE' 'less/example.less' -o css/bundle.css -v",
     "watch": "npm run watch-js & npm run watch-css",
     
     "start": "watchify -o js/bundle.js -v -d .",
