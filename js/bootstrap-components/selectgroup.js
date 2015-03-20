@@ -48,7 +48,7 @@ module.exports = React.createClass({
     },
     
     render: function() {
-      var { className, multiselect, value, ...other } = this.props;
+      var { className, multiselect, value, onChange, ...other } = this.props;
       return (
           <div className={ this._getClassName() } { ...other }> 
             { this._renderItems() }
@@ -61,7 +61,8 @@ module.exports = React.createClass({
       
       return function(selected, value, event) {
         if (self.props.onChange) {
-          self.props.onChange(updateListValue(self.props.value, self.props.multiselect, key, selected), key, selected, event);
+          var newData = updateListValue(self.props.value, self.props.multiselect, key, selected);
+          self.props.onChange(newData, key, selected, event);
         }
       }
     }

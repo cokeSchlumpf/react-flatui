@@ -41,13 +41,16 @@ var AbstractBox = function(multiple) {
           type = multiple ? "checkbox" : "radio",
           id = this.props.id ? this.props.id : this.props.name;
         
-        if (selected) other.checked = "checked";
+        if (selected) {
+          other.checked = true;
+          other["data-checked"] = "Hallo";
+        }
         
         return (
             <div className={ this._getClassName() }>
               <label htmlFor={ id }>
                 <input type={ type } onChange={ this._onChangeHandler } value={ value } id={ id } { ...other } />
-                { this.props.title }
+                { title }
               </label>
             </div>
           );
