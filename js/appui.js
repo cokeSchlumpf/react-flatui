@@ -16,6 +16,12 @@ App.Menu = require("./components/menu");
 App.Table = require("./components/table");
 App.Buttongroup = require("./components/buttongroup");
 
+App.Bootstrap = {
+  Checkbox: require("./bootstrap-components/selectbox").Checkbox,
+  Radiobox: require("./bootstrap-components/selectbox").Radiobox,
+  Textbox: require("./bootstrap-components/textbox")
+}
+
 /*
 [ ] Allow Seperators in Listbox / Group By
   

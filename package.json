@@ -10,6 +10,7 @@
   "stability": "experimental",
   
   "dependencies": {
+    "classnames": "1.2.0",
     "keymirror": "~0.1.0",
     "object-assign": "^2.0.0",
     "react": "^0.12.0",
@@ -30,9 +31,13 @@
   },
   
   "scripts": {
-    "start": "watchify -o js/bundle.js -v -d .",
+    "build-js": "browserify . | uglifyjs -mc > js/bundle.js",
     "build-css": "catw -c 'lessc -' 'less/example.less' > css/bundle.css",
-    "build-js": "NODE_ENV=production browserify . | uglifyjs -cm > js/bundle.min.js",
+    "watch-js": "watchify -o js/bundle.js -v -d .",
+    "watch-css": "catw -c 'lessc less/example.less' 'less/*.less' 'less/components/*.less' -o css/bundle.css -v",
+    "watch": "npm run watch-js & npm run watch-css",
+    
+    "start": "watchify -o js/bundle.js -v -d .",
     "build": "npm run build-css && npm run build-js",
     "test": "jest"
   },

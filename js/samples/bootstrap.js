@@ -1,5 +1,6 @@
 var React = require("react/addons");
 var Bootstrap = require("react-bootstrap");
+var App = require("../appui");
 var $ = require("jquery");
 
 var Navbar = Bootstrap.Navbar;
@@ -59,6 +60,10 @@ module.exports = React.createClass({
             </Navbar>
             
             <CurrentPage urlHash={ Pages[this.state.activePage].url } />
+            
+            <footer>
+              &copy; Michael Wellner 2014
+            </footer>
           </div>
         )
     },

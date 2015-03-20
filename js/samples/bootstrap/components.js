@@ -1,6 +1,8 @@
 var React = require("react/addons");
 var Bootstrap = require("react-bootstrap");
 var $ = require("jquery");
+var PrismCode = require("./prism");
+var App = require("../../appui");
 
 var Navbar = Bootstrap.Navbar;
 var Nav = Bootstrap.Nav;
@@ -13,16 +15,8 @@ var Row = Bootstrap.Row;
 var Col = Bootstrap.Col;
 
 var components = {
-  Textbox: 
-    <article>
-      <h2>Textbox</h2>
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-    </article>,
-  Checkbox:
-    <article>
-      <h2>Checkbox</h2>
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-    </article>
+  Textbox: require("./textbox"),
+  "Check- & Radiobox": require("./selectbox")
 };
 
 module.exports = React.createClass({  
@@ -74,10 +68,12 @@ module.exports = React.createClass({
         navitems = {};
         
       $.each(Object.keys(components), function(index, name) {
+        var Component = components[name];
+        
         navitems["n-" + index] =
           <div>
             <a name={ self._createLink(name).replace("#", "") }></a>
-            { components[name] }
+            { <Component /> }
           </div>;
       })
       
