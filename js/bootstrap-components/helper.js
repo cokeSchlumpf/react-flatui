@@ -15,6 +15,20 @@ module.exports = {
       return newValue;
     },
     
+    getSelectedValue: function(value, multiselect) {
+      var selected = [];
+      
+      $.each(Object.keys(value), function(index, key) {
+        if (multiselect && value[key].selected) {
+          selected.push(key)
+        } else if (!multiselect && value[key].selected && selected.length == 0) {
+          selected = [ key ];
+        }
+      });
+      
+      return selected;
+    },
+    
     calculateNextAndPreviousSelectionIndex: function(data, selectedKey) {
       var 
         next = undefined,

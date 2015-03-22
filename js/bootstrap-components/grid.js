@@ -5,6 +5,7 @@ var Draggable = require("./draggable");
 var Bootstrap = require("react-bootstrap");
 var classnames = require("classnames");
 var updateListValue = require("./helper").updateListValue;
+var getSelectedValue = require("./helper").getSelectedValue;
 
 var $ = require("jquery");
 
@@ -411,7 +412,7 @@ module.exports = React.createClass({
         
       keys.forEach(function(key) {
         var id = self._getRowId(key);
-        result[id] = <Row columns={ columns } row={ key } onClick={ self._handleRowClick(key) } { ...value[key] } />
+        result[id] = <Row columns={ columns } row={ key } onClick={ self._handleRowClick(key) } { ...value[key] } ref={ "row-" + key } /> 
       });
       
       return result;
@@ -429,11 +430,32 @@ module.exports = React.createClass({
             { !noHeader &&
               <Header columns={ mergedColumns } onColumnWidthChange={ this._handleColumnWidthChange } onSort={ this._handleSort } onFilter={ this._handleFilter } />
             }
-            <tbody>
+            <tbody ref="tbody">
               { this._renderRows(mergedColumns) }
             </tbody>
           </Bootstrap.Table>
         );
+    },
+    
+    componentDidUpdate: function() {
+      this._updateScrollPosition();
+    },
+    
+    componentDidMount: function() {
+      this._updateScrollPosition();
+    },
+    
+    _updateScrollPosition: function() {
+      var selected = getSelectedValue(this.props.value, this.props.multiselect);
+      
+      if (selected.length > 0) {
+        var item = this.refs["row-" + selected[0]].getDOMNode();
+        var offset = item.offsetTop;
+        if (this.refs.tbody.getDOMNode().childNodes[1]) {
+          offset -= this.refs.tbody.getDOMNode().childNodes[1].offsetTop;
+        }
+        this.refs.tbody.getDOMNode().scrollTop = offset;
+      }
     },
     
     _copyColumnState: function() {
