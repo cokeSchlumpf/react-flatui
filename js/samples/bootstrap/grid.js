@@ -67,6 +67,7 @@ var SimpleExample = React.createClass({
             <App.Bootstrap.Grid 
               columns={ table.columns } value={ this.state.value } 
               onChange={ this._handleChange } multiselect={ true }
+              style={{ height: "200px" }}
               { ...other } />
               
             <p>

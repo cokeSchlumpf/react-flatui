@@ -18,8 +18,7 @@ module.exports = React.createClass({
     propTypes: {
       bordered: React.PropTypes.bool,
       multiselect: React.PropTypes.bool,
-      name: React.PropTypes.string.isRequired,
-      renderWith: React.PropTypes.object,
+      renderWith: React.PropTypes.any,
       value: React.PropTypes.object.isRequired,
       onChange: React.PropTypes.func
     },

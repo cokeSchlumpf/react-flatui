@@ -469,11 +469,23 @@ main .h3 {
   left: 0;
 }
 .fu-table tbody {
-  position: absolute;
-  top: 37px;
-  bottom: 0;
-  left: 0;
-  overflow-x: auto;
+  margin-top: 37px;
+  overflow: auto;
+}
+.fu-table tbody.fu-applayout-item-fixed-1 {
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  -moz-flex-shrink: 0;
+  -ms-flex-shrink: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: 0;
+  -moz-flex-basis: 0;
+  -ms-flex-basis: 0;
+  flex-basis: 0;
+  overflow: show;
 }
 .fu-table .fu-table-header-column {
   position: relative;
@@ -557,13 +569,29 @@ main .h3 {
   color: #ffffff !important;
 }
 .table-condensed tbody {
-  top: 30px;
+  margin-top: 30px;
 }
 .fu-table-noHeader tbody {
-  top: -1px;
+  margin-top: -1px;
+}
+.fu-listbox {
+  background-color: #fff;
 }
 .fu-listbox.fu-listbox-bordered {
   border: 1px solid #ddd;
+}
+.fu-textbox {
+  position: relative;
+}
+.fu-textbox .fu-listbox {
+  position: absolute;
+  top: 100%;
+  z-index: 90;
+  left: 0;
+  width: 100%;
+  min-height: 10px;
+  height: auto;
+  max-height: 200px;
 }
 html,
 body {

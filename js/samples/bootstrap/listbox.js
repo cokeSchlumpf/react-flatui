@@ -35,16 +35,18 @@ var SimpleExample = React.createClass({
       };
     },
     
-    complexListItem: React.createClass({
-      render: function() {
-        return (
-            <div>
-              <strong>{ this.props.value.title }</strong><br />
-              <small>{ this.props.value.country }</small>
-            </div>
-          )
-      }
-    }),
+    complexListItem: function() {
+      return React.createClass({
+        render: function() {
+          return (
+              <div>
+                <strong>{ this.props.value.title }</strong><br />
+                <small>{ this.props.value.country }</small>
+              </div>
+            )
+        }
+      });
+    },
     
     render: function() {
       return (
@@ -53,13 +55,13 @@ var SimpleExample = React.createClass({
               <Col md={ 6 }>
                 <App.Bootstrap.Listbox 
                   value={ this.state.singleTeam } name="singleTeam" bordered
-                  onChange={ this._handleSingleTeamChange } />
+                  onChange={ this._handleSingleTeamChange } style={{ height: "150px" }} />
               </Col>
               
               <Col md={ 6 }>
                 <App.Bootstrap.Listbox
-                  value={ this.state.multiTeam } name="multiTeam" renderWith={ this.complexListItem }
-                  multiselect={ true } onChange={ this._handleMultiTeamChange } />
+                  value={ this.state.multiTeam } name="multiTeam" renderWith={ this.complexListItem() }
+                  multiselect={ true } onChange={ this._handleMultiTeamChange } style={{ height: "150px" }} />
               </Col>
             </Row>
           </Example>

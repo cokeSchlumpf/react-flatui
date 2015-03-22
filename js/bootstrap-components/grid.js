@@ -182,10 +182,10 @@ var Cell = React.createClass({
         content;
       
       if (column.renderWith) {
-        var Element = column.renderWith;
-        content = <Element value={ value } />
+        var Element = React.createFactory(column.renderWith);
+        content = Element({ value: value });
       } else {
-        content = value;
+        content = <span>value</span>;
       }
       
       return (<td className={ this._getClassName() } width={ column.width } { ...other }>{ content }</td>);

@@ -56,11 +56,9 @@
   }
   
   tbody {
-    position: absolute;
-    top: 37px;
-    bottom: 0;
-    left: 0;
-    overflow-x: auto;
+    margin-top: 37px;
+    .fu-applayout-item-fixed(1);
+    overflow: auto;
   }
   
   .fu-table-header-column {
@@ -169,14 +167,18 @@
 
 .table-condensed {
   tbody {
-    top: 30px;
+    margin-top: 30px;
   }
 }
 
 .fu-table-noHeader {
   tbody {
-    top: -1px;
+    margin-top: -1px;
   }
+}
+
+.fu-listbox {
+  background-color: #fff;
 }
 
 .fu-listbox.fu-listbox-bordered {
