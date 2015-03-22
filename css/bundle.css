@@ -470,7 +470,7 @@ main .h3 {
 }
 .fu-table tbody {
   position: absolute;
-  top: 30px;
+  top: 37px;
   bottom: 0;
   left: 0;
   overflow-x: auto;
@@ -556,8 +556,14 @@ main .h3 {
   background-color: #17a086 !important;
   color: #ffffff !important;
 }
+.table-condensed tbody {
+  top: 30px;
+}
 .fu-table-noHeader tbody {
   top: -1px;
+}
+.fu-listbox.fu-listbox-bordered {
+  border: 1px solid #ddd;
 }
 html,
 body {

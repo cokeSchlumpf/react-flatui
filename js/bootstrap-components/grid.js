@@ -177,9 +177,18 @@ var Cell = React.createClass({
     },
     
     render: function() {
-      var { className, column, style, value, width, ...other } = this.props;
+      var 
+        { className, column, style, value, width, ...other } = this.props,
+        content;
       
-      return (<td className={ this._getClassName() } width={ column.width } { ...other }>{ value }</td>);
+      if (column.renderWith) {
+        var Element = column.renderWith;
+        content = <Element value={ value } />
+      } else {
+        content = value;
+      }
+      
+      return (<td className={ this._getClassName() } width={ column.width } { ...other }>{ content }</td>);
     },
     
     _getClassName: function() {
@@ -286,7 +295,7 @@ module.exports = React.createClass({
         keys = Object.keys(columns);
         
       keys.forEach(function(key) {
-        if (columns[key].filter == true) columns[key].filter = self._createDefaultFilter(self.props.value, key);
+        if (columns[key].filter && columns[key].filter == true) columns[key].filter = self._createDefaultFilter(self.props.value, key);
         if (!columns[key].width) columns[key].width = "1*";
         if (self.state.columns[key]) {
           var state = self.state.columns[key];

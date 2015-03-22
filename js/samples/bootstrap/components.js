@@ -16,9 +16,10 @@ var Col = Bootstrap.Col;
 
 var components = {
   Buttons: require("./button"),
+  "Check- & Radiobox": require("./selectbox"),
   "Grid Control": require("./grid"),
-  Textbox: require("./textbox"),
-  "Check- & Radiobox": require("./selectbox")
+  Listbox: require("./listbox"),
+  Textbox: require("./textbox")
 };
 
 module.exports = React.createClass({  
