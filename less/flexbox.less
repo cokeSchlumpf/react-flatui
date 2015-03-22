@@ -133,14 +133,3 @@
       -ms-align-self: @align;
           align-self: @align;
 }
-
-// Creates a fixed cell
-.pbm-applayout-item-fixed(@num) {
-    &.pbm-applayout-item-fixed-@{num} {
-		  //.flex(@num 0 auto);
-    .flex-grow(@num);
-    .flex-shrink(0);
-    .flex-basis(0);
-    overflow: show;
-    }
-}

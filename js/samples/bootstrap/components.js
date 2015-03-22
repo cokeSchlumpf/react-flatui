@@ -16,6 +16,7 @@ var Col = Bootstrap.Col;
 
 var components = {
   Buttons: require("./button"),
+  "Grid Control": require("./grid"),
   Textbox: require("./textbox"),
   "Check- & Radiobox": require("./selectbox")
 };

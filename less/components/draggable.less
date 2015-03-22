@@ -1,8 +1,8 @@
 // --- Draggable
-.ui-control-draggable {
+.fu-draggable {
   overflow: show;
   
-  .ui-control-draggable-area {
+  .fu-draggable-area {
     position: absolute;
     width: 200px;
     height: 200px;
@@ -11,21 +11,23 @@
     margin-top: -100px;
     margin-left: -100px;
     z-index: 20;
+    
+    background-color: rgba(255, 0, 0, 0.2);
   }
 }
 
-.ui-control-draggable:hover {
+.fu-draggable:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.ui-control-draggable-x:hover {
+.fu-draggable-x:hover {
   cursor: ew-resize;
 }
 
-.ui-control-draggable-y:hover {
+.fu-draggable-y:hover {
   cursor: ns-resize;
 }
 
-.ui-control-draggable-xy:hover {
+.fu-draggable-xy:hover {
   cursor: nesw-resize;
 }
