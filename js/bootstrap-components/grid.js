@@ -186,7 +186,7 @@ var Cell = React.createClass({
         var Element = React.createFactory(column.renderWith);
         content = Element({ value: value });
       } else {
-        content = <span>value</span>;
+        content = { value };
       }
       
       return (<td className={ this._getClassName() } width={ column.width } { ...other }>{ content }</td>);
@@ -267,6 +267,7 @@ module.exports = React.createClass({
       multiselect: React.PropTypes.bool,
       noHeader: React.PropTypes.bool,
       value: React.PropTypes.object,
+      scrollToSelection: React.PropTypes.bool,
       
       onChange: React.PropTypes.func,
       onColumnConfigurationChange: React.PropTypes.func
@@ -275,6 +276,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
       return {
         mode: "client",
+        scrollToSelection: false,
         onChange: function(newValue) { console.log(newValue); }
       };
     },
@@ -446,6 +448,8 @@ module.exports = React.createClass({
     },
     
     _updateScrollPosition: function() {
+      if (!this.props.scrollToSelection) return;
+      
       var selected = getSelectedValue(this.props.value, this.props.multiselect);
       
       if (selected.length > 0) {

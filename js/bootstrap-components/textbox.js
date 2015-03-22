@@ -99,7 +99,7 @@ module.exports = React.createClass({
           <div className={ this._getClassName() }>
             <Bootstrap.Input { ...other } onBlur={ this._handleBlur } onChange={ this._handleChange } onFocus={ this._handleFocus } ref="textbox" onKeyDown={ this._handleKeyDownEvent } />
             { this.state.hasFocus && Object.keys(autocompleteData).length > 0 && rows == 1 &&
-              <Listbox value={ autocompleteData } onChange={ this._handleAutocompleteClick } />
+              <Listbox value={ autocompleteData } onChange={ this._handleAutocompleteClick } scrollToSelection />
             }
           </div>
         )
