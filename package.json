@@ -1,13 +1,28 @@
 {
   "name": "react-flatui",
-  "version": "0.0.1",
-  "description": "A UI Library based on React.",
+  "version": "0.1.0-M1",
+  "stability": "experimental",
+  "description": "React components based on React Bootstrap for Bootstrap 3.",
+  "homepage": "http://cokeschlumpf.github.io/react-flatui/",
+  "keywords": [
+    "react",
+    "ecosystem-react",
+    "react-component",
+    "bootstrap"
+  ],
+  
+  "author": "Michael Wellner <info@michaelwellner.de>",
+  "license": "MIT",
+  
   "repository": {
     "type": "git",
     "url": "git://github.com/cokeSchlumpf/react-flatui.git"
   },
-  "main": "js/app.js",
-  "stability": "experimental",
+  
+  "main": "lib/main.js",
+  "directories": {
+    "lib": "lib/"
+  },
   
   "dependencies": {
     "classnames": "1.2.0",
@@ -20,38 +35,17 @@
   },
   
   "devDependencies": {
-    "browserify": "~9.0.3",
-    "envify": "~3.2.0",
-    "jest-cli": "~0.4.0",
-    "reactify": "~1.0.0",
-    "react-tools": "~0.12.0",
-    "uglify-js": "~2.4.15",
-    "watchify": "^2.1.1",
-    "catw": "~0.2.0"
+    "grunt": "~0.4.2",
+    "grunt-amd-wrap": "^1.0.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-react": "~0.10.0"
   },
   
   "scripts": {
-    "build-js": "browserify . | uglifyjs -mc > js/bundle.js",
-    "build-css": "catw -c 'lessc -' 'less/example.less' > css/bundle.css",
-    "watch-js": "watchify -o js/bundle.js -v -d .",
-    "watch-css": "catw -c 'lessc $FILE' 'less/example.less' -o css/bundle.css -v",
-    "watch": "npm run watch-js & npm run watch-css",
-    
-    "start": "watchify -o js/bundle.js -v -d .",
-    "build": "npm run build-css && npm run build-js",
-    "test": "jest"
-  },
-
-  "author": "Michael Wellner",
-
-  "browserify": {
-    "transform": [
-      [ "reactify", { "harmony": true } ],
-      "envify"
-    ]
-  },
-
-  "jest": {
-    "rootDir": "./js"
+    "build": "./node_modules/.bin/grunt build",
   }
 }
