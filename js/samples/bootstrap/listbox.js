@@ -6,7 +6,7 @@ var Example = require("./example");
 var Row = Bootstrap.Row;
 var Col = Bootstrap.Col;
 
-var simpleExampleSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        singleTeam: {\n          fcb: { title: \"FC Bayern München\", selected: true },\n          rmd: { title: \"Real Madrid\", selected: false },\n          atl: { title: \"Atletico Madrid\", selected: false },\n          por: { title: \"FC Porto\", selected: false },\n          psg: { title: \"Paris\", selected: false },\n          bar: { title: \"FC Barcelona\", selected: false },\n          juv: { title: \"Juventus Turin\", selected: false },\n          mon: { title: \"AS Monaco\", selected: false }\n        },\n        multiTeam: {\n          fcb: { title: \"FC Bayern München\", selected: true },\n          rmd: { title: \"Real Madrid\", selected: false },\n          atl: { title: \"Atletico Madrid\", selected: true },\n          por: { title: \"FC Porto\", selected: false },\n          psg: { title: \"Paris\", selected: false },\n          bar: { title: \"FC Barcelona\", selected: false },\n          juv: { title: \"Juventus Turin\", selected: false },\n          mon: { title: \"AS Monaco\", selected: false }\n        }\n      };\n    },\n    \n    render: function() {\n      return (\n          <div>\n            <Row>\n              <Col md={ 6 }>\n                <App.Bootstrap.Listbox \n                  value={ this.state.singleTeam } name=\"singleTeam\" bordered\n                  onChange={ this._handleSingleTeamChange } />\n              </Col>\n              \n              <Col md={ 6 }>\n                <App.Bootstrap.Listbox\n                  value={ this.state.multiTeam } name=\"multiTeam\" \n                  multiselect={ true } onChange={ this._handleMultiTeamChange } />\n              </Col>\n            </Row>\n          </div>\n        ); \n    },\n    \n    _handleSingleTeamChange: function(value) {\n      this.setState({ singleTeam: value });\n    },\n    \n    _handleMultiTeamChange: function(value) {\n      this.setState({ multiTeam: value });\n    }\n  });";
+var simpleExampleSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        singleTeam: {\n          fcb: { title: \"FC Bayern München\", selected: true },\n          rmd: { title: \"Real Madrid\", selected: false },\n          atl: { title: \"Atletico Madrid\", selected: false },\n          por: { title: \"FC Porto\", selected: false },\n          psg: { title: \"Paris\", selected: false },\n          bar: { title: \"FC Barcelona\", selected: false },\n          juv: { title: \"Juventus Turin\", selected: false },\n          mon: { title: \"AS Monaco\", selected: false }\n        },\n        multiTeam: {\n          fcb: { title: \"FC Bayern München\", selected: true },\n          rmd: { title: \"Real Madrid\", selected: false },\n          atl: { title: \"Atletico Madrid\", selected: true },\n          por: { title: \"FC Porto\", selected: false },\n          psg: { title: \"Paris\", selected: false },\n          bar: { title: \"FC Barcelona\", selected: false },\n          juv: { title: \"Juventus Turin\", selected: false },\n          mon: { title: \"AS Monaco\", selected: false }\n        }\n      };\n    },\n    \n    render: function() {\n      return (\n          <div>\n            <Row>\n              <Col md={ 6 }>\n                <App.Listbox \n                  value={ this.state.singleTeam } name=\"singleTeam\" bordered\n                  onChange={ this._handleSingleTeamChange } />\n              </Col>\n              \n              <Col md={ 6 }>\n                <App.Listbox\n                  value={ this.state.multiTeam } name=\"multiTeam\" \n                  multiselect={ true } onChange={ this._handleMultiTeamChange } />\n              </Col>\n            </Row>\n          </div>\n        ); \n    },\n    \n    _handleSingleTeamChange: function(value) {\n      this.setState({ singleTeam: value });\n    },\n    \n    _handleMultiTeamChange: function(value) {\n      this.setState({ multiTeam: value });\n    }\n  });";
 
 
 var SimpleExample = React.createClass({
@@ -53,13 +53,13 @@ var SimpleExample = React.createClass({
           <Example source={ simpleExampleSource }>
             <Row>
               <Col md={ 6 }>
-                <App.Bootstrap.Listbox 
+                <App.Listbox 
                   value={ this.state.singleTeam } name="singleTeam" bordered
                   onChange={ this._handleSingleTeamChange } style={{ height: "150px" }} />
               </Col>
               
               <Col md={ 6 }>
-                <App.Bootstrap.Listbox
+                <App.Listbox
                   value={ this.state.multiTeam } name="multiTeam" renderWith={ this.complexListItem() }
                   multiselect={ true } onChange={ this._handleMultiTeamChange } style={{ height: "150px" }} />
               </Col>

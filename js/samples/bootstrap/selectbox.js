@@ -6,11 +6,11 @@ var Example = require("./example");
 var Col = Bootstrap.Col;
 var Row = Bootstrap.Row;
 
-var singleCheckboxSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        license: false,\n        newsletterSelected: true\n      }  \n    },\n    \n    render: function() {\n      return (\n          <div>\n            <App.Bootstrap.Checkbox \n              title=\"Yes, send me a newsletter\" name=\"newsletter\" \n              value=\"newsletter\" onChange={ this._handleNewsletterChange } \n              selected={ this.state.newsletterSelected } />\n\n            <App.Bootstrap.Checkbox \n              title=\"Accept license\" name=\"license\" value=\"license\" \n              onChange={ this._handleLicenseChange } \n              selected={ this.state.licenseSelected } />\n\n            <Bootstrap.Alert>\n              <strong>Newsletter:</strong> { this.state.newsletterSelected ? \"Yes\" : \"No\" }, \n              <strong>License:</strong> { this.state.license ? \"Yes\" : \"No\" }\n            </Bootstrap.Alert>\n          </div>\n        );\n    },\n    \n    _handleLicenseChange: function(selected) {\n      this.setState({ license: selected });\n    },\n    \n    _handleNewsletterChange: function(selected) {\n      this.setState({ newsletterSelected: selected });\n    }\n  });";
+var singleCheckboxSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        license: false,\n        newsletterSelected: true\n      }  \n    },\n    \n    render: function() {\n      return (\n          <div>\n            <App.Checkbox \n              title=\"Yes, send me a newsletter\" name=\"newsletter\" \n              value=\"newsletter\" onChange={ this._handleNewsletterChange } \n              selected={ this.state.newsletterSelected } />\n\n            <App.Checkbox \n              title=\"Accept license\" name=\"license\" value=\"license\" \n              onChange={ this._handleLicenseChange } \n              selected={ this.state.licenseSelected } />\n\n            <Bootstrap.Alert>\n              <strong>Newsletter:</strong> { this.state.newsletterSelected ? \"Yes\" : \"No\" }, \n              <strong>License:</strong> { this.state.license ? \"Yes\" : \"No\" }\n            </Bootstrap.Alert>\n          </div>\n        );\n    },\n    \n    _handleLicenseChange: function(selected) {\n      this.setState({ license: selected });\n    },\n    \n    _handleNewsletterChange: function(selected) {\n      this.setState({ newsletterSelected: selected });\n    }\n  });";
 
-var singleRadioboxSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        sex: \"female\"\n      }  \n    },\n    \n    render: function() {\n      return (\n          <div>\n            <App.Bootstrap.Radiobox \n              title=\"Female\" name=\"sex\" id=\"female\"\n              value=\"female\" onChange={ this._handleChange } \n              selected={ this.state.sex == \"female\" } />\n            \n            <App.Bootstrap.Radiobox \n              title=\"Male\" name=\"sex\" id=\"male\"\n              value=\"male\" onChange={ this._handleChange } \n              selected={ this.state.sex == \"male\" } />\n          </div>\n        );\n    },\n    \n    _handleChange: function(selected, value) {\n      this.setState({ sex: value });\n    }\n  });";
+var singleRadioboxSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        sex: \"female\"\n      }  \n    },\n    \n    render: function() {\n      return (\n          <div>\n            <App.Radiobox \n              title=\"Female\" name=\"sex\" id=\"female\"\n              value=\"female\" onChange={ this._handleChange } \n              selected={ this.state.sex == \"female\" } />\n            \n            <App.Radiobox \n              title=\"Male\" name=\"sex\" id=\"male\"\n              value=\"male\" onChange={ this._handleChange } \n              selected={ this.state.sex == \"male\" } />\n          </div>\n        );\n    },\n    \n    _handleChange: function(selected, value) {\n      this.setState({ sex: value });\n    }\n  });";
 
-var selectgroupSource = "React.createClass({\n  getInitialState: function() {\n    return {\n      singleTeam: {\n        fcb: { title: \"FC Bayern München\", selected: true },\n        rmd: { title: \"Real Madrid\", selected: false },\n        atl: { title: \"Atletico Madrid\", selected: false },\n        por: { title: \"FC Porto\", selected: false }\n      },\n      multiTeam: {\n        fcb: { title: \"FC Bayern München\", selected: true },\n        rmd: { title: \"Real Madrid\", selected: false },\n        atl: { title: \"Atletico Madrid\", selected: true },\n        por: { title: \"FC Porto\", selected: false }\n      }\n    };\n  },\n  \n  render: function() {\n    return (\n        <div>\n          <Row>\n            <Col md={ 6 }>\n              <App.Bootstrap.Selectgroup \n                value={ this.state.singleTeam } name=\"singleTeam\" \n                onChange={ this._handleSingleTeamChange } />\n            </Col>\n            \n            <Col md={ 6 }>\n              <App.Bootstrap.Selectgroup \n                value={ this.state.multiTeam } name=\"multiTeam\" \n                multiselect={ true } onChange={ this._handleMultiTeamChange } />\n            </Col>\n          </Row>\n          \n          <Bootstrap.Alert>\n            <Row>\n              <Col md={ 6 }>\n                <p>\n                  <strong>Singleselect value:</strong> \n                  <pre>{ JSON.stringify(this.state.singleTeam, null, \"  \") }</pre>\n                </p>\n              </Col>\n              <Col md={ 6 }>\n                <p>\n                  <strong>Multiselect value:</strong> \n                  <pre>{ JSON.stringify(this.state.multiTeam, null, \"  \") }</pre>\n                </p>\n              </Col>\n            </Row>\n          </Bootstrap.Alert>\n        </div>\n      ); \n  },\n  \n  _handleSingleTeamChange: function(value) {\n    this.setState({ singleTeam: value });\n  },\n  \n  _handleMultiTeamChange: function(value) {\n    this.setState({ multiTeam: value });\n  }\n});";
+var selectgroupSource = "React.createClass({\n  getInitialState: function() {\n    return {\n      singleTeam: {\n        fcb: { title: \"FC Bayern München\", selected: true },\n        rmd: { title: \"Real Madrid\", selected: false },\n        atl: { title: \"Atletico Madrid\", selected: false },\n        por: { title: \"FC Porto\", selected: false }\n      },\n      multiTeam: {\n        fcb: { title: \"FC Bayern München\", selected: true },\n        rmd: { title: \"Real Madrid\", selected: false },\n        atl: { title: \"Atletico Madrid\", selected: true },\n        por: { title: \"FC Porto\", selected: false }\n      }\n    };\n  },\n  \n  render: function() {\n    return (\n        <div>\n          <Row>\n            <Col md={ 6 }>\n              <App.Selectgroup \n                value={ this.state.singleTeam } name=\"singleTeam\" \n                onChange={ this._handleSingleTeamChange } />\n            </Col>\n            \n            <Col md={ 6 }>\n              <App.Selectgroup \n                value={ this.state.multiTeam } name=\"multiTeam\" \n                multiselect={ true } onChange={ this._handleMultiTeamChange } />\n            </Col>\n          </Row>\n          \n          <Bootstrap.Alert>\n            <Row>\n              <Col md={ 6 }>\n                <p>\n                  <strong>Singleselect value:</strong> \n                  <pre>{ JSON.stringify(this.state.singleTeam, null, \"  \") }</pre>\n                </p>\n              </Col>\n              <Col md={ 6 }>\n                <p>\n                  <strong>Multiselect value:</strong> \n                  <pre>{ JSON.stringify(this.state.multiTeam, null, \"  \") }</pre>\n                </p>\n              </Col>\n            </Row>\n          </Bootstrap.Alert>\n        </div>\n      ); \n  },\n  \n  _handleSingleTeamChange: function(value) {\n    this.setState({ singleTeam: value });\n  },\n  \n  _handleMultiTeamChange: function(value) {\n    this.setState({ multiTeam: value });\n  }\n});";
 
 var SingleCheckboxExample = React.createClass({
     getInitialState: function() {
@@ -23,8 +23,8 @@ var SingleCheckboxExample = React.createClass({
     render: function() {
       return (
           <Example source={ singleCheckboxSource }>
-            <App.Bootstrap.Checkbox title="Yes, send me a newsletter" name="newsletter" value="newsletter" onChange={ this._handleNewsletterChange } selected={ this.state.newsletterSelected } />
-            <App.Bootstrap.Checkbox title="Accept license" name="license" value="license" onChange={ this._handleLicenseChange } selected={ this.state.licenseSelected } />
+            <App.Checkbox title="Yes, send me a newsletter" name="newsletter" value="newsletter" onChange={ this._handleNewsletterChange } selected={ this.state.newsletterSelected } />
+            <App.Checkbox title="Accept license" name="license" value="license" onChange={ this._handleLicenseChange } selected={ this.state.licenseSelected } />
             <Bootstrap.Alert>
               <strong>Newsletter:</strong> { this.state.newsletterSelected ? "Yes" : "No" }, <strong>License:</strong> { this.state.license ? "Yes" : "No" }
             </Bootstrap.Alert>
@@ -51,12 +51,12 @@ var SingleRadioboxExample = React.createClass({
     render: function() {
       return (
           <Example source={ singleRadioboxSource }>
-            <App.Bootstrap.Radiobox 
+            <App.Radiobox 
               title="Female" name="sex" id="female"
               value="female" onChange={ this._handleChange } 
               selected={ this.state.sex == "female" } />
             
-            <App.Bootstrap.Radiobox 
+            <App.Radiobox 
               title="Male" name="sex" id="male"
               value="male" onChange={ this._handleChange } 
               selected={ this.state.sex == "male" } />
@@ -92,13 +92,13 @@ var SelectgroupExample = React.createClass({
           <Example source={ selectgroupSource }>
             <Row>
               <Col md={ 6 }>
-                <App.Bootstrap.Selectgroup 
+                <App.Selectgroup 
                   value={ this.state.singleTeam } name="singleTeam" 
                   onChange={ this._handleSingleTeamChange } />
               </Col>
               
               <Col md={ 6 }>
-                <App.Bootstrap.Selectgroup 
+                <App.Selectgroup 
                   value={ this.state.multiTeam } name="multiTeam" 
                   multiselect={ true } onChange={ this._handleMultiTeamChange } />
               </Col>
