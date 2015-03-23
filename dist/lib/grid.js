@@ -24,7 +24,7 @@ var ColumnHeader = React.createClass({displayName: "ColumnHeader",
       onSort: React.PropTypes.func
     },
 
-    getDefaultProps: function() {
+    defaultProps: function() {
       return {
         sortable: false
       }

@@ -14,7 +14,7 @@ var Button = React.createClass({
       onChange: React.PropTypes.func
     },
     
-    getDefaultProps: function() {
+    defaultProps: function() {
       return {
         toggle: false,
         value: false
@@ -48,7 +48,7 @@ var DropdownButton = React.createClass({
       onChange: React.PropTypes.func
     },
     
-    getDefaultProps: function() {
+    defaultProps: function() {
       return {
         multiselect: false,
         splitter: false
@@ -116,7 +116,7 @@ var ButtonGroup = React.createClass({
       onChange: React.PropTypes.func
     },
     
-    getDefaultProps: function() {
+    defaultProps: function() {
       return {
         multiple: false
       };

@@ -83,6 +83,20 @@ module.exports = function (grunt) {
       }
     },
     
+    less: {
+			options: {
+				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+				compress: true
+      },
+			src: {
+        expand: true,
+        cwd: 'src/less',
+        src: 'react-flatui.less',
+        ext: '.min.css',
+        dest: 'dist/amd/css'
+      }
+    },
+    
     react: {
       options: {
         harmony: true
@@ -139,6 +153,20 @@ module.exports = function (grunt) {
         src: 'dist/amd/<%= pkg.name %>.js',
         dest: 'dist/amd/<%= pkg.name %>.min.js'
       }
+    },
+    
+    watch: {
+      all: {
+        files: [
+          'src/**/*.jsx',
+          'src/**/*.js',
+          'src/**/*.less'
+        ],
+        tasks: ['build'],
+        options: {
+          spawn: false
+        }
+      }
     }
   });
   
@@ -146,6 +174,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-bower-install-simple")
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks("grunt-contrib-less");
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -159,6 +188,7 @@ module.exports = function (grunt) {
     'copy',
     'requirejs:dev',
     'uglify:build',
+    'less',
     'clean:transpiled'
   ]);
   
