@@ -1,20 +1,20 @@
-var React = require("react/addons");
+var React = require("react");
 var Bootstrap = require("react-bootstrap");
 var Grid = require("./grid");
 
-var updateListValue = require("./helper").updateListValue;
-var classnames = require("classnames");
 var $ = require("jquery");
+var classnames = require("./util/classnames/index");
+var updateListValue = require("./helper").updateListValue;
 
-var ListItem = React.createClass({
+var ListItem = React.createClass({displayName: "ListItem",
   render: function() {
     return (
-        <span>{ this.props.value.title }</span>
+        React.createElement("span", null,  this.props.value.title)
       );
   }
 })
 
-module.exports = React.createClass({
+module.exports = React.createClass({displayName: "exports",
     propTypes: {
       bordered: React.PropTypes.bool,
       multiselect: React.PropTypes.bool,
@@ -69,10 +69,10 @@ module.exports = React.createClass({
     },
     
     render: function() {
-      var { bordered, className, multiselect, name, renderWith, value, onChange, ...other } = this.props;
+      var $__0=           this.props,bordered=$__0.bordered,className=$__0.className,multiselect=$__0.multiselect,name=$__0.name,renderWith=$__0.renderWith,value=$__0.value,onChange=$__0.onChange,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{bordered:1,className:1,multiselect:1,name:1,renderWith:1,value:1,onChange:1});
       
       return (
-          <Grid noHeader className={ this._getClassName() } columns={ this.columns() } value={ this._prepareValue() } onChange={ this._handleChange } { ...other } />
+          React.createElement(Grid, React.__spread({noHeader: true, className:  this._getClassName(), columns:  this.columns(), value:  this._prepareValue(), onChange:  this._handleChange},   other ))
         )
     },
     

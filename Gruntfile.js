@@ -6,23 +6,35 @@ module.exports = function (grunt) {
     amdwrap: {
       src: {
         expand: true,
-        cwd: 'src/',
+        cwd: 'src/js',
         src: ['**/*.js'],
-        dest: 'amd/lib'
+        dest: 'dist/amd/lib'
       },
       
       transpiled: {
         expand: true,
         cwd: 'transpiled/',
         src: ['**/*.js'],
-        dest: 'amd/lib'
+        dest: 'dist/amd/lib'
       }
     },
     
+    "bower-install-simple": {
+			options: {
+				directory: 'src/js/util'
+      },
+			prod: {
+				options: {
+					production: true
+				}
+		  }
+    },
+    
     clean: {
-      transpiled: ['transpiled'],
-      cjs: ['lib'],
-      amd: ['amd']
+      amd: ['dist/amd'],
+      bower: ['src/js/util'],
+      cjs: ['dist/lib'],
+      transpiled: ['transpiled']
     },
     
     copy: {
@@ -30,7 +42,13 @@ module.exports = function (grunt) {
         files: [
           {
             src: ['**/*'],
-            dest: 'amd/',
+            dest: 'dist/amd/',
+            cwd: 'tools/amd',
+            expand: true
+          },
+          {
+            src: ['.gitignore-template'],
+            dest: 'dist/amd/',
             cwd: 'tools/amd',
             expand: true
           }
@@ -42,17 +60,17 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'transpiled/',
             src: ['**/*.js'],
-            dest: 'lib/'
+            dest: 'dist/lib'
           },
           {
             expand: true,
-            cwd: 'src/',
+            cwd: 'src/js',
             src: ['**/*.js'],
-            dest: 'lib/'
+            dest: 'dist/lib'
           },
           {
             src: ['**/*'],
-            dest: 'lib/',
+            dest: 'dist/lib',
             cwd: 'tools/cjs',
             expand: true
           }
@@ -74,8 +92,8 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: 'src',
-            src: ['**/*.js'],
+            cwd: 'src/js',
+            src: ['**/*.jsx'],
             dest: 'transpiled',
             ext: '.js'
           }
@@ -87,17 +105,19 @@ module.exports = function (grunt) {
       dev: {
         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
         options: {
-          baseUrl: "amd",
+          baseUrl: "dist/amd",
           paths: {
-            "react-bootstrap": "./index",
-            almond: "../tools/vendor/almond"
+            "react-flatui": "./index",
+            almond: "../../tools/vendor/almond"
           },
           packages: [
-            {	name: 'react', location: '../node_modules/react', main: './react' }
+            {	name: 'react', location: '../../node_modules/react', main: './react' },
+            { name: 'react-bootstrap', location: '../../node_modules/react-bootstrap', main: './amd/react-bootstrap' },
+            { name: 'jquery', location: '../../node_modules/jquery', main: './dist/jquery' }
           ],
-          include: ["almond", "react-bootstrap"],
-          exclude: ["react"],
-          out: "amd/react-bootstrap.js",
+          include: ["almond", "react-flatui"],
+          exclude: ["react", "react-bootstrap", "jquery"],
+          out: "dist/amd/react-flatui.js",
           cjsTranslate: true,
           wrap: {
             startFile: "tools/wrap.start",
@@ -116,19 +136,20 @@ module.exports = function (grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: 'amd/<%= pkg.name %>.js',
-        dest: 'amd/<%= pkg.name %>.min.js'
+        src: 'dist/amd/<%= pkg.name %>.js',
+        dest: 'dist/amd/<%= pkg.name %>.min.js'
       }
     }
-  }
+  });
   
-  grunt.loadNpmTasks('grunt-react');
   grunt.loadNpmTasks("grunt-amd-wrap");
+  grunt.loadNpmTasks("grunt-bower-install-simple")
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-react');
    
   grunt.registerTask('build', [
     'clean:amd',
@@ -139,6 +160,11 @@ module.exports = function (grunt) {
     'requirejs:dev',
     'uglify:build',
     'clean:transpiled'
+  ]);
+  
+  grunt.registerTask('update', [
+    'clean:bower',
+    'bower-install-simple'
   ]);
   
   grunt.registerTask('default', ['build']);

@@ -1,8 +1,8 @@
 {
-  "name": "<%= pkg.name %>",
-  "version": "<%= pkg.version %>",
-  "description": "<%= pkg.description %>",
-  "homepage": "<%= pkg.homepage %>",
+  "name": "react-flatui",
+  "version": "0.1.0-M1",
+  "description": "React components based on React Bootstrap for Bootstrap 3.",
+  "homepage": "http://cokeschlumpf.github.io/react-flatui/",
   "main": "main.js",
   "keywords": [
     "react",
@@ -10,8 +10,8 @@
     "react-component",
     "bootstrap"
   ],
-  "author": "<%= pkg.author %>",
-  "license": "<%= pkg.license %>",
+  "author": "Michael Wellner <info@michaelwellner.de>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "cokeSchlumpf/react-flatui"

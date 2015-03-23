@@ -1,8 +1,9 @@
-var React = require("react/addons");
+var React = require("react");
 var Bootstrap = require("react-bootstrap");
 var Listbox = require("./listbox");
 
-var classnames = require("classnames");
+var $ = require("jquery");
+var classnames = require("./util/classnames/index");
 var helper = require("./helper");
 
 var BLUR_TIMEOUT = 100;

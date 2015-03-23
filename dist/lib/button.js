@@ -1,14 +1,12 @@
-var React = require("react/addons");
+var React = require("react");
 var Bootstrap = require("react-bootstrap");
-var Base = require("../components/base");
-var App = Base.App;
 var Selectgroup = require("./selectgroup");
 
 var $ = require("jquery");
-var classnames = require("classnames");
+var classnames = require("./util/classnames/index");
 var updateListValue = require("./helper").updateListValue;
 
-var Button = React.createClass({
+var Button = React.createClass({displayName: "Button",
     propTypes: {
       toggle: React.PropTypes.bool,
       value: React.PropTypes.bool,
@@ -24,11 +22,11 @@ var Button = React.createClass({
     },
     
     render: function() {
-      var { toggle, value, onChange, ...other } = this.props;
+      var $__0=       this.props,toggle=$__0.toggle,value=$__0.value,onChange=$__0.onChange,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{toggle:1,value:1,onChange:1});
       if (toggle && value) other.active = true;
       
       return (
-          <Bootstrap.Button { ...other } onClick={ this._handleClick } ref="button">{ this.props.children }</Bootstrap.Button>
+          React.createElement(Bootstrap.Button, React.__spread({},   other , {onClick:  this._handleClick, ref: "button"}),  this.props.children)
         )
     },
     
@@ -39,7 +37,7 @@ var Button = React.createClass({
     }
   });
   
-var DropdownButton = React.createClass({
+var DropdownButton = React.createClass({displayName: "DropdownButton",
   propTypes: {
       multiselect: React.PropTypes.bool,
       name: React.PropTypes.string.isRequired,
@@ -80,8 +78,8 @@ var DropdownButton = React.createClass({
         items = {};
         
       $.each(Object.keys(this.props.value), function(index, key) {
-        var { title, selected, ...other } = self.props.value[key];
-        items["i" + key] = <Bootstrap.MenuItem className={ self._getItemClassName(selected) } onSelect={ self._onChangeHandler(key, !selected) }>{ title }</Bootstrap.MenuItem>
+        var $__0=      self.props.value[key],title=$__0.title,selected=$__0.selected,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{title:1,selected:1});
+        items["i" + key] = React.createElement(Bootstrap.MenuItem, {className:  self._getItemClassName(selected), onSelect:  self._onChangeHandler(key, !selected) }, title )
       });
       
       return items;
@@ -89,13 +87,13 @@ var DropdownButton = React.createClass({
     
     render: function() {
       var 
-        { className, multiselect, name, splitter, title, value, ...other } = this.props,
+        $__0=          this.props,className=$__0.className,multiselect=$__0.multiselect,name=$__0.name,splitter=$__0.splitter,title=$__0.title,value=$__0.value,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,multiselect:1,name:1,splitter:1,title:1,value:1}),
         BsButton = splitter ? Bootstrap.SplitButton : Bootstrap.DropdownButton;
       
       return (
-          <BsButton title={ title } className={ this._getClassName() } { ...other }>
-           { this._renderItems() }
-          </BsButton>
+          React.createElement(BsButton, React.__spread({title: title, className:  this._getClassName() },   other ), 
+            this._renderItems() 
+          )
         );
     },
     
@@ -109,7 +107,7 @@ var DropdownButton = React.createClass({
     }
 });
   
-var ButtonGroup = React.createClass({
+var ButtonGroup = React.createClass({displayName: "ButtonGroup",
   propTypes: {
       multiselect: React.PropTypes.bool,
       name: React.PropTypes.string.isRequired,
@@ -138,23 +136,23 @@ var ButtonGroup = React.createClass({
         items = {};
       
       $.each(Object.keys(this.props.value), function(index, key) {
-        var { title, selected, ...other } = self.props.value[key];
-        items["i" + key] = <Button onChange={ self._onChangeHandler(key) } { ...other } toggle={ true } value={ selected }>{ title }</Button>
+        var $__0=      self.props.value[key],title=$__0.title,selected=$__0.selected,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{title:1,selected:1});
+        items["i" + key] = React.createElement(Button, React.__spread({onChange:  self._onChangeHandler(key) },   other , {toggle: true, value: selected }), title )
       });
       
       return items;
     },
     
     render: function() {
-      var { className, multiselect, name, value, ...other } = this.props;
+      var $__0=        this.props,className=$__0.className,multiselect=$__0.multiselect,name=$__0.name,value=$__0.value,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,multiselect:1,name:1,value:1});
       
       return (
-          <Bootstrap.ButtonGroup className={ this._getClassName() }> 
-            { this._renderItems() }
-            <div style={{ display: "none" }}>
-              <Selectgroup { ...this.props } />
-            </div>
-          </Bootstrap.ButtonGroup>
+          React.createElement(Bootstrap.ButtonGroup, {className:  this._getClassName() }, 
+             this._renderItems(), 
+            React.createElement("div", {style: { display: "none"}}, 
+              React.createElement(Selectgroup, React.__spread({},   this.props ))
+            )
+          )
         );
     },
     

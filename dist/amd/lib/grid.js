@@ -1,15 +1,16 @@
-var React = require("react/addons");
+define(function (require, exports, module) {var React = require("react");
+var Bootstrap = require("react-bootstrap");
 var Button = require("./button").Button;
 var DropdownButton = require("./button").DropdownButton;
 var Draggable = require("./draggable");
-var Bootstrap = require("react-bootstrap");
-var classnames = require("classnames");
+
+var classnames = require("./util/classnames/index");
 var updateListValue = require("./helper").updateListValue;
 var getSelectedValue = require("./helper").getSelectedValue;
 
 var $ = require("jquery");
 
-var ColumnHeader = React.createClass({
+var ColumnHeader = React.createClass({displayName: "ColumnHeader",
     propTypes: {
       className: React.PropTypes.string,
       filter: React.PropTypes.any,
@@ -36,19 +37,19 @@ var ColumnHeader = React.createClass({
     },
 
     render: function() {
-      var { className, filter, id, title, sortable, sorted, onColumnWidthChange, onFilter, onSort, ...other } = this.props;
+      var $__0=             this.props,className=$__0.className,filter=$__0.filter,id=$__0.id,title=$__0.title,sortable=$__0.sortable,sorted=$__0.sorted,onColumnWidthChange=$__0.onColumnWidthChange,onFilter=$__0.onFilter,onSort=$__0.onSort,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,filter:1,id:1,title:1,sortable:1,sorted:1,onColumnWidthChange:1,onFilter:1,onSort:1});
       
       return (
-          <th className={ this._getClassName() } ref="container" { ...other }>
-            <div className="fu-table-header-column-title" onClick={ this._handleLabelClick }>{ title }</div>
-            { filter &&
-              <div className="fu-table-header-column-dropdown">
-                <DropdownButton multiselect={ true } value={ filter } name={ id + "_filter" } onChange={ this._handleFilter } />
-              </div>
-            }
+          React.createElement("th", React.__spread({className:  this._getClassName(), ref: "container"},   other ), 
+            React.createElement("div", {className: "fu-table-header-column-title", onClick:  this._handleLabelClick}, title ), 
+             filter &&
+              React.createElement("div", {className: "fu-table-header-column-dropdown"}, 
+                React.createElement(DropdownButton, {multiselect: true, value: filter, name:  id + "_filter", onChange:  this._handleFilter})
+              ), 
             
-            <Draggable size={ 25 } movey={ false } minx={ 40 } onChange={ this.props.onColumnWidthChange } />
-          </th>
+            
+            React.createElement(Draggable, {size: 25, movey: false, minx: 40, onChange:  this.props.onColumnWidthChange})
+          )
         );
     },
     
@@ -89,7 +90,7 @@ var ColumnHeader = React.createClass({
     }
 });
 
-var Header = React.createClass({
+var Header = React.createClass({displayName: "Header",
     propTypes: {
       columns: React.PropTypes.object,
       
@@ -127,22 +128,22 @@ var Header = React.createClass({
 
       keys.forEach(function(key) {
         var id = self._getColumnId(key);
-        result[id] = <ColumnHeader { ... columns[key] } onColumnWidthChange={ self._handleColumnWidthChange(key) } onSort={ self._handleColumnSort(key) } id={ key }  onFilter={ self._handleColumnFilter(key) } />
+        result[id] = React.createElement(ColumnHeader, React.__spread({},    columns[key] , {onColumnWidthChange:  self._handleColumnWidthChange(key), onSort:  self._handleColumnSort(key), id: key, onFilter:  self._handleColumnFilter(key) }))
       });
 
       return result;
     },
 
     render: function() {
-      var { className, columns, ...other } = this.props;
+      var $__0=      this.props,className=$__0.className,columns=$__0.columns,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,columns:1});
   
       return (
-          <thead>
-            <tr>
-              { this._renderColumns() }
-              <th className="fu-table-header-menu" width="20"></th>
-            </tr>
-          </thead>
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+               this._renderColumns(), 
+              React.createElement("th", {className: "fu-table-header-menu", width: "20"})
+            )
+          )
         )
     },
     
@@ -171,7 +172,7 @@ var Header = React.createClass({
     }
   });
 
-var Cell = React.createClass({
+var Cell = React.createClass({displayName: "Cell",
     propTypes: {
       value: React.PropTypes.any,
       column: React.PropTypes.object.isRequired
@@ -179,17 +180,17 @@ var Cell = React.createClass({
     
     render: function() {
       var 
-        { className, column, style, value, width, ...other } = this.props,
+        $__0=         this.props,className=$__0.className,column=$__0.column,style=$__0.style,value=$__0.value,width=$__0.width,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,column:1,style:1,value:1,width:1}),
         content;
       
       if (column.renderWith) {
         var Element = React.createFactory(column.renderWith);
         content = Element({ value: value });
       } else {
-        content = { value };
+        content = { value:value };
       }
       
-      return (<td className={ this._getClassName() } width={ column.width } { ...other }>{ content }</td>);
+      return (React.createElement("td", React.__spread({className:  this._getClassName(), width:  column.width},   other ), content ));
     },
     
     _getClassName: function() {
@@ -203,7 +204,7 @@ var Cell = React.createClass({
     }
   });
 
-var Row = React.createClass({
+var Row = React.createClass({displayName: "Row",
     propTypes: {
       columns: React.PropTypes.object.isRequired,
       selected: React.PropTypes.bool,
@@ -231,20 +232,20 @@ var Row = React.createClass({
       keys.forEach(function(key) {
         var id = self._getCellId(key);
         
-        result[id] = <Cell value={ value[key] } column={ columns[key] } className={ self._getClassName() }  />
+        result[id] = React.createElement(Cell, {value:  value[key], column:  columns[key], className:  self._getClassName() })
       });
       
       return result;
     },
     
     render: function() {
-      var { className, columns, isEvenRow, value, ...other } = this.props;
+      var $__0=        this.props,className=$__0.className,columns=$__0.columns,isEvenRow=$__0.isEvenRow,value=$__0.value,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,columns:1,isEvenRow:1,value:1});
       
       return (
-          <tr className={ this._getClassName() } { ...other }>
-            { this._renderColumns() }
-            <td className="fu-table-header-menu" width="20"></td>
-          </tr>
+          React.createElement("tr", React.__spread({className:  this._getClassName() },   other ), 
+             this._renderColumns(), 
+            React.createElement("td", {className: "fu-table-header-menu", width: "20"})
+          )
         );
     },
     
@@ -260,7 +261,7 @@ var Row = React.createClass({
     }
   });
 
-module.exports = React.createClass({
+module.exports = React.createClass({displayName: "exports",
     propTypes: {
       columns: React.PropTypes.object,
       mode: React.PropTypes.string, // 'client' or 'server'
@@ -414,28 +415,28 @@ module.exports = React.createClass({
         
       keys.forEach(function(key) {
         var id = self._getRowId(key);
-        result[id] = <Row columns={ columns } row={ key } onClick={ self._handleRowClick(key) } { ...value[key] } ref={ "row-" + key } /> 
+        result[id] = React.createElement(Row, React.__spread({columns: columns, row: key, onClick:  self._handleRowClick(key) },   value[key] , {ref:  "row-" + key})) 
       });
       
       return result;
     },
     
     render: function() {
-      var { className, columns, mode, multiselect, noHeader, value, multiselect, onChange, onColumnConfigurationChange, ...other } = this.props;
+      var $__0=             this.props,className=$__0.className,columns=$__0.columns,mode=$__0.mode,multiselect=$__0.multiselect,noHeader=$__0.noHeader,value=$__0.value,multiselect=$__0.multiselect,onChange=$__0.onChange,onColumnConfigurationChange=$__0.onColumnConfigurationChange,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,columns:1,mode:1,multiselect:1,noHeader:1,value:1,multiselect:1,onChange:1,onColumnConfigurationChange:1});
       var 
         mergedColumns = this._mergeColumnConfiguration();
         
       if (onChange) other.hover = true;
       
       return (
-          <Bootstrap.Table className={ this._getClassName() } { ...other }>
-            { !noHeader &&
-              <Header columns={ mergedColumns } onColumnWidthChange={ this._handleColumnWidthChange } onSort={ this._handleSort } onFilter={ this._handleFilter } />
-            }
-            <tbody ref="tbody">
-              { this._renderRows(mergedColumns) }
-            </tbody>
-          </Bootstrap.Table>
+          React.createElement(Bootstrap.Table, React.__spread({className:  this._getClassName() },   other ), 
+             !noHeader &&
+              React.createElement(Header, {columns: mergedColumns, onColumnWidthChange:  this._handleColumnWidthChange, onSort:  this._handleSort, onFilter:  this._handleFilter}), 
+            
+            React.createElement("tbody", {ref: "tbody"}, 
+               this._renderRows(mergedColumns) 
+            )
+          )
         );
     },
     
@@ -531,3 +532,4 @@ module.exports = React.createClass({
       this._handleColumnConfigurationChange(columns);
     }
   });
+});

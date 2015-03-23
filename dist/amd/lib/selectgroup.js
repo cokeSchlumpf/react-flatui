@@ -1,15 +1,13 @@
-var React = require("react/addons");
+define(function (require, exports, module) {var React = require("react");
 var Bootstrap = require("react-bootstrap");
-var Base = require("../components/base");
-var App = Base.App;
 var Checkbox = require("./selectbox").Checkbox;
 var Radiobox = require("./selectbox").Radiobox;
 
 var $ = require("jquery");
-var classnames = require("classnames");
+var classnames = require("./util/classnames/index");
 var updateListValue = require("./helper").updateListValue;
 
-module.exports = React.createClass({
+module.exports = React.createClass({displayName: "exports",
     propTypes: {
       multiselect: React.PropTypes.bool,
       name: React.PropTypes.string.isRequired,
@@ -41,18 +39,18 @@ module.exports = React.createClass({
         id = this.props.name + "_";
       
       $.each(Object.keys(this.props.value), function(index, key) {
-        items["i" + key] = <Box onChange={ self._onChangeHandler(key) } name={ name } value={ key } id={ id + key } { ...self.props.value[key] } />
+        items["i" + key] = React.createElement(Box, React.__spread({onChange:  self._onChangeHandler(key), name: name, value: key, id:  id + key},   self.props.value[key] ))
       });
       
       return items;
     },
     
     render: function() {
-      var { className, multiselect, value, onChange, ...other } = this.props;
+      var $__0=        this.props,className=$__0.className,multiselect=$__0.multiselect,value=$__0.value,onChange=$__0.onChange,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,multiselect:1,value:1,onChange:1});
       return (
-          <div className={ this._getClassName() } { ...other }> 
-            { this._renderItems() }
-          </div>
+          React.createElement("div", React.__spread({className:  this._getClassName() },   other ), 
+             this._renderItems() 
+          )
         );
     },
     
@@ -67,3 +65,4 @@ module.exports = React.createClass({
       }
     }
   })
+});

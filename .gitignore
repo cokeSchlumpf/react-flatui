@@ -7,3 +7,4 @@ lib/*
 .DS_Store
 js/.bundle.js
 css/.bundle.css*
+amd/*

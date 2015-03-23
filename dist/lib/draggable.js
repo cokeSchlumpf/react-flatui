@@ -1,9 +1,10 @@
-var React = require("react/addons");
+var React = require("react");
+var Bootstrap = require("react-bootstrap");
 
 var mouseupTimeout;
 var MOUSEUP_TIMEOUT = 50;
 
-module.exports = React.createClass({
+module.exports = React.createClass({displayName: "exports",
     propTypes: {
       movex: React.PropTypes.bool,
       movey: React.PropTypes.bool,
@@ -34,18 +35,18 @@ module.exports = React.createClass({
     },
     
     render: function() {
-      var { onChange, className, ...other } = this.props;
+      var $__0=      this.props,onChange=$__0.onChange,className=$__0.className,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{onChange:1,className:1});
       var style = {};
       
       if (this.state.left) style.left = this.state.left + "px";
       if (this.state.top) style.top = this.state.top + "px";
 
       return (
-          <div ref="element" className={ this._getClassName() } { ...other } onMouseDown={ this._handleMouseDown } onMouseUp={ this._handleMouseUp } onMouseMove={ this._handleMouseMove } style={ style }>
-            { this.state.mousedown && 
-              <div className="fu-draggable-area" onMouseDown={ this._handleMouseDown } onMouseUp={ this._handleMouseUp } onMouseMove={ this._handleInnerMouseMove }></div> 
-            }
-          </div>
+          React.createElement("div", React.__spread({ref: "element", className:  this._getClassName() },   other , {onMouseDown:  this._handleMouseDown, onMouseUp:  this._handleMouseUp, onMouseMove:  this._handleMouseMove, style: style }), 
+             this.state.mousedown && 
+              React.createElement("div", {className: "fu-draggable-area", onMouseDown:  this._handleMouseDown, onMouseUp:  this._handleMouseUp, onMouseMove:  this._handleInnerMouseMove})
+            
+          )
         );
     },
     
