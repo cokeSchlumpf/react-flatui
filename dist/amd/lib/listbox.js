@@ -32,7 +32,7 @@ module.exports = React.createClass({displayName: "exports",
         }
     },
     
-    defaultProps: function() {
+    getDefaultProps: function() {
       return {
         bordered: true,
         multiselect: false,

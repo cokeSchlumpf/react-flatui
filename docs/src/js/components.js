@@ -13,12 +13,11 @@ var Row = Bootstrap.Row;
 var Col = Bootstrap.Col;
 
 var components = {
-  Buttons: require("./components/button")
-  /*Buttons: require("./components/button"),
+  Buttons: require("./components/button"),
   "Check- & Radiobox": require("./components/selectbox"),
   "Grid Control": require("./components/grid"),
   Listbox: require("./components/listbox"),
-  Textbox: require("./components/textbox")*/
+  Textbox: require("./components/textbox")
 };
 
 module.exports = React.createClass({  

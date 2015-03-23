@@ -29,7 +29,7 @@ module.exports = React.createClass({
       onKeyDown: React.PropTypes.func
     },
     
-    defaultProps: function() {
+    getDefaultProps: function() {
       return {
         autocompleteList: [],
         autocompleteMode: "contains",

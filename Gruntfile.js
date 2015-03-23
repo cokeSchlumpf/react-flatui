@@ -34,7 +34,9 @@ module.exports = function (grunt) {
       amd: ['dist/amd'],
       bower: ['src/js/util'],
       cjs: ['dist/lib'],
-      transpiled: ['transpiled']
+      transpiled: ['transpiled'],
+      docs: ['docs/css/bootstrap*.css', 'docs/css/react-flatui.min.css', 'docs/fonts/*'],
+      ghPage: ['css/*', 'js/*', 'index.html']
     },
     
     copy: {
@@ -75,6 +77,38 @@ module.exports = function (grunt) {
             expand: true
           }
         ]
+      },
+      docs: {
+        files: [
+          {
+            expand: true,
+            cwd: 'dist/amd/css',
+            src: ['*.css'],
+            dest: 'docs/css'
+          },
+          {
+            expand: true,
+            cwd: '../bootstrap-3.3.4/dist/css',
+            src: ['**/*.min.css'],
+            dest: 'docs/css'
+          },
+          {
+            expand: true,
+            cwd: '../bootstrap-3.3.4/dist/fonts',
+            src: ['*'],
+            dest: 'docs/fonts'
+          }
+        ]
+      },
+      ghPage: {
+          files: [
+            {
+              expand: true,
+              cwd: 'docs',
+              src: ['css/*', 'js/*', 'fonts/*', 'index.html'],
+              dest: '../react-flatui-ghpages'
+            }
+          ]
       },
       options: {
         process: function (content, srcpath) {
@@ -183,12 +217,15 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:amd',
     'clean:cjs',
+    'clean:docs',
     'react:src',
     'amdwrap',
-    'copy',
+    'copy:amd',
+    'copy:cjs',
     'requirejs:dev',
     'uglify:build',
     'less',
+    'copy:docs',
     'clean:transpiled'
   ]);
   
@@ -198,5 +235,7 @@ module.exports = function (grunt) {
   ]);
   
   grunt.registerTask('default', ['build']);
+  
+  grunt.registerTask('ghPage', [ 'clean:ghPage', 'copy:ghPage' ]);
   
 }
