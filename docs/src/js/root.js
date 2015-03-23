@@ -61,7 +61,28 @@ module.exports = React.createClass({
             <CurrentPage urlHash={ Pages[this.state.activePage].url } />
             
             <footer>
-              &copy; Michael Wellner 2014
+              <div className="container">
+                <div className="fu-docs-social">
+                  <ul className="fu-docs-social-buttons">
+                    <li>
+                      <iframe className="github-btn" src={'http://ghbtns.com/github-btn.html?user=cokeSchlumpf&repo=react-flatui&type=watch&count=true'} width={95} height={20} title="Star on GitHub" />
+                    </li>
+                    <li>
+                      <iframe className="github-btn" src={'http://ghbtns.com/github-btn.html?user=cokeSchlumpf&repo=react-flatui&type=fork&count=true'} width={92} height={20} title="Fork on GitHub" />
+                    </li>
+                  </ul>
+                </div>
+                <p>Code licensed under <a href="https://github.com/cokeSchlumpf/react-flatui/blob/master/LICENSE" target="_blank">MIT</a>.</p>
+                <ul className="fu-docs-footer-links muted">
+                  <li>Currently 0.1.0-M1</li>
+                  <li>·</li>
+                  <li><a href="https://github.com/cokeSchlumpf/react-flatui">GitHub</a></li>
+                  <li>·</li>
+                  <li><a href="https://github.com/cokeSchlumpf/react-flatui/issues?state=open">Issues</a></li>
+                  <li>·</li>
+                  <li><a href="https://github.com/cokeSchlumpf/react-flatui/releases">Releases</a></li>
+                </ul>
+              </div>
             </footer>
           </div>
         )
