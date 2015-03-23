@@ -1,0 +1,21 @@
+{
+  "name": "<%= pkg.name %>",
+  "version": "<%= pkg.version %>",
+  "homepage": "<%= pkg.homepage %>",
+  "author": "<%= pkg.author %>",
+  "license": "<%= pkg.license %>",
+  "main": [
+    "react-bootstrap.js"
+  ],
+  "keywords": [
+    "react",
+    "react-component",
+    "boostrap"
+  ],
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "react": ">= 0.12.0"
+  }
+}

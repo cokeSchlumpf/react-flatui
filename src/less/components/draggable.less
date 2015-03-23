@@ -1,0 +1,33 @@
+// --- Draggable
+.fu-draggable {
+  overflow: show;
+  
+  .fu-draggable-area {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    z-index: 20;
+    
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+}
+
+.fu-draggable:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.fu-draggable-x:hover {
+  cursor: ew-resize;
+}
+
+.fu-draggable-y:hover {
+  cursor: ns-resize;
+}
+
+.fu-draggable-xy:hover {
+  cursor: nesw-resize;
+}
