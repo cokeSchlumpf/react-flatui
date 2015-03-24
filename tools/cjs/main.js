@@ -1,6 +1,7 @@
 module.exports = {
   Button: require("./button").Button,
   ButtonGroup: require("./button").ButtonGroup,
+  Combobox: require("./combobox"),
   Checkbox: require("./selectbox").Checkbox,
   DropdownButton: require("./button").DropdownButton,
   Grid: require("./grid"),

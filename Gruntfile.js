@@ -35,7 +35,7 @@ module.exports = function (grunt) {
       bower: ['src/js/util'],
       cjs: ['dist/lib'],
       transpiled: ['transpiled'],
-      docs: ['docs/css/bootstrap*.css', 'docs/css/react-flatui.min.css', 'docs/fonts/*'],
+      docs: ['docs/css/bootstrap*.css', 'docs/css/react-flatui.min.css'],
       ghPage: ['css/*', 'js/*', 'index.html']
     },
     
@@ -91,12 +91,6 @@ module.exports = function (grunt) {
             cwd: '../bootstrap-3.3.4/dist/css',
             src: ['**/*.min.css'],
             dest: 'docs/css'
-          },
-          {
-            expand: true,
-            cwd: '../bootstrap-3.3.4/dist/fonts',
-            src: ['*'],
-            dest: 'docs/fonts'
           }
         ]
       },

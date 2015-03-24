@@ -6,6 +6,7 @@ define(function (require) {
   return {
       Button: require("./lib/button").Button,
       ButtonGroup: require("./lib/button").ButtonGroup,
+      Combobox: require("./lib/combobox"),
       Checkbox: require("./lib/selectbox").Checkbox,
       DropdownButton: require("./lib/button").DropdownButton,
       Grid: require("./lib/grid"),

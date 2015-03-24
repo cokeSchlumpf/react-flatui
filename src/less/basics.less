@@ -1,6 +1,24 @@
 // --------------------------------------------------
 // Basic Styles
 // --------------------------------------------------
+
+//** Load fonts from this directory.
+@icon-font-path:          "../fonts/";
+//** File name for all font files.
+@icon-font-name:          "glyphicons-halflings-regular";
+//** Element ID within SVG icon file.
+@icon-font-svg-id:        "glyphicons_halflingsregular";
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('@{icon-font-path}@{icon-font-name}.eot');
+  src: url('@{icon-font-path}@{icon-font-name}.eot?#iefix') format('embedded-opentype'),
+       url('@{icon-font-path}@{icon-font-name}.woff2') format('woff2'),
+       url('@{icon-font-path}@{icon-font-name}.woff') format('woff'),
+       url('@{icon-font-path}@{icon-font-name}.ttf') format('truetype'),
+       url('@{icon-font-path}@{icon-font-name}.svg#@{icon-font-svg-id}') format('svg');
+}
+
 @color-base: #fff;
 @color-main: #17A086;
 @color-main-text: #fff;
