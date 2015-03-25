@@ -1,11 +1,23 @@
 //-- Combobox
-.fu-textbox {
-  input {
-    border-right: none;
+.fu-combobox {
+  position: relative;
+  
+  .fu-textbox {    
+    input {
+      border-right: none;
+    }
+    
+    .input-group-addon:last-child {
+      padding: 0;
+      border: none;
+    }
   }
   
-  .input-group-addon:last-child {
-    padding: 0;
-    border: none;
+  .fu-listbox {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    max-height: 120px;
+    z-index: 100;
   }
 }

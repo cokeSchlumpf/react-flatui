@@ -117,15 +117,19 @@ module.exports = React.createClass({displayName: "exports",
       this._select();
     },
     
+    _handleBlurFunction: function() {
+      var self = this;
+      
+      self.setState({ hasFocus: false }, function() {
+        if (self.props.onBlur) self.props.onBlur(event);
+      })
+    },
+    
     _handleBlur: function(event) {
       if (blurTimeout) clearTimeout(blurTimeout);
       var self = this;
-      
-      blurTimeout = setTimeout(function() {
-        self.setState({ hasFocus: false }, function() {
-          if (self.props.onBlur) self.props.onBlur(event);
-        })
-      }, BLUR_TIMEOUT);
+
+      blurTimeout = setTimeout(this._handleBlurFunction, this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
     },
     
     _handleChange: function(event) {
@@ -149,8 +153,10 @@ module.exports = React.createClass({displayName: "exports",
       if (event && this[keyHandlers[event.which]]) {
         this[keyHandlers[event.which]](event);
         event.preventDefault();
-      } else if (this.props.onKeyDown) {
-        this.props.onkeydown(event);
+      } 
+      
+      if (this.props.onKeyDown) {
+        this.props.onKeyDown(event);
       }
     },
     
