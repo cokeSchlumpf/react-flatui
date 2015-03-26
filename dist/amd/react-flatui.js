@@ -1758,7 +1758,8 @@ module.exports = React.createClass({displayName: "exports",
       var 
         className = this.props.className,
         classes = {
-          "fu-combobox": true
+          "fu-combobox": true,
+          "fu-combobox-multiselect": this.props.multiselect
         };
 
       return classnames(className, classes);
@@ -1815,7 +1816,7 @@ module.exports = React.createClass({displayName: "exports",
         var items = {};
         selected.forEach(function(key) {
           var title = value[key].shorttitle ? value[key].shorttitle : value[key].title;
-          items["k" + key] = React.createElement("span", {className: "fu-combobox-selected-item"}, title )
+          items["k" + key] = React.createElement(Bootstrap.Label, null, title, " ", React.createElement(Bootstrap.Glyphicon, {glyph: "remove"}))
         });
         result = React.createElement("span", {className: "fu-combobox-selected-items"}, items )
       }
@@ -1856,6 +1857,7 @@ module.exports = React.createClass({displayName: "exports",
       
       if (!this._isListboxVisible()) {
         selected = helper.getSelectedValue(self.props.value, self.props.multiselect);
+        if (selected.length > 0) selected = selected[0]; else selected = Object.keys(self.props.value)[0];
         
         this.setState({ focus: true, selected: selected, value: self.props.value[selected].title }, function() {
           self._select();
