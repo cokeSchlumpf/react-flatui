@@ -76,6 +76,10 @@ module.exports = React.createClass({
       return result;
     },
     
+    _isListboxVisible: function() {
+      return this.state.focus && this.state.value != undefined;
+    },
+    
     _renderListbox: function() {
       var 
         self = this,
@@ -83,12 +87,10 @@ module.exports = React.createClass({
         selected = helper.getSelectedValue(value, multiselect),
         keys = Object.keys(value),
         items = {},
-        selected = this.state.selected,
-        equals = false;
+        selected = this.state.selected;
       
       keys.forEach(function(key) {     
         if (!selected && self.state.value && value[key].title.indexOf(self.state.value) == 0) { selected = key }
-        if (!self.state.selected && !self.state.value) equals = true;
         
         items[key] = $.extend(true, {}, value[key], { selected: key == selected });
       });
@@ -96,9 +98,7 @@ module.exports = React.createClass({
       this.nextSelection = helper.calculateNextAndPreviousSelectionIndex(items, selected);
       this.nextSelection.current = selected;
       
-      console.log([ equals, self.state.selected, self.state.value ]);
-      
-      return !equals && <Listbox value={ items } onChange={ self._handleListboxChange } scrollToSelection />
+      return <Listbox value={ items } onChange={ self._handleListboxChange } scrollToSelection />
     },
     
     _renderTextboxAddonBefore: function() {
@@ -129,7 +129,7 @@ module.exports = React.createClass({
             <Textbox { ...other } addonBefore={ this._renderTextboxAddonBefore() } addonAfter={ button } 
               ref="textbox" onFocus={ this._handleFocus } onBlur={ this._handleBlur } onKeyDown={ this._handleKeyDownEvent }
               onChange={ this._handleChange } value={ this._getTextboxValue() } />
-            { this.state.focus && this._renderListbox() }
+            { this._isListboxVisible() && this._renderListbox() }
           </div>
         )
     },
@@ -147,15 +147,19 @@ module.exports = React.createClass({
     },
     
     _handleButtonClick: function() {
+      if (blurTimeout) clearTimeout(blurTimeout);
       var self = this;
-      if (!this.state.focus) {
+      
+      if (!this._isListboxVisible()) {
         selected = helper.getSelectedValue(self.props.value, self.props.multiselect);
         
         this.setState({ focus: true, selected: selected, value: self.props.value[selected].title }, function() {
           self._select();
         });
       } else {
-
+        this.setState({ focus: true, selected: undefined, value: undefined }, function() {
+          self._select();
+        });
       }
     },
     
@@ -174,7 +178,11 @@ module.exports = React.createClass({
     
     _handleListboxChange: function(value, key, selected) {
       if (blurTimeout) clearTimeout(blurTimeout);
-      this._handleSelect(key);
+      var self = this;
+      
+      self.setState({ focus: true, selected: undefined, value: undefined }, function() {
+        this._handleSelect(key);
+      });
     },
     
     _handleKeyDown: function(event) {
@@ -195,7 +203,7 @@ module.exports = React.createClass({
     },
     
     _handleKeyEnter: function(event) {
-      if (this.state.selected) {
+      if (this.nextSelection.current) {
         var self = this;
         var selected = this.nextSelection.current;
         
@@ -221,7 +229,6 @@ module.exports = React.createClass({
     },
     
     _handleSelect: function(item) {
-      console.log(item);
       if (this.props.onChange) {
         this.props.onChange(helper.updateListValue(this.props.value, this.props.multiselect, item, true));
       }
