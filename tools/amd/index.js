@@ -9,6 +9,8 @@ define(function (require) {
       Combobox: require("./lib/combobox"),
       Checkbox: require("./lib/selectbox").Checkbox,
       DropdownButton: require("./lib/button").DropdownButton,
+      Fieldset: require("./lib/fieldset"),
+      Form: require("./lib/form"),
       Grid: require("./lib/grid"),
       Listbox: require("./lib/listbox"),
       Radiobox: require("./lib/selectbox").Radiobox,

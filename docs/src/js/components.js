@@ -18,7 +18,8 @@ var components = {
   Combobox: require("./components/combobox"),
   "Grid Control": require("./components/grid"),
   Listbox: require("./components/listbox"),
-  Textbox: require("./components/textbox")
+  Textbox: require("./components/textbox"),
+  Forms: require("./components/form")
 };
 
 module.exports = React.createClass({  
