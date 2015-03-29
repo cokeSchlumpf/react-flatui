@@ -1504,7 +1504,6 @@ var classnames = require("./util/classnames/index");
 var helper = require("./helper");
 
 var BLUR_TIMEOUT = 100;
-var blurTimeout;
 
 var keyHandlers = {
   38: '_handleKeyUp',
@@ -1603,8 +1602,10 @@ module.exports = React.createClass({displayName: "exports",
         )
     },
     
+    _blurTimeout: undefined,
+    
     _handleAutocompleteClick: function(value, key, selected, event) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       this.setState({ autocompleteSelected: undefined }, function() {
@@ -1623,10 +1624,10 @@ module.exports = React.createClass({displayName: "exports",
     },
     
     _handleBlur: function(event) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
 
-      blurTimeout = setTimeout(this._handleBlurFunction, this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
+      this._blurTimeout = setTimeout(this._handleBlurFunction, this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
     },
     
     _handleChange: function(event) {
@@ -1634,7 +1635,7 @@ module.exports = React.createClass({displayName: "exports",
     },
     
     _handleFocus: function(event) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       this.setState({ hasFocus: true }, function() {
@@ -1708,7 +1709,6 @@ var Textbox = require("./textbox");
 var Listbox = require("./listbox");
 
 var BLUR_TIMEOUT = 100;
-var blurTimeout;
 
 var $ = require("jquery");
 var helper = require("./helper");
@@ -1759,6 +1759,7 @@ module.exports = React.createClass({displayName: "exports",
         className = this.props.className,
         classes = {
           "fu-combobox": true,
+          "fu-combobox-focused": this.state.focus,
           "fu-combobox-multiselect": this.props.multiselect
         };
 
@@ -1794,10 +1795,13 @@ module.exports = React.createClass({displayName: "exports",
         items = {},
         selected = this.state.selected;
       
-      keys.forEach(function(key) {     
-        if (!selected && self.state.value && value[key].title.indexOf(self.state.value) == 0) { selected = key }
-        
-        items[key] = $.extend(true, {}, value[key], { selected: key == selected });
+      keys.forEach(function(key) {    
+        if (!multiselect || !value[key].selected) { 
+          if (!selected && self.state.value && value[key].title.indexOf(self.state.value) == 0) { 
+            selected = key 
+          }
+          items[key] = $.extend(true, {}, value[key], { selected: key == selected });
+        }
       });
       
       this.nextSelection = helper.calculateNextAndPreviousSelectionIndex(items, selected);
@@ -1808,6 +1812,7 @@ module.exports = React.createClass({displayName: "exports",
     
     _renderTextboxAddonBefore: function() {
       var
+        self = this,
         $__0=      this.props,value=$__0.value,multiselect=$__0.multiselect,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{value:1,multiselect:1}),
         selected = helper.getSelectedValue(value, multiselect),
         result;
@@ -1816,7 +1821,7 @@ module.exports = React.createClass({displayName: "exports",
         var items = {};
         selected.forEach(function(key) {
           var title = value[key].shorttitle ? value[key].shorttitle : value[key].title;
-          items["k" + key] = React.createElement(Bootstrap.Label, null, title, " ", React.createElement(Bootstrap.Glyphicon, {glyph: "remove"}))
+          items["k" + key] = React.createElement(Bootstrap.Label, null, title, " ", React.createElement(Bootstrap.Glyphicon, {glyph: "remove", onClick:  self._handleRemove(key) }))
         });
         result = React.createElement("span", {className: "fu-combobox-selected-items"}, items )
       }
@@ -1827,23 +1832,24 @@ module.exports = React.createClass({displayName: "exports",
     render: function() {
       var 
         $__0=         this.props,className=$__0.className,multiselect=$__0.multiselect,renderWith=$__0.renderWith,onChange=$__0.onChange,value=$__0.value,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,multiselect:1,renderWith:1,onChange:1,value:1}),
-        button = React.createElement(Bootstrap.Button, {onClick:  this._handleButtonClick}, React.createElement("span", {className: "glyphicon glyphicon-triangle-bottom"}));
+        button = React.createElement(Bootstrap.Button, {onClick:  this._handleButtonClick}, React.createElement("span", {className: "glyphicon glyphicon-triangle-bottom"})),
+        listbox = this._renderListbox();
         
       return (
           React.createElement("div", {className:  this._getClassName() }, 
             React.createElement(Textbox, React.__spread({},   other , {addonBefore:  this._renderTextboxAddonBefore(), addonAfter: button, 
               ref: "textbox", onFocus:  this._handleFocus, onBlur:  this._handleBlur, onKeyDown:  this._handleKeyDownEvent, 
               onChange:  this._handleChange, value:  this._getTextboxValue() })), 
-             this._isListboxVisible() && this._renderListbox()
+             this._isListboxVisible() && listbox
           )
         )
     },
     
     _handleBlur: function() {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
-      blurTimeout = setTimeout(function() {
+      this._blurTimeout = setTimeout(function() {
         self.setState({ focus: false, value: undefined }, function() {
           var selected = self.nextSelection.current;
           if (selected) self._handleSelect(selected);
@@ -1851,8 +1857,10 @@ module.exports = React.createClass({displayName: "exports",
       }, BLUR_TIMEOUT);
     },
     
+    _blurTimeout: undefined,
+    
     _handleButtonClick: function() {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       if (!this._isListboxVisible()) {
@@ -1874,7 +1882,7 @@ module.exports = React.createClass({displayName: "exports",
     },
     
     _handleFocus: function() {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       this.setState({ focus: true }, function() {
@@ -1883,7 +1891,7 @@ module.exports = React.createClass({displayName: "exports",
     },
     
     _handleListboxChange: function(value, key, selected) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       self.setState({ focus: true, selected: undefined, value: undefined }, function() {
@@ -1932,6 +1940,15 @@ module.exports = React.createClass({displayName: "exports",
     
     _handleKeyUp: function(event) {
       this._selectItem(this.nextSelection.previous);
+    },
+    
+    _handleRemove: function(key) {
+      var self = this;
+      return function() {
+        if (self.props.onChange) {
+          self.props.onChange(helper.updateListValue(self.props.value, true, key, false));
+        }
+      };
     },
     
     _handleSelect: function(item) {

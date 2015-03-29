@@ -7,7 +7,6 @@ var classnames = require("./util/classnames/index");
 var helper = require("./helper");
 
 var BLUR_TIMEOUT = 100;
-var blurTimeout;
 
 var keyHandlers = {
   38: '_handleKeyUp',
@@ -106,8 +105,10 @@ module.exports = React.createClass({displayName: "exports",
         )
     },
     
+    _blurTimeout: undefined,
+    
     _handleAutocompleteClick: function(value, key, selected, event) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       this.setState({ autocompleteSelected: undefined }, function() {
@@ -126,10 +127,10 @@ module.exports = React.createClass({displayName: "exports",
     },
     
     _handleBlur: function(event) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
 
-      blurTimeout = setTimeout(this._handleBlurFunction, this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
+      this._blurTimeout = setTimeout(this._handleBlurFunction, this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
     },
     
     _handleChange: function(event) {
@@ -137,7 +138,7 @@ module.exports = React.createClass({displayName: "exports",
     },
     
     _handleFocus: function(event) {
-      if (blurTimeout) clearTimeout(blurTimeout);
+      if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
       
       this.setState({ hasFocus: true }, function() {
