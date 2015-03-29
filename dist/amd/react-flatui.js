@@ -1948,6 +1948,7 @@ module.exports = React.createClass({displayName: "exports",
         if (self.props.onChange) {
           self.props.onChange(helper.updateListValue(self.props.value, true, key, false));
         }
+        self._select();
       };
     },
     

@@ -243,6 +243,7 @@ module.exports = React.createClass({
         if (self.props.onChange) {
           self.props.onChange(helper.updateListValue(self.props.value, true, key, false));
         }
+        self._select();
       };
     },
     
