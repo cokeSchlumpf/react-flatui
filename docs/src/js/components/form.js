@@ -7,7 +7,7 @@ var Form = App.Form;
 var Textbox = App.Textbox;
 var Fieldset = App.Fieldset;
 
-var simpleExampleSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        value: \"\"\n      }  \n    },\n    \n    render: function() {\n      return \n        <div>\n          <App.Textbox \n            name=\"textbox\" value={ this.state.value } \n            addonBefore=\"Enter something\" onChange={ this._handleChange } />\n\n          <Bootstrap.Alert>\n            <strong>Current Value:</strong> { this.state.value }\n          </Bootstrap.Alert>\n        </div>;\n    },\n    \n    _handleChange: function(value) {\n      this.setState({ value: value });\n    }\n  });";
+var simpleExampleSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        value: {\n          firstName: \"Florian\",\n          lastName: \"Müller\",\n          additional: {\n            hobbies: \"\"\n          }\n        }\n      }  \n    },\n    \n    render: function() {\n      return (\n          <Example source={ simpleExampleSource }>\n            <Form value={ this.state.value } onChange={ this._handleChange } className='form-horizontal'>\n              <Textbox name=\"firstName\" label=\"First Name\" labelClassName=\"col-xs-2\" wrapperClassName=\"col-xs-10\" />\n              <Textbox name=\"lastName\" label=\"Last Name\" labelClassName=\"col-xs-2\" wrapperClassName=\"col-xs-10\" />\n              \n              <Fieldset label=\"Additional Information\" name=\"additional\">\n                <Textbox name=\"hobbies\" label=\"What do you like?\" labelClassName=\"col-xs-2\" wrapperClassName=\"col-xs-10\" />\n              </Fieldset>\n            </Form>\n            \n            <Bootstrap.Alert>\n              <strong>Current value:</strong><br />\n              <pre>{ JSON.stringify(this.state.value, null, \"  \") }</pre>\n            </Bootstrap.Alert>\n          </Example>\n        );\n    },\n    \n    _handleChange: function(value) {\n      this.setState({ value: value });\n    }\n  });";
 
 
 var SimpleExample = React.createClass({
@@ -56,7 +56,7 @@ module.exports = React.createClass({
       return (
           <article>
             <h2>Forms</h2>
-            <p>Lorem ipsum ...</p>
+            <p>You can also use <code>Form</code> and <code>Fieldset</code> to handle values.</p>
             <SimpleExample />
           </article>
         )
