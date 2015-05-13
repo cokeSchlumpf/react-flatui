@@ -39,6 +39,24 @@ var table = {
   }
 }
 
+var treetable = {
+  columns: {
+    name:   { title: "Name" }
+  },
+  
+  value: {
+    0: { value: { name: <b>Kerstin</b> } },
+    1: { value: { name: "Adam" }, expanded: true, children: {
+      2: { value: { name: "Elias" } },
+      3: { value: { name: "Maria" }, children: {
+        4: { value: { name: "Kevin" }},
+        5: { value: { name: "Eva" }}
+        }},
+      6: { value: { name: "Johnny" }}
+    }}
+  }
+}
+
 var SimpleExample = React.createClass({
     getInitialState: function() {
       return {
@@ -85,6 +103,26 @@ var SimpleExample = React.createClass({
       this.setState({ value: value });
     }
   });
+  
+var TreeExample = React.createClass({
+  getInitialState: function() {
+    return {
+      value: treetable.value
+    }  
+  },
+  
+  render: function() {
+    return (
+      <Example source={ simpleExampleSource }>
+        <App.Grid
+          columns={ treetable.columns } value={ this.state.value }
+          onChange={ this._handleChange } multiselect={ false }
+          style={{ height: "200px" }} 
+          bordered={ true } condensed={ true } />
+      </Example>
+    )
+  }
+});
 
 module.exports = React.createClass({
     
@@ -106,6 +144,8 @@ module.exports = React.createClass({
             </ul>
             
             <SimpleExample />
+            
+            <TreeExample />
           </article>
         )
     }

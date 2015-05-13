@@ -21082,14 +21082,19 @@ var Header = React.createClass({displayName: "Header",
 
 var Cell = React.createClass({displayName: "Cell",
     propTypes: {
-      value: React.PropTypes.any,
-      column: React.PropTypes.object.isRequired
+      column: React.PropTypes.object.isRequired,
+      prefix: React.PropTypes.any,
+      value: React.PropTypes.any
     },
     
     render: function() {
       var 
-        $__0=         this.props,className=$__0.className,column=$__0.column,style=$__0.style,value=$__0.value,width=$__0.width,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,column:1,style:1,value:1,width:1}),
+        $__0=          this.props,className=$__0.className,column=$__0.column,prefix=$__0.prefix,style=$__0.style,value=$__0.value,width=$__0.width,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,column:1,prefix:1,style:1,value:1,width:1}),
         content;
+        
+      if (prefix != null) {
+        value = React.createElement("div", {className: "fu-table-cell-prefix"}, prefix, value )
+      }
       
       if (column.renderWith) {
         var Element = React.createFactory(column.renderWith);
@@ -21116,7 +21121,8 @@ var Row = React.createClass({displayName: "Row",
     propTypes: {
       columns: React.PropTypes.object.isRequired,
       selected: React.PropTypes.bool,
-      value: React.PropTypes.object.isRequired
+      value: React.PropTypes.object.isRequired,
+      prefix: React.PropTypes.any
     },
     
     getDefaultProps: function() {
@@ -21135,12 +21141,14 @@ var Row = React.createClass({displayName: "Row",
         value = this.props.value,
         columns = this.props.columns,
         keys = Object.keys(this.props.columns),
+        prefix = this.props.prefix,
         result = {};
         
       keys.forEach(function(key) {
         var id = self._getCellId(key);
         
-        result[id] = React.createElement(Cell, {value:  value[key], column:  columns[key], className:  self._getClassName() })
+        result[id] = React.createElement(Cell, {value:  value[key], column:  columns[key], className:  self._getClassName(), prefix: prefix })
+        if (prefix != undefined) prefix = undefined;
       });
       
       return result;
@@ -21179,6 +21187,7 @@ module.exports = React.createClass({displayName: "exports",
       scrollToSelection: React.PropTypes.bool,
       
       onChange: React.PropTypes.func,
+      onExpand: React.PropTypes.func,
       onColumnConfigurationChange: React.PropTypes.func
     },
     
@@ -21192,7 +21201,8 @@ module.exports = React.createClass({displayName: "exports",
     
     getInitialState: function() {
       return {
-        columns: { }
+        columns: { },
+        expanded: { }
       }
     },
     
@@ -21289,6 +21299,7 @@ module.exports = React.createClass({displayName: "exports",
       return result;
     },
     
+    // TODO: Prepare value auch für Trees (Beim Filtern wird auch gematched, wenn im Baum ein Treffer ist!)
     _prepareValue: function(columns) {
       var
         self = this,
@@ -21314,16 +21325,32 @@ module.exports = React.createClass({displayName: "exports",
       return value;
     },
     
-    _renderRows: function(columns) {
+    _renderRows: function(columns, value, level) {
       var
         self = this,
-        value = this._prepareValue(columns),
         keys = value.__keys ? value.__keys : Object.keys(value),
         result = {};
+      
+      if (!level) level = 0;
         
       keys.forEach(function(key) {
         var id = self._getRowId(key);
-        result[id] = React.createElement(Row, React.__spread({columns: columns, row: key, onClick:  self._handleRowClick(key) },   value[key] , {ref:  "row-" + key})) 
+        
+        if (value[key].children) {
+          var 
+            expanded = self.state.expanded.hasOwnProperty(key) ? self.state.expanded[key] : value[key].expanded == true,
+            symbol = expanded ? String.fromCharCode(9662) : String.fromCharCode(9656),
+            prefix = React.createElement("span", {className:  "level-" + level, onClick:  self._handleExpandClick(key, !expanded) }, symbol, " ");
+            
+          result[id] = React.createElement(Row, React.__spread({columns: columns, row: key, onClick:  self._handleRowClick(key) },   value[key] , {ref:  "row-" + key, prefix: prefix }));
+          
+          if (expanded) {
+            result = $.extend(true, result, self._renderRows(columns, value[key].children, level + 1));
+          }
+        } else {
+          var prefix = level > 0 ? React.createElement("span", {className:  "level-" + level}) : undefined;
+          result[id] = React.createElement(Row, React.__spread({columns: columns, row: key, onClick:  self._handleRowClick(key) },   value[key] , {ref:  "row-" + key, prefix: prefix }));
+        }
       });
       
       return result;
@@ -21342,7 +21369,7 @@ module.exports = React.createClass({displayName: "exports",
               React.createElement(Header, {columns: mergedColumns, onColumnWidthChange:  this._handleColumnWidthChange, onSort:  this._handleSort, onFilter:  this._handleFilter}), 
             
             React.createElement("tbody", {ref: "tbody"}, 
-               this._renderRows(mergedColumns) 
+               this._renderRows(mergedColumns, this._prepareValue(mergedColumns)) 
             )
           )
         );
@@ -21408,6 +21435,22 @@ module.exports = React.createClass({displayName: "exports",
       var columns = this._copyColumnState();
       columns[column].width = value;
       this._handleColumnConfigurationChange(columns);
+    },
+    
+    _handleExpandClick: function(key, expanded) {    
+      var self = this;
+      
+      return function(event) {    
+        if (self.props.onExpand) {
+          self.props.onExpand(key, value, event);
+        } else {
+          var expandedState = $.extend(true, {}, self.state.expanded)
+          expandedState[key] = expanded;
+          self.setState({ expanded: expandedState });
+        }
+        
+        event.stopPropagation();
+      }
     },
     
     _handleFilter: function(column, value) {
