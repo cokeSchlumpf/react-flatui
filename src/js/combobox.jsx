@@ -191,6 +191,7 @@ module.exports = React.createClass({
       
       self.setState({ focus: true, selected: undefined, value: undefined }, function() {
         this._handleSelect(key);
+        this._select();
       });
     },
     

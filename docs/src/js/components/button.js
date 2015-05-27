@@ -10,7 +10,7 @@ var ButtonGroup = FlatUI.ButtonGroup;
 var Col = Bootstrap.Col;
 var Row = Bootstrap.Row;
 
-var simpleExampleSource = "React.createClass({\n    render: function() {\n      return (\n          <div>\n            <p>\n              <Button>Default</Button> &nbsp;\n              <Button bsStyle=\"primary\">Primary</Button> &nbsp;\n              <Button bsStyle=\"success\">Success</Button> &nbsp;\n              <Button bsStyle=\"info\">Info</Button> &nbsp;\n              <Button bsStyle=\"warning\">Warning</Button> &nbsp;\n              <Button bsStyle=\"primary\">Danger</Button> &nbsp;\n              <Button bsStyle=\"link\">Link</Button>\n            </p>\n          </div>\n        );\n    }\n  });";
+var simpleExampleSource = "React.createClass({\n    render: function() {\n      return (\n          <div>\n            <p>\n              <Button>Default</Button> &nbsp;\n              <Button bsStyle=\"primary\">Primary</Button> &nbsp;\n              <Button bsStyle=\"success\">Success</Button> &nbsp;\n              <Button bsStyle=\"info\">Info</Button> &nbsp;\n              <Button bsStyle=\"warning\">Warning</Button> &nbsp;\n              <Button bsStyle=\"danger\">Danger</Button> &nbsp;\n              <Button bsStyle=\"link\">Link</Button>\n            </p>\n          </div>\n        );\n    }\n  });";
 
 var toggleExampleSource = "React.createClass({\n    getInitialState: function() {\n      return {\n        value: false\n      };\n    },\n    \n    render: function() {\n      return (\n          <div>\n            <p>\n              <Button toggle={ true } value={ this.state.value } onChange={ this._handleChange }>\n                { this.state.value ? \"On\" : \"Off\" }\n              </Button>\n            </p>\n            <Bootstrap.Alert>\n              <strong>Button value: <code>{ this.state.value.toString() }</code></strong>\n            </Bootstrap.Alert>\n          </div>\n        );\n    },\n    \n    _handleChange: function(value) {\n      this.setState({ value: value });\n    }\n  });"
 
@@ -28,7 +28,7 @@ var SimpleExample = React.createClass({
               <Button bsStyle="success">Success</Button> &nbsp;
               <Button bsStyle="info">Info</Button> &nbsp;
               <Button bsStyle="warning">Warning</Button> &nbsp;
-              <Button bsStyle="primary">Danger</Button> &nbsp;
+              <Button bsStyle="danger">Danger</Button> &nbsp;
               <Button bsStyle="link">Link</Button>
             </p>
           </Example>

@@ -145,6 +145,10 @@ module.exports = React.createClass({
             
             <SimpleExample />
             
+            <p>
+              The grid control is also capable of displaying hierarchical data in a tree:
+            </p>
+            
             <TreeExample />
           </article>
         )

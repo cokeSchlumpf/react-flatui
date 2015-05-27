@@ -118,19 +118,22 @@ module.exports = React.createClass({
       this._select();
     },
     
-    _handleBlurFunction: function() {
+    _handleBlurFunction: function(event) {
       var self = this;
       
-      self.setState({ hasFocus: false }, function() {
-        if (self.props.onBlur) self.props.onBlur(event);
-      })
+      return function() {
+        
+        self.setState({ hasFocus: false }, function() {
+          if (self.props.onBlur) self.props.onBlur(event);
+        })
+      }
     },
     
     _handleBlur: function(event) {
       if (this._blurTimeout) clearTimeout(this._blurTimeout);
       var self = this;
 
-      this._blurTimeout = setTimeout(this._handleBlurFunction, this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
+      this._blurTimeout = setTimeout(this._handleBlurFunction(event), this.props.autocompleteList.length > 0 ? BLUR_TIMEOUT : 0);
     },
     
     _handleChange: function(event) {
