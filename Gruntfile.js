@@ -143,6 +143,19 @@ module.exports = function (grunt) {
       },
     },
     
+    release: {
+      options: {
+        folder: 'dist/lib',
+        afterBump: ['build'],
+        afterRelease: ['ghPage'],
+        github: {
+          repo: '<%= pkg.repository.url %>',
+          usernameVar: 'GITHUB_USERNAME', //ENVIRONMENT VARIABLE that contains Github username 
+          passwordVar: 'GITHUB_PASSWORD' //ENVIRONMENT VARIABLE that contains Github password 
+        }
+      }
+    },
+    
     requirejs: {
       dev: {
         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
@@ -207,6 +220,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-react');
+  grunt.loadNpmTasks('grunt-release');
   grunt.loadNpmTasks('grunt-shell');
    
   grunt.registerTask('build', [
