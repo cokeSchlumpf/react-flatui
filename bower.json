@@ -1,8 +1,0 @@
-{
-  "name": "react-flatui",
-  "version": "0.1.0-M1",
-
-  "dependencies": {
-    "classnames": "1.1.4"
-  }
-}
