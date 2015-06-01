@@ -1,6 +1,6 @@
 {
   "name": "react-flatui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "stability": "experimental",
   "description": "React components based on React Bootstrap for Bootstrap 3.",
   "homepage": "http://cokeschlumpf.github.io/react-flatui/",
@@ -10,32 +10,25 @@
     "react-component",
     "bootstrap"
   ],
-  
   "author": "Michael Wellner <info@michaelwellner.de>",
   "license": "MIT",
-  
   "repository": {
     "type": "git",
     "url": "git://github.com/cokeSchlumpf/react-flatui.git"
   },
-  
   "main": "lib/main.js",
-  
   "directories": {
     "lib": "lib/"
   },
-  
   "peerDependencies": {
     "react": ">=0.12"
   },
-  
   "dependencies": {
     "classnames": "1.1.4",
     "jquery": "1.11.2",
     "less": "~2.4.0",
     "react-bootstrap": "0.17.0"
   },
-  
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-amd-wrap": "^1.0.1",
@@ -51,7 +44,6 @@
     "grunt-shell": "~1.1.2",
     "react": "~0.12.0"
   },
-  
   "scripts": {
     "build": "./node_modules/.bin/grunt build"
   }
