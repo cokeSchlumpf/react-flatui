@@ -36,7 +36,7 @@ module.exports = function (grunt) {
       cjs: ['dist/lib'],
       transpiled: ['transpiled'],
       docs: ['docs/css/bootstrap*.css', 'docs/css/react-flatui.min.css'],
-      ghPage: ['css/*', 'js/*', 'index.html']
+      ghPage: ['../react-flatui-ghpages/css/*', '../react-flatui-ghpages/js/*', '../react-flatui-ghpages/index.html']
     },
     
     copy: {
@@ -56,7 +56,6 @@ module.exports = function (grunt) {
           }
         ]
       },
-      
       cjs: {
         files: [
           {
@@ -79,7 +78,6 @@ module.exports = function (grunt) {
           }
         ]
       },
-      
       docs: {
         files: [
           {
@@ -96,27 +94,16 @@ module.exports = function (grunt) {
           }
         ]
       },
-      
-      exec: {
-        bower: {
-          command: 'cd ../react-flatui-bower && git tag -a v<%= pkg.version %> -m \'version <%= pkg.version %>\' && git push origin v<%= pkg.version %> && cd -';
-        },
-        ghPage: {
-          command: 'cd ../react-flatui-ghpages && git push && cd -';
-        }
-      },
-      
       ghPage: {
           files: [
             {
               expand: true,
               cwd: 'docs',
-              src: ['css/*', 'js/*', 'fonts/*', 'index.html'],
+              src: ['css/*', 'js/*', 'index.html'],
               dest: '../react-flatui-ghpages'
             }
           ]
       },
-      
       bower: {
           files: [
             {
@@ -127,11 +114,19 @@ module.exports = function (grunt) {
             }
           ]
       },
-      
       options: {
         process: function (content, srcpath) {
           return grunt.template.process(content);
         }
+      }
+    },
+    
+    exec: {
+      bower: {
+        command: 'cd ../react-flatui-bower && git tag -a v<%= pkg.version %> -m \'version <%= pkg.version %>\' && git push origin v<%= pkg.version %> && cd -'
+      },
+      ghPage: {
+        command: 'cd ../react-flatui-ghpages && git push && cd -'
       }
     },
     
@@ -242,6 +237,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-react');
   grunt.loadNpmTasks('grunt-release');
   grunt.loadNpmTasks('grunt-shell');
