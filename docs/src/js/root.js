@@ -54,7 +54,7 @@ module.exports = React.createClass({
       
       return (
           <div>
-            <Navbar brand={ <a href="/">React Flat UI</a> } inverse>
+            <Navbar brand={ <a href="http://cokeschlumpf.github.io/react-flatui/">React Flat UI</a> } inverse>
               { this._renderNav() }
             </Navbar>
             

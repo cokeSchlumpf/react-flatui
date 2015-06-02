@@ -31,6 +31,9 @@ module.exports = function (grunt) {
     },
     
     clean: {
+      options: {
+        force: true
+      },
       amd: ['dist/amd'],
       bower: ['src/js/util'],
       cjs: ['dist/lib'],
@@ -100,7 +103,7 @@ module.exports = function (grunt) {
               expand: true,
               cwd: 'docs',
               src: ['css/*', 'js/*', 'index.html'],
-              dest: '../react-flatui-ghpages'
+              dest: '../react-flatui-ghpages',
             }
           ]
       },
@@ -126,7 +129,7 @@ module.exports = function (grunt) {
         command: 'cd ../react-flatui-bower && git tag -a v<%= pkg.version %> -m \'version <%= pkg.version %>\' && git push origin v<%= pkg.version %> && cd -'
       },
       ghPage: {
-        command: 'cd ../react-flatui-ghpages && git push && cd -'
+        command: 'cd ../react-flatui-ghpages && git commit -am \'updated docs for version <%= pkg.version %>\' && git push && cd -'
       }
     },
     
