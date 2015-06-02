@@ -134,11 +134,11 @@ module.exports = function (grunt) {
     },
     
     less: {
-			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-				compress: true
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+        compress: true
       },
-			src: {
+      src: {
         expand: true,
         cwd: 'src/less',
         src: 'react-flatui.less',
