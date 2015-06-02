@@ -1,6 +1,6 @@
 {
   "name": "react-flatui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React components based on React Bootstrap for Bootstrap 3.",
   "homepage": "http://cokeschlumpf.github.io/react-flatui/",
   "main": "main.js",

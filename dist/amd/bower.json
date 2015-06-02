@@ -1,12 +1,11 @@
 {
   "name": "react-flatui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "http://cokeschlumpf.github.io/react-flatui/",
   "author": "Michael Wellner <info@michaelwellner.de>",
   "license": "MIT",
   "main": [
-    "react-flatui.min.js",
-    "css/react-flatui.min.css"
+    "react-flatui.js"
   ],
   "keywords": [
     "react",
