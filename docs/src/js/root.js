@@ -74,8 +74,6 @@ module.exports = React.createClass({
                 </div>
                 <p>Code licensed under <a href="https://github.com/cokeSchlumpf/react-flatui/blob/master/LICENSE" target="_blank">MIT</a>.</p>
                 <ul className="fu-docs-footer-links muted">
-                  <li>Currently 0.1.0-M1</li>
-                  <li>·</li>
                   <li><a href="https://github.com/cokeSchlumpf/react-flatui">GitHub</a></li>
                   <li>·</li>
                   <li><a href="https://github.com/cokeSchlumpf/react-flatui/issues?state=open">Issues</a></li>

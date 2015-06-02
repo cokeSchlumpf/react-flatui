@@ -56,6 +56,7 @@ module.exports = function (grunt) {
           }
         ]
       },
+      
       cjs: {
         files: [
           {
@@ -78,6 +79,7 @@ module.exports = function (grunt) {
           }
         ]
       },
+      
       docs: {
         files: [
           {
@@ -94,6 +96,16 @@ module.exports = function (grunt) {
           }
         ]
       },
+      
+      exec: {
+        bower: {
+          command: 'cd ../react-flatui-bower && git tag -a v<%= pkg.version %> -m \'version <%= pkg.version %>\' && git push origin v<%= pkg.version %> && cd -';
+        },
+        ghPage: {
+          command: 'cd ../react-flatui-ghpages && git push && cd -';
+        }
+      },
+      
       ghPage: {
           files: [
             {
@@ -104,6 +116,18 @@ module.exports = function (grunt) {
             }
           ]
       },
+      
+      bower: {
+          files: [
+            {
+              expand: true,
+              cwd: 'dist/amd',
+              src: ['**/*'],
+              dest: '../react-flatui-bower'
+            }
+          ]
+      },
+      
       options: {
         process: function (content, srcpath) {
           return grunt.template.process(content);
@@ -146,8 +170,7 @@ module.exports = function (grunt) {
     release: {
       options: {
         folder: 'dist/lib',
-        afterBump: ['build'],
-        afterRelease: ['ghPage'],
+        additionalFiles: ['dist/lib/package.json', 'dist/amd/bower.json'],
         github: {
           repo: '<%= pkg.repository.url %>',
           usernameVar: 'GITHUB_USERNAME', //ENVIRONMENT VARIABLE that contains Github username 
@@ -246,5 +269,9 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['build']);
   
   grunt.registerTask('ghPage', [ 'clean:ghPage', 'copy:ghPage' ]);
+  
+  grunt.registerTask('patchRelease', ['build', 'release:patch', 'ghPage', 'copy:bower']);
+  
+  grunt.registerTask('releaseBower', ['exec:bower', 'exec:ghPage']);
   
 }
