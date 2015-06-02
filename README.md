@@ -10,15 +10,15 @@ See [documentation](http://cokeschlumpf.github.io/react-flatui/) for usage and e
 
 For NodeJS and JavaScript dependencies:
 
-´´´
+```
 npm install --save react-flatui
-´´´
+```
 
 For frontend dependencies:
 
-´´´
+```
 bower install react-flatui
-´´´
+```
 
 ## Contribution
 
