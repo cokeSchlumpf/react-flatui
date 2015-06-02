@@ -20,16 +20,16 @@ module.exports = function (grunt) {
     },
     
     "bower-install-simple": {
-			options: {
-				directory: 'src/js/util'
+      options: {
+        directory: 'src/js/util'
       },
-			prod: {
-				options: {
-					production: true
-				}
-		  }
+      prod: {
+        options: {
+          production: true
+        }
+      }
     },
-    
+  
     clean: {
       options: {
         force: true
@@ -126,7 +126,7 @@ module.exports = function (grunt) {
     
     exec: {
       bower: {
-        command: 'cd ../react-flatui-bower && git tag -a v<%= pkg.version %> -m \'version <%= pkg.version %>\' && git push origin v<%= pkg.version %> && cd -'
+        command: 'cd ../react-flatui-bower && git commit -am \'updated docs for version <%= pkg.version %>\' && git push && git tag -a v<%= pkg.version %> -m \'version <%= pkg.version %>\' && git push origin v<%= pkg.version %> && cd -'
       },
       ghPage: {
         command: 'cd ../react-flatui-ghpages && git commit -am \'updated docs for version <%= pkg.version %>\' && git push && cd -'
@@ -269,8 +269,8 @@ module.exports = function (grunt) {
   
   grunt.registerTask('ghPage', [ 'clean:ghPage', 'copy:ghPage' ]);
   
-  grunt.registerTask('patchRelease', ['build', 'release:patch', 'ghPage', 'copy:bower']);
+  grunt.registerTask('patchRelease', ['build', 'release:patch']);
   
-  grunt.registerTask('releaseBower', ['exec:bower', 'exec:ghPage']);
+  grunt.registerTask('releaseFinish', ['ghPage', 'copy:bower', 'exec:bower', 'exec:ghPage']);
   
 }
